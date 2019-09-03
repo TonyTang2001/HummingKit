@@ -8,12 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		EA4593FC231D526100062F37 /* HummingKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4593FA231D526100062F37 /* HummingKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA459406231D528900062F37 /* AppleMusicRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA459402231D528900062F37 /* AppleMusicRequestFactory.swift */; };
+		EA459407231D528900062F37 /* AppleMusicInfoFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA459403231D528900062F37 /* AppleMusicInfoFetch.swift */; };
+		EA459408231D528900062F37 /* AppleMusicPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA459404231D528900062F37 /* AppleMusicPermissionVC.swift */; };
+		F4778C729F3C31EDDEFEF924 /* Pods_HummingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07543B08EA1EF4D08FB6D7EA /* Pods_HummingKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07543B08EA1EF4D08FB6D7EA /* Pods_HummingKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HummingKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2742E3D4168FC4BC442F384 /* Pods-HummingKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HummingKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-HummingKit/Pods-HummingKit.release.xcconfig"; sourceTree = "<group>"; };
 		EA4593F7231D526100062F37 /* HummingKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HummingKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA4593FA231D526100062F37 /* HummingKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HummingKit.h; sourceTree = "<group>"; };
 		EA4593FB231D526100062F37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA459402231D528900062F37 /* AppleMusicRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicRequestFactory.swift; sourceTree = "<group>"; };
+		EA459403231D528900062F37 /* AppleMusicInfoFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicInfoFetch.swift; sourceTree = "<group>"; };
+		EA459404231D528900062F37 /* AppleMusicPermissionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicPermissionVC.swift; sourceTree = "<group>"; };
+		FDBCA0E37EA82DDB5806C787 /* Pods-HummingKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HummingKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HummingKit/Pods-HummingKit.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,17 +31,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4778C729F3C31EDDEFEF924 /* Pods_HummingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77CE7F0D141E7922509CC67D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FDBCA0E37EA82DDB5806C787 /* Pods-HummingKit.debug.xcconfig */,
+				B2742E3D4168FC4BC442F384 /* Pods-HummingKit.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D40B81744CF3A690D7811D06 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				07543B08EA1EF4D08FB6D7EA /* Pods_HummingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EA4593ED231D526100062F37 = {
 			isa = PBXGroup;
 			children = (
 				EA4593F9231D526100062F37 /* HummingKit */,
 				EA4593F8231D526100062F37 /* Products */,
+				77CE7F0D141E7922509CC67D /* Pods */,
+				D40B81744CF3A690D7811D06 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -46,6 +76,9 @@
 		EA4593F9231D526100062F37 /* HummingKit */ = {
 			isa = PBXGroup;
 			children = (
+				EA459403231D528900062F37 /* AppleMusicInfoFetch.swift */,
+				EA459404231D528900062F37 /* AppleMusicPermissionVC.swift */,
+				EA459402231D528900062F37 /* AppleMusicRequestFactory.swift */,
 				EA4593FA231D526100062F37 /* HummingKit.h */,
 				EA4593FB231D526100062F37 /* Info.plist */,
 			);
@@ -70,6 +103,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA4593FF231D526100062F37 /* Build configuration list for PBXNativeTarget "HummingKit" */;
 			buildPhases = (
+				07392635EC4F4CD867975EAD /* [CP] Check Pods Manifest.lock */,
 				EA4593F2231D526100062F37 /* Headers */,
 				EA4593F3231D526100062F37 /* Sources */,
 				EA4593F4231D526100062F37 /* Frameworks */,
@@ -95,6 +129,7 @@
 				TargetAttributes = {
 					EA4593F6231D526100062F37 = {
 						CreatedOnToolsVersion = 10.3;
+						LastSwiftMigration = 1030;
 					};
 				};
 			};
@@ -104,6 +139,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = EA4593ED231D526100062F37;
 			productRefGroup = EA4593F8231D526100062F37 /* Products */;
@@ -125,11 +161,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		07392635EC4F4CD867975EAD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HummingKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EA4593F3231D526100062F37 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA459406231D528900062F37 /* AppleMusicRequestFactory.swift in Sources */,
+				EA459408231D528900062F37 /* AppleMusicPermissionVC.swift in Sources */,
+				EA459407231D528900062F37 /* AppleMusicInfoFetch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +320,9 @@
 		};
 		EA459400231D526100062F37 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDBCA0E37EA82DDB5806C787 /* Pods-HummingKit.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -278,6 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.itonytang.HummingKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -285,7 +348,9 @@
 		};
 		EA459401231D526100062F37 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2742E3D4168FC4BC442F384 /* Pods-HummingKit.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
