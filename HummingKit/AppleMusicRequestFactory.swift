@@ -20,7 +20,10 @@ struct AppleMusicRequestFactory {
     /// The Apple Music API endpoint for requesting a the storefront of the currently logged in iTunes Store account.
     static let userStorefrontPathURLString = "/v1/me/storefront"
     
+    /// The Apple Music API endpoint for requesting user library related resources.
     static let userLibraryPathURLString = "/v1/me/library"
+    
+    /// The Apple Music API endpoint for requesting catalog resources.
     static let catalogPathURLString = "/v1/catalog/"
     
     static let catalogSongPathURLString = "/songs"
@@ -395,7 +398,5 @@ struct AppleMusicRequestFactory {
         
         return urlRequest
     }
-    
-    
     
 }
