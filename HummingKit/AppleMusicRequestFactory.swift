@@ -20,16 +20,11 @@ struct AppleMusicRequestFactory {
     /// The Apple Music API endpoint for requesting a the storefront of the currently logged in iTunes Store account.
     static let userStorefrontPathURLString = "/v1/me/storefront"
     
-    static let userLibraryAddition = "/v1/me/library"
-    
-    /// The Apple Music API endpoint for fetching a song by using its identifier.
+    static let userLibraryPathURLString = "/v1/me/library"
     static let catalogPathURLString = "/v1/catalog/"
-    static let catalogSongPathURLStringPart2 = "/songs/"
     
-    static let catalogMultipleSongsPathURLStringPart2 = "/songs"
-    
-    static let userLibrarySongs = "/v1/me/library/songs"
-    static let userLibraryPlaylists = "/v1/me/library/playlists"
+    static let catalogSongPathURLString = "/songs"
+    static let catalogPlaylistPathURLString = "/playlists"
     
     /// Function for generating "Get A Catalog Song" URL request
     ///
@@ -43,8 +38,8 @@ struct AppleMusicRequestFactory {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
-        urlComponents.path = AppleMusicRequestFactory.catalogPathURLString + storefront + AppleMusicRequestFactory.catalogSongPathURLStringPart2 + songID
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = catalogPathURLString + storefront + catalogSongPathURLString + "/" + songID
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -66,7 +61,7 @@ struct AppleMusicRequestFactory {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
+        urlComponents.host = appleMusicAPIBaseURLString
         
         var songIDChunk = songIDs[0]
         for i in 1..<songIDs.count {
@@ -74,7 +69,7 @@ struct AppleMusicRequestFactory {
             songIDChunk += songIDs[i]
         }
         
-        urlComponents.path = AppleMusicRequestFactory.catalogPathURLString + storefront + AppleMusicRequestFactory.catalogMultipleSongsPathURLStringPart2
+        urlComponents.path = catalogPathURLString + storefront + catalogSongPathURLString
         urlComponents.queryItems = [ URLQueryItem(name: "ids", value: songIDChunk) ]
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -97,8 +92,8 @@ struct AppleMusicRequestFactory {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
-        urlComponents.path = AppleMusicRequestFactory.catalogPathURLString + storefront + "/playlists/"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = catalogPathURLString + storefront + "/playlists/"
         
         var playlistsPart = playlistsIDs[0]
         for index in 1..<playlistsIDs.count {
@@ -128,7 +123,7 @@ struct AppleMusicRequestFactory {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
+        urlComponents.host = appleMusicAPIBaseURLString
         urlComponents.path = "/v1/catalog/\(storefront)/search"
         
         let expectedTerms = term.replacingOccurrences(of: " ", with: "+")
@@ -159,7 +154,7 @@ struct AppleMusicRequestFactory {
     public static func createGetStorefrontRequest(developerToken: String, storefront: String) -> URLRequest {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
+        urlComponents.host = appleMusicAPIBaseURLString
         urlComponents.path = "/v1/storefronts/\(storefront)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -179,8 +174,8 @@ struct AppleMusicRequestFactory {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
-        urlComponents.path = AppleMusicRequestFactory.recentlyPlayedPathURLString
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = recentlyPlayedPathURLString
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -200,8 +195,8 @@ struct AppleMusicRequestFactory {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
-        urlComponents.path = AppleMusicRequestFactory.userStorefrontPathURLString
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = userStorefrontPathURLString
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -222,8 +217,8 @@ struct AppleMusicRequestFactory {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
-        urlComponents.path = AppleMusicRequestFactory.userLibrarySongs
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = userLibraryPathURLString + catalogSongPathURLString
         // One-time fetch limitation is manually set to maximum (its default value is 25 and the maximum value is 100)
         urlComponents.queryItems = [ URLQueryItem(name: "limit", value: "100"), URLQueryItem(name: "offset", value: offset) ]
         
@@ -246,8 +241,8 @@ struct AppleMusicRequestFactory {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
-        urlComponents.path = AppleMusicRequestFactory.userLibraryPlaylists
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -272,8 +267,8 @@ struct AppleMusicRequestFactory {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
-        urlComponents.path = AppleMusicRequestFactory.userLibraryAddition
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = userLibraryPathURLString
         
         // stack songsIDs together
         var urlQuerySongsItems: [URLQueryItem] = []
@@ -316,12 +311,13 @@ struct AppleMusicRequestFactory {
     
     // FIXME: - Combination needed: createAddPlaylistsToLibraryRequest() & createAddSongsToLibraryRequest() are all belong to "Add a Resource to a Library"
     // https://developer.apple.com/documentation/applemusicapi/add_a_resource_to_a_library
+    @available(*, deprecated, message: "Use createAddResourcesToLibraryRequest() function instead.")
     public static func createAddPlaylistsToLibraryRequest(developerToken: String, userToken: String, playlistsIDs: [String]) -> URLRequest {
 
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
-        urlComponents.path = AppleMusicRequestFactory.userLibraryAddition
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = userLibraryPathURLString
         
         // stack playlistsIDs together
         var urlQueryItems: [URLQueryItem] = []
@@ -340,12 +336,13 @@ struct AppleMusicRequestFactory {
         return urlRequest
     }
     
+    @available(*, deprecated, message: "Use createAddResourcesToLibraryRequest() function instead.")
     public static func createAddSongsToLibraryRequest(developerToken: String, userToken: String, songsIDs: [String]) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
-        urlComponents.path = AppleMusicRequestFactory.userLibraryAddition
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = userLibraryPathURLString
         
         // stack IDs together
         var urlQueryItems: [URLQueryItem] = []
@@ -377,8 +374,8 @@ struct AppleMusicRequestFactory {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = AppleMusicRequestFactory.appleMusicAPIBaseURLString
-        urlComponents.path = AppleMusicRequestFactory.userLibraryPlaylists + "/" + playlistID + "/tracks"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString + "/" + playlistID + "/tracks"
         
         var songsJson: [JSON] = []
         for index in 0..<songsIDs.count {
