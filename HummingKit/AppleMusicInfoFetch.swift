@@ -43,39 +43,28 @@ struct AppleMusicInfoFetch {
         Alamofire.request(urlRequest)
             .responseJSON { response in
                 print(response)
+                // further refinement needed
+                
 //                completion()
         }
         
     }
     
-    public static func fetchAllUserLibraryPlaylists(completionHandler: @escaping (_ result: JSON?) -> Void) {
+    public static func fetchAllUserLibraryPlaylists(developerToken: String, userToken: String, completion: @escaping (_ result: JSON?) -> Void) {
         
-        guard let userToken = userDefaults.string(forKey: AppleMusicUserToken) else {
-            print("Invalid user token, Refetching user token...")
-            fetchUserToken { (success) in
-                print("fetching UserToken succeeded")
-            }
-            return
-        }
         
-        let urlRequest = AppleMusicRequestFactory.createGetUserLibraryPlaylistsRequest(developerToken: KeyCenter.AppleMusicDeveloperToken, userToken: userToken)
+        let urlRequest = AppleMusicRequestFactory.createGetUserLibraryPlaylistsRequest(developerToken: developerToken, userToken: userToken)
         
         Alamofire.request(urlRequest)
             .responseJSON { response in
-                completionHandler(JSON(response.result.value ?? "NA"))
+                // further refinement needed
+                
+                completion(JSON(response.result.value ?? "NA"))
         }
         
     }
     
-    public static func fetchAllUserLibrarySongs(completionHandler: @escaping (_ result: JSON?) -> Void) {
-        
-        guard let userToken = userDefaults.string(forKey: AppleMusicUserToken) else {
-            print("Invalid user token, Refetching user token...")
-            fetchUserToken { (success) in
-                print("fetching UserToken succeeded")
-            }
-            return
-        }
+    public static func fetchAllUserLibrarySongs(developerToken: String, userToken: String, completion: @escaping (_ result: JSON?) -> Void) {
         
         var allFullInfo: JSON = []
         var offset: String = "0"
@@ -85,7 +74,7 @@ struct AppleMusicInfoFetch {
             switch finished {
             case false:
                 print("unfinished")
-                self.fetchPartialUserLibrarySongs(userToken: userToken, Offset: offset, completionHandler: { (songsInfoJson, nextOffset, isFinished) in
+                self.fetchPartialUserLibrarySongs(developerToken: developerToken, userToken: userToken, Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished) in
                     do {
                         try allFullInfo = allFullInfo.merged(with: songsInfoJson)
                     } catch {
@@ -97,15 +86,16 @@ struct AppleMusicInfoFetch {
                 })
             case true:
                 print("finished")
-                completionHandler(allFullInfo)
+                completion(allFullInfo)
             }
         }
         goto()
         
     }
     
-    private static func fetchPartialUserLibrarySongs(userToken: String, Offset: String, completionHandler: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool) -> Void ) {
-        let urlRequest = AppleMusicRequestFactory.createGetUserLibrarySongsRequest(developerToken: KeyCenter.AppleMusicDeveloperToken, userToken: userToken, offset: Offset)
+    private static func fetchPartialUserLibrarySongs(developerToken: String, userToken: String, Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool) -> Void ) {
+        
+        let urlRequest = AppleMusicRequestFactory.createGetUserLibrarySongsRequest(developerToken: developerToken, userToken: userToken, offset: Offset)
         
         var offsetIndexString: String = ""
         
@@ -126,7 +116,9 @@ struct AppleMusicInfoFetch {
                     isFinished = true
                 }
                 
-                completionHandler(songsInfoJson, offsetIndexString, isFinished)
+                // further refinement needed
+                
+                completion(songsInfoJson, offsetIndexString, isFinished)
         }
     }
     
