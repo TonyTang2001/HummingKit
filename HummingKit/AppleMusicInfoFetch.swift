@@ -26,12 +26,12 @@ struct AppleMusicInfoFetch {
             if let musicUserToken = userToken {
                 print("Got AppleMusicUserToken Successfully: \(musicUserToken)")
                 userDefaults.set(musicUserToken, forKey: AppleMusicUserToken)
-                completion(true, nil)   // fetching succeeded (success = true, error: nil)
+                completion(true, nil)   // fetching succeeded (success = true, error = nil)
             } else {
                 // Fetching FAILED
                 guard let error = error else { return }
                 print(error)
-                completion(false, error)    // fetching succeeded (success = false, error: error), further handling required
+                completion(false, error)    // fetching failed (success = false, error = error), further handling required
             }
         }
     }
@@ -42,10 +42,55 @@ struct AppleMusicInfoFetch {
         
         Alamofire.request(urlRequest)
             .responseJSON { response in
-                print(response)
-                // further refinement needed
                 
-//                completion()
+//                print("Request Response: \(response)")
+                
+                var statusCode = response.response?.statusCode
+                if let error = response.result.error as? AFError {
+                    statusCode = error._code // statusCode private
+                    switch error {
+                    case .invalidURL(let url):
+                        print("Invalid URL: \(url) - \(error.localizedDescription)")
+                    case .parameterEncodingFailed(let reason):
+                        print("Parameter encoding failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+                    case .multipartEncodingFailed(let reason):
+                        print("Multipart encoding failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+                    case .responseValidationFailed(let reason):
+                        print("Response validation failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+                        
+                        switch reason {
+                        case .dataFileNil, .dataFileReadFailed:
+                            print("Downloaded file could not be read")
+                        case .missingContentType(let acceptableContentTypes):
+                            print("Content Type Missing: \(acceptableContentTypes)")
+                        case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
+                            print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
+                        case .unacceptableStatusCode(let code):
+                            print("Response status code was unacceptable: \(code)")
+                            statusCode = code
+                        }
+                    case .responseSerializationFailed(let reason):
+                        print("Response serialization failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+                    }
+                    print("Underlying error: \(String(describing: error.underlyingError))")
+                    
+                    completion(false, error, nil)  // fetching failed (success = false, error = error, result = nil)
+                    
+                } else if let error = response.result.error as? URLError {
+                    print("URLError occurred: \(error)")
+                    // handling URLError
+                    completion(false, error, nil)  // fetching failed (success = false, error = error, result = nil)
+                }
+                
+//                Status Code Returned by Apple Music API: https://developer.apple.com/documentation/applemusicapi/common_objects/http_status_codes
+                print("Request Status Code: \(statusCode!)")
+                
+                
+                completion(true, nil, JSON(response.result.value ?? "NA"))  // fetching succeeded (success = true, error = nil, result = JSON)
         }
         
     }
