@@ -36,7 +36,7 @@ struct AppleMusicInfoFetch {
         }
     }
     
-    public static func fetchUserStorefront(developerToken: String, userToken: String, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+    public static func fetchUserStorefront(developerToken: String, userToken: String, completion: @escaping (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void) {
         
         let urlRequest = AppleMusicRequestFactory.createGetUserStorefrontRequest(developerToken: developerToken, userToken: userToken)
         
@@ -50,6 +50,7 @@ struct AppleMusicInfoFetch {
         
     }
     
+    // FIXME: -  This function has NOT been tested yet, possible to malfuntion or fail to work
     public static func fetchAllUserLibraryPlaylists(developerToken: String, userToken: String, completion: @escaping (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void) {
         
         var allFullInfo: JSON = []
@@ -66,7 +67,7 @@ struct AppleMusicInfoFetch {
                 .responseJSON { response in
                     
                     let currentJson = JSON(response.result.value ?? "NA")
-                    let songsInfoJson = currentJson["data"]
+                    let playlistsInfoJson = currentJson["data"]
                     var isFinished = false
                     
                     if currentJson["next"].exists() {
@@ -81,7 +82,7 @@ struct AppleMusicInfoFetch {
                     
                     // further refinement needed
                     
-                    completion(songsInfoJson, offsetIndexString, isFinished)
+                    completion(playlistsInfoJson, offsetIndexString, isFinished)
             }
         }
         
