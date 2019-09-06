@@ -209,7 +209,7 @@ struct AppleMusicRequestFactory {
         return urlRequest
     }
     
-    /// Function for generating "Get All Library Songs" URL request, however⚠️, if songs.count > 100, this function needs to be called several times to completely fetch the whole library
+    /// Function for generating "Get All Library Songs" URL request, however, if songs.count > 100, this function needs to be called several times to completely fetch the whole library
     ///
     /// - Parameters:
     ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
@@ -233,19 +233,20 @@ struct AppleMusicRequestFactory {
         return urlRequest
     }
     
-    // FIXME: - however⚠️, if playlists.count > 100 situation needs handling
-    /// Function for generating "Get All Library Playlists" URL request
+    /// Function for generating "Get All Library Playlists" URL request, however, if playlists.count > 100, this function needs to be called several times to completely fetch the whole library
     ///
     /// - Parameters:
     ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
     ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
     /// - Returns: the URL request for fetching all the library playlists in alphabetical order
-    public static func createGetUserLibraryPlaylistsRequest(developerToken: String, userToken: String) -> URLRequest {
+    public static func createGetUserLibraryPlaylistsRequest(developerToken: String, userToken: String, offset: String? = "0") -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = appleMusicAPIBaseURLString
         urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
+        // One-time fetch limitation is manually set to maximum (its default value is 25 and the maximum value is 100)
+        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: "100"), URLQueryItem(name: "offset", value: offset) ]
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
