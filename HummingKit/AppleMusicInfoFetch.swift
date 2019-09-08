@@ -18,19 +18,18 @@ struct AppleMusicInfoFetch {
     typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
     
     public static func fetchUserToken(developerToken: String, completion: @escaping completionStringChunk) {
-        
-        print("Start fetching User Token")
+        print("Start Fetching User Token")
         
         let controller = SKCloudServiceController()
         controller.requestUserToken(forDeveloperToken: developerToken) { (userToken: String?, error: Error?) in
             if let musicUserToken = userToken {
                 // Fetching SUCCEEDED
-                print("Got AppleMusicUserToken Successfully: \(musicUserToken)")
+                print("Fetching SUCCEEDED, AppleMusicUserToken: \(musicUserToken)")
                 completion(true, nil, musicUserToken)
             } else {
                 // Fetching FAILED
                 guard let error = error else { return }
-                print("Error Encountered!")
+                print("Fetching FAILED")
                 print(error)
                 print(error.localizedDescription)
                 completion(false, error, nil)
@@ -44,47 +43,9 @@ struct AppleMusicInfoFetch {
         
         Alamofire.request(urlRequest)
             .responseJSON { response in
-                
-                print("fetchUserStorefront Request Response: \(response)")
-                
-                var statusCode = response.response?.statusCode
-                if let error = response.result.error as? AFError {
-                    
-                    guard let status = statusCode else { return }
-                    statusCode = handleResponseAFError(statusCode: status, error: error)
-                    // handling Alamofire Error
-                    completion(false, error, nil)
-                    
-                } else if let error = response.result.error as? URLError {
-                    print("URLError occurred: \(error)")
-                    // handling URLError
-                    completion(false, error, nil)
-                }
-                
-//                Status Code Returned by Apple Music server: https://developer.apple.com/documentation/applemusicapi/common_objects/http_status_codes
-                
-                if let statusCode = response.response?.statusCode {
-                    print("Request Status Code: \(statusCode)")
-                    let decodedStatus = handleResponseStatusCode(statusCode: statusCode)
-                    
-                    if decodedStatus.success {
-                        print(decodedStatus.codeName)
-                        print(decodedStatus.description)
-                        completion(true, nil, JSON(response.result.value ?? "NA"))
-                    } else {
-                        print(decodedStatus.codeName)
-                        print(decodedStatus.description)
-                        // HTTP status code already printed out decodedStatus, error returned is nil
-                        completion(false, nil, nil)
-                    }
-                    
-                } else {
-                    // No HTTP Status Code, report in console & error returned is nil
-                    print("NO HTTP Status Code, Check Internet Availability and Retry Request")
-                    completion(false, nil, nil)
-                }
-                
-                
+//                print("fetchUserStorefront Request Response: \(response)")
+                let result = decodeResponseStatus(response)
+                completion(result.success, result.error, result.responseJSON)
         }
         
     }
@@ -96,7 +57,7 @@ struct AppleMusicInfoFetch {
         var offset: String = "0"
         var finished: Bool = false
         
-        func fetchPartialUserLibraryPlaylists(developerToken: String, userToken: String, Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool) -> Void ) {
+        func fetchPartialUserLibraryPlaylists(developerToken: String, userToken: String, Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool, _ statusCheck: Bool, _ error: Error?) -> Void ) {
             
             let urlRequest = AppleMusicRequestFactory.createGetUserLibraryPlaylistsRequest(developerToken: developerToken, userToken: userToken, offset: Offset)
             
@@ -119,17 +80,21 @@ struct AppleMusicInfoFetch {
                         isFinished = true
                     }
                     
-                    // further refinement needed
-                    
-                    completion(playlistsInfoJson, offsetIndexString, isFinished)
+                    let result = decodeResponseStatus(response)
+                    completion(playlistsInfoJson, offsetIndexString, isFinished, result.success, result.error)
             }
         }
         
         func goto() {
             switch finished {
             case false:
-                print("unfinished")
-                fetchPartialUserLibraryPlaylists(developerToken: developerToken, userToken: userToken, Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished) in
+                print("Fetching Continuing")
+                fetchPartialUserLibraryPlaylists(developerToken: developerToken, userToken: userToken, Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished, statusOK, error)  in
+                    if !statusOK {
+                        print("Fetching FAILED")
+                        // One fetch among whole process failed, currently collected info will still be returned
+                        completion(false, error, allFullInfo)
+                    }
                     do {
                         try allFullInfo = allFullInfo.merged(with: songsInfoJson)
                     } catch {
@@ -140,10 +105,8 @@ struct AppleMusicInfoFetch {
                     goto()
                 })
             case true:
-                print("finished")
-                // further refinement needed
-                
-                //                completion(allFullInfo)
+                print("Fetching SUCCEEDED")
+                completion(true, nil, allFullInfo)
             }
         }
         
@@ -160,13 +123,14 @@ struct AppleMusicInfoFetch {
         
     }
     
+    // FIXME: -  Error Handling part of this function has NOT been tested yet, possible to malfuntion or fail to work
     public static func fetchAllUserLibrarySongs(developerToken: String, userToken: String, completion: @escaping completionJSONChunk) {
         
         var allFullInfo: JSON = []
         var offset: String = "0"
         var finished: Bool = false
         
-        func fetchPartialUserLibrarySongs(developerToken: String, userToken: String, Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool) -> Void ) {
+        func fetchPartialUserLibrarySongs(developerToken: String, userToken: String, Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool, _ statusCheck: Bool, _ error: Error?) -> Void ) {
             
             let urlRequest = AppleMusicRequestFactory.createGetUserLibrarySongsRequest(developerToken: developerToken, userToken: userToken, offset: Offset)
             
@@ -189,17 +153,21 @@ struct AppleMusicInfoFetch {
                         isFinished = true
                     }
                     
-                    // further refinement needed
-                    
-                    completion(songsInfoJson, offsetIndexString, isFinished)
+                    let result = decodeResponseStatus(response)
+                    completion(songsInfoJson, offsetIndexString, isFinished, result.success, result.error)
             }
         }
         
         func goto() {
             switch finished {
             case false:
-                print("unfinished")
-                fetchPartialUserLibrarySongs(developerToken: developerToken, userToken: userToken, Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished) in
+                print("Fetching Continuing")
+                fetchPartialUserLibrarySongs(developerToken: developerToken, userToken: userToken, Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished, statusOK, error) in
+                    if !statusOK {
+                        print("Fetching FAILED")
+                        // One fetch among whole process failed, currently collected info will still be returned
+                        completion(false, error, allFullInfo)
+                    }
                     do {
                         try allFullInfo = allFullInfo.merged(with: songsInfoJson)
                     } catch {
@@ -210,10 +178,8 @@ struct AppleMusicInfoFetch {
                     goto()
                 })
             case true:
-                print("finished")
-                // further refinement needed
-                
-//                completion(allFullInfo)
+                print("Fetching SUCCEEDED")
+                completion(true, nil, allFullInfo)
             }
         }
         goto()
@@ -235,7 +201,82 @@ struct AppleMusicInfoFetch {
         }
     }
     
+    private static func decodeResponseStatus(_ response: DataResponse<Any>) -> (success: Bool, error: Error?, responseJSON: JSON?) {
+        var statusCode = response.response?.statusCode
+        if let error = response.result.error as? AFError {
+            
+            if let status = statusCode {
+                statusCode = handleResponseAFError(statusCode: status, error: error)
+                print("AFError: \(String(describing: statusCode))")
+                // handling Alamofire Error
+                return (false, error, nil)
+            }
+            
+        } else if let error = response.result.error as? URLError {
+            print("URLError: \(error)")
+            // handling URLError
+            return (false, error, nil)
+        }
+        
+        if let statusCode = response.response?.statusCode {
+            print("Request Status Code: \(statusCode)")
+            let decodedStatus = handleResponseStatusCode(statusCode: statusCode)
+            
+            if decodedStatus.success {
+                print(decodedStatus.codeName)
+                print(decodedStatus.description)
+                return (true, nil, JSON(response.result.value ?? "NA"))
+            } else {
+                print(decodedStatus.codeName)
+                print(decodedStatus.description)
+                // HTTP status code already printed out decodedStatus, error returned is nil
+                return (false, nil, nil)
+            }
+            
+        } else {
+            // No HTTP Status Code, report in console & error returned is nil
+            print("NO HTTP Status Code, Check Internet Availability and Retry Request")
+            return (false, nil, nil)
+        }
+    }
+    
+    private static func handleResponseAFError(statusCode: Int, error: AFError) -> Int {
+        var status = error._code // statusCode private
+        switch error {
+        case .invalidURL(let url):
+            print("Invalid URL: \(url) - \(error.localizedDescription)")
+        case .parameterEncodingFailed(let reason):
+            print("Parameter encoding failed: \(error.localizedDescription)")
+            print("Failure Reason: \(reason)")
+        case .multipartEncodingFailed(let reason):
+            print("Multipart encoding failed: \(error.localizedDescription)")
+            print("Failure Reason: \(reason)")
+        case .responseValidationFailed(let reason):
+            print("Response validation failed: \(error.localizedDescription)")
+            print("Failure Reason: \(reason)")
+            
+            switch reason {
+            case .dataFileNil, .dataFileReadFailed:
+                print("Downloaded file could not be read")
+            case .missingContentType(let acceptableContentTypes):
+                print("Content Type Missing: \(acceptableContentTypes)")
+            case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
+                print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
+            case .unacceptableStatusCode(let code):
+                print("Response status code was unacceptable: \(code)")
+                status = code
+            }
+        case .responseSerializationFailed(let reason):
+            print("Response serialization failed: \(error.localizedDescription)")
+            print("Failure Reason: \(reason)")
+        }
+        
+        print("Underlying error: \(String(describing: error.underlyingError))")
+        return status
+    }
+    
     private static func handleResponseStatusCode(statusCode: Int) -> (success: Bool, codeName: String, description: String) {
+        //                Status Code Returned by Apple Music server: https://developer.apple.com/documentation/applemusicapi/common_objects/http_status_codes
         switch statusCode {
         case 200:
             return (true, "OK", "The request was successful; no errors or faults.")
@@ -285,41 +326,6 @@ struct AppleMusicInfoFetch {
         default:
             return (false, "Unknown Status Code", "No Description Available.")
         }
-    }
-    
-    private static func handleResponseAFError(statusCode: Int, error: AFError) -> Int {
-        var status = error._code // statusCode private
-        switch error {
-        case .invalidURL(let url):
-            print("Invalid URL: \(url) - \(error.localizedDescription)")
-        case .parameterEncodingFailed(let reason):
-            print("Parameter encoding failed: \(error.localizedDescription)")
-            print("Failure Reason: \(reason)")
-        case .multipartEncodingFailed(let reason):
-            print("Multipart encoding failed: \(error.localizedDescription)")
-            print("Failure Reason: \(reason)")
-        case .responseValidationFailed(let reason):
-            print("Response validation failed: \(error.localizedDescription)")
-            print("Failure Reason: \(reason)")
-            
-            switch reason {
-            case .dataFileNil, .dataFileReadFailed:
-                print("Downloaded file could not be read")
-            case .missingContentType(let acceptableContentTypes):
-                print("Content Type Missing: \(acceptableContentTypes)")
-            case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
-                print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
-            case .unacceptableStatusCode(let code):
-                print("Response status code was unacceptable: \(code)")
-                status = code
-            }
-        case .responseSerializationFailed(let reason):
-            print("Response serialization failed: \(error.localizedDescription)")
-            print("Failure Reason: \(reason)")
-        }
-        
-        print("Underlying error: \(String(describing: error.underlyingError))")
-        return status
     }
     
     
