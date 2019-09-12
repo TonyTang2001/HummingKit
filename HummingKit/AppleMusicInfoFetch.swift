@@ -17,6 +17,11 @@ struct AppleMusicInfoFetch {
     typealias completionStringChunk = (_ success: Bool, _ error: Error?, _ result: String?) -> Void
     typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
     
+    /// Function for fetching Apple Music UserToken using DeveloperToken
+    ///
+    /// - Parameters:
+    ///   - developerToken: valid Apple Music DeveloperToken
+    ///   - completion: status(true if succeeded), error(contains Error if failed), result(String response from server)
     public static func fetchUserToken(developerToken: String, completion: @escaping completionStringChunk) {
         print("Start Fetching User Token")
         
@@ -37,10 +42,15 @@ struct AppleMusicInfoFetch {
         }
     }
     
+    /// Function for fetching user's Apple Music Storefront information
+    ///
+    /// - Parameters:
+    ///   - developerToken: valid Apple Music DeveloperToken
+    ///   - userToken: valid Apple Music UserToken
+    ///   - completion: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
     public static func fetchUserStorefront(developerToken: String, userToken: String, completion: @escaping completionJSONChunk) {
         
         let urlRequest = AppleMusicRequestFactory.createGetUserStorefrontRequest(developerToken: developerToken, userToken: userToken)
-        
         Alamofire.request(urlRequest)
             .responseJSON { response in
 //                print("fetchUserStorefront Request Response: \(response)")
@@ -51,6 +61,12 @@ struct AppleMusicInfoFetch {
     }
     
     // FIXME: -  This function has NOT been tested yet, possible to malfuntion or fail to work
+    /// Function for fetching all playlists from user's library
+    ///
+    /// - Parameters:
+    ///   - developerToken: valid Apple Music DeveloperToken
+    ///   - userToken: valid Apple Music UserToken
+    ///   - completion: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
     public static func fetchAllUserLibraryPlaylists(developerToken: String, userToken: String, completion: @escaping completionJSONChunk) {
         
         var allFullInfo: JSON = []
@@ -124,6 +140,12 @@ struct AppleMusicInfoFetch {
     }
     
     // FIXME: -  Error Handling part of this function has NOT been tested yet, possible to malfuntion or fail to work
+    /// Function for fetching all songs from user's library
+    ///
+    /// - Parameters:
+    ///   - developerToken: valid Apple Music DeveloperToken
+    ///   - userToken: valid Apple Music UserToken
+    ///   - completion: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
     public static func fetchAllUserLibrarySongs(developerToken: String, userToken: String, completion: @escaping completionJSONChunk) {
         
         var allFullInfo: JSON = []
@@ -186,6 +208,12 @@ struct AppleMusicInfoFetch {
         
     }
     
+    /// Private function for searching offest index from response ["next"]
+    ///
+    /// - Parameters:
+    ///   - regex: regular expression feature
+    ///   - text: string value from ["next"]
+    /// - Returns: offset index in String
     private static func offsetMatches(for regex: String, in text: String) -> String {
         do {
             let regex = try NSRegularExpression(pattern: regex)
@@ -201,6 +229,10 @@ struct AppleMusicInfoFetch {
         }
     }
     
+    /// Private function for decoding response status returned from server
+    ///
+    /// - Parameter response: response from server
+    /// - Returns: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
     private static func decodeResponseStatus(_ response: DataResponse<Any>) -> (success: Bool, error: Error?, responseJSON: JSON?) {
         var statusCode = response.response?.statusCode
         if let error = response.result.error as? AFError {
@@ -240,41 +272,10 @@ struct AppleMusicInfoFetch {
         }
     }
     
-    private static func handleResponseAFError(statusCode: Int, error: AFError) -> Int {
-        var status = error._code // statusCode private
-        switch error {
-        case .invalidURL(let url):
-            print("Invalid URL: \(url) - \(error.localizedDescription)")
-        case .parameterEncodingFailed(let reason):
-            print("Parameter encoding failed: \(error.localizedDescription)")
-            print("Failure Reason: \(reason)")
-        case .multipartEncodingFailed(let reason):
-            print("Multipart encoding failed: \(error.localizedDescription)")
-            print("Failure Reason: \(reason)")
-        case .responseValidationFailed(let reason):
-            print("Response validation failed: \(error.localizedDescription)")
-            print("Failure Reason: \(reason)")
-            
-            switch reason {
-            case .dataFileNil, .dataFileReadFailed:
-                print("Downloaded file could not be read")
-            case .missingContentType(let acceptableContentTypes):
-                print("Content Type Missing: \(acceptableContentTypes)")
-            case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
-                print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
-            case .unacceptableStatusCode(let code):
-                print("Response status code was unacceptable: \(code)")
-                status = code
-            }
-        case .responseSerializationFailed(let reason):
-            print("Response serialization failed: \(error.localizedDescription)")
-            print("Failure Reason: \(reason)")
-        }
-        
-        print("Underlying error: \(String(describing: error.underlyingError))")
-        return status
-    }
-    
+    /// Private function for handling status code from request
+    ///
+    /// - Parameter statusCode: HTTP status code
+    /// - Returns: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
     private static func handleResponseStatusCode(statusCode: Int) -> (success: Bool, codeName: String, description: String) {
         //                Status Code Returned by Apple Music server: https://developer.apple.com/documentation/applemusicapi/common_objects/http_status_codes
         switch statusCode {
@@ -326,6 +327,47 @@ struct AppleMusicInfoFetch {
         default:
             return (false, "Unknown Status Code", "No Description Available.")
         }
+    }
+    
+    /// Private function for handling Alamofire Error from request
+    ///
+    /// - Parameters:
+    ///   - statusCode: status code from response
+    ///   - error: Alamofire Error
+    /// - Returns: status code
+    private static func handleResponseAFError(statusCode: Int, error: AFError) -> Int {
+        var status = error._code // statusCode private
+        switch error {
+        case .invalidURL(let url):
+            print("Invalid URL: \(url) - \(error.localizedDescription)")
+        case .parameterEncodingFailed(let reason):
+            print("Parameter encoding failed: \(error.localizedDescription)")
+            print("Failure Reason: \(reason)")
+        case .multipartEncodingFailed(let reason):
+            print("Multipart encoding failed: \(error.localizedDescription)")
+            print("Failure Reason: \(reason)")
+        case .responseValidationFailed(let reason):
+            print("Response validation failed: \(error.localizedDescription)")
+            print("Failure Reason: \(reason)")
+            
+            switch reason {
+            case .dataFileNil, .dataFileReadFailed:
+                print("Downloaded file could not be read")
+            case .missingContentType(let acceptableContentTypes):
+                print("Content Type Missing: \(acceptableContentTypes)")
+            case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
+                print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
+            case .unacceptableStatusCode(let code):
+                print("Response status code was unacceptable: \(code)")
+                status = code
+            }
+        case .responseSerializationFailed(let reason):
+            print("Response serialization failed: \(error.localizedDescription)")
+            print("Failure Reason: \(reason)")
+        }
+        
+        print("Underlying error: \(String(describing: error.underlyingError))")
+        return status
     }
     
     
