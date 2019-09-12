@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-struct AppleMusicRequestFactory {
+public struct AppleMusicRequestFactory {
     
     /// The base URL for all Apple Music API network calls.
     static let appleMusicAPIBaseURLString = "api.music.apple.com"
@@ -127,7 +127,7 @@ struct AppleMusicRequestFactory {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = appleMusicAPIBaseURLString
-        urlComponents.path = "/v1/catalog/\(storefront)/search"
+        urlComponents.path = catalogPathURLString + "\(storefront)/search"
         
         let expectedTerms = term.replacingOccurrences(of: " ", with: "+")
         let urlParameters = ["term": expectedTerms,
@@ -400,4 +400,35 @@ struct AppleMusicRequestFactory {
         return urlRequest
     }
     
+    // FIXME: - Current function only creates the playlist, songs to be added can be used 
+    /// Function for generating "Create a New Library Playlist" URL request
+    ///
+    /// - Parameters:
+    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
+    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
+    ///   - name: the name of playlist to be created
+    ///   - description: the description of the playlist to be created
+    ///   - songsIDs: an array of catalogIDs of songs need to be added to the to-be-created playlist
+    /// - Returns: the URL request for creating a new playlist in user’s library
+    public static func createCreateNewPlaylistRequest(developerToken: String, userToken: String, name: String, description: String, songsIDs: [String]) -> URLRequest {
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
+        
+        let attributes: JSON = ["name": name, "description": description]
+        
+        let bodyJson: JSON = ["attributes": attributes.object, "relationships": ""]
+        let bodyJsonData = try? JSONSerialization.data(withJSONObject: bodyJson)
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = bodyJsonData
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
 }
