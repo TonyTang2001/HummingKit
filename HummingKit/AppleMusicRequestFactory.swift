@@ -400,7 +400,7 @@ public struct AppleMusicRequestFactory {
         return urlRequest
     }
     
-    // FIXME: - Current function only creates the playlist, songs to be added can be used 
+    // FIXME: - This function has NOT been tested yet, may malfuntion or fail to work
     /// Function for generating "Create a New Library Playlist" URL request
     ///
     /// - Parameters:
@@ -417,9 +417,16 @@ public struct AppleMusicRequestFactory {
         urlComponents.host = appleMusicAPIBaseURLString
         urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
         
+        // prepare HTTP body
         let attributes: JSON = ["name": name, "description": description]
-        
-        let bodyJson: JSON = ["attributes": attributes.object, "relationships": ""]
+        var songsJson: [JSON] = []
+        for index in 0..<songsIDs.count {
+            let aSong: JSON = ["id": songsIDs[index], "type": "songs"]
+            songsJson.append(aSong)
+        }
+        let songsDataJson: JSON = ["data": JSON(songsJson).object]
+        let tracksJson: JSON = ["tracks": songsDataJson.object]
+        let bodyJson: JSON = ["attributes": attributes.object, "relationships": tracksJson.object]
         let bodyJsonData = try? JSONSerialization.data(withJSONObject: bodyJson)
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -431,4 +438,6 @@ public struct AppleMusicRequestFactory {
         
         return urlRequest
     }
+    
+    
 }
