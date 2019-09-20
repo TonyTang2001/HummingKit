@@ -12,10 +12,10 @@ import StoreKit
 import Alamofire
 import SwiftyJSON
 
-struct AppleMusicInfoFetch {
+public struct AppleMusicInfoFetch {
     
-    typealias completionStringChunk = (_ success: Bool, _ error: Error?, _ result: String?) -> Void
-    typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
+    public typealias completionStringChunk = (_ success: Bool, _ error: Error?, _ result: String?) -> Void
+    public typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
     
     /// Function for fetching Apple Music UserToken using DeveloperToken
     ///
