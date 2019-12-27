@@ -1,5 +1,5 @@
 //
-//  AppleMusicInfoFetch.swift
+//  HummingKit.swift
 //  HummingKit
 //
 //  Created by 唐子轩 on 2019/9/5.
@@ -12,17 +12,27 @@ import StoreKit
 import Alamofire
 import SwiftyJSON
 
-public struct AppleMusicInfoFetch {
+public struct HummingKit {
     
     public typealias completionStringChunk = (_ success: Bool, _ error: Error?, _ result: String?) -> Void
     public typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
     
+    let requestGenerator: HummingKitRequestFactory
+    
+    var developerToken: String
+    var userToken: String
+    
+    init(developerToken: String, userToken: String) {
+        self.developerToken = developerToken
+        self.userToken = userToken
+        requestGenerator = HummingKitRequestFactory(developerToken: developerToken, userToken: userToken)
+    }
+    
     /// Function for fetching Apple Music UserToken using DeveloperToken
     ///
     /// - Parameters:
-    ///   - developerToken: valid Apple Music DeveloperToken
     ///   - completion: status(true if succeeded), error(contains Error if failed), result(String response from server)
-    public static func fetchUserToken(developerToken: String, completion: @escaping completionStringChunk) {
+    public func fetchUserToken(completion: @escaping completionStringChunk) {
         print("Start Fetching User Token")
         
         let controller = SKCloudServiceController()
@@ -45,16 +55,14 @@ public struct AppleMusicInfoFetch {
     /// Function for fetching user's Apple Music Storefront information
     ///
     /// - Parameters:
-    ///   - developerToken: valid Apple Music DeveloperToken
-    ///   - userToken: valid Apple Music UserToken
     ///   - completion: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
-    public static func fetchUserStorefront(developerToken: String, userToken: String, completion: @escaping completionJSONChunk) {
+    public func fetchUserStorefront(completion: @escaping completionJSONChunk) {
         
-        let urlRequest = AppleMusicRequestFactory.createGetUserStorefrontRequest(developerToken: developerToken, userToken: userToken)
+        let urlRequest = requestGenerator.createGetUserStorefrontRequest()
         Alamofire.request(urlRequest)
             .responseJSON { response in
 //                print("fetchUserStorefront Request Response: \(response)")
-                let result = decodeResponseStatus(response)
+                let result = Self.decodeResponseStatus(response)
                 completion(result.success, result.error, result.responseJSON)
         }
         
@@ -64,18 +72,16 @@ public struct AppleMusicInfoFetch {
     /// Function for fetching all playlists from user's library
     ///
     /// - Parameters:
-    ///   - developerToken: valid Apple Music DeveloperToken
-    ///   - userToken: valid Apple Music UserToken
     ///   - completion: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
-    public static func fetchAllUserLibraryPlaylists(developerToken: String, userToken: String, completion: @escaping completionJSONChunk) {
+    public func fetchAllUserLibraryPlaylists(completion: @escaping completionJSONChunk) {
         
         var allFullInfo: JSON = []
         var offset: String = "0"
         var finished: Bool = false
         
-        func fetchPartialUserLibraryPlaylists(developerToken: String, userToken: String, Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool, _ statusCheck: Bool, _ error: Error?) -> Void ) {
+        func fetchPartialUserLibraryPlaylists(Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool, _ statusCheck: Bool, _ error: Error?) -> Void ) {
             
-            let urlRequest = AppleMusicRequestFactory.createGetUserLibraryPlaylistsRequest(developerToken: developerToken, userToken: userToken, offset: Offset)
+            let urlRequest = requestGenerator.createGetUserLibraryPlaylistsRequest(offset: Offset)
             
             var offsetIndexString: String = ""
             
@@ -89,14 +95,14 @@ public struct AppleMusicInfoFetch {
                     if currentJson["next"].exists() {
                         // extract offsetIndexString from "next"
                         guard let next = currentJson["next"].string else { return }
-                        offsetIndexString = self.offsetMatches(for: "(\\d{2,})", in: next)
+                        offsetIndexString = Self.offsetMatches(for: "(\\d{2,})", in: next)
                         
                         isFinished = false
                     } else {
                         isFinished = true
                     }
                     
-                    let result = decodeResponseStatus(response)
+                    let result = Self.decodeResponseStatus(response)
                     completion(playlistsInfoJson, offsetIndexString, isFinished, result.success, result.error)
             }
         }
@@ -105,7 +111,7 @@ public struct AppleMusicInfoFetch {
             switch finished {
             case false:
                 print("Fetching Continuing")
-                fetchPartialUserLibraryPlaylists(developerToken: developerToken, userToken: userToken, Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished, statusOK, error)  in
+                fetchPartialUserLibraryPlaylists(Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished, statusOK, error)  in
                     if !statusOK {
                         print("Fetching FAILED")
                         // One fetch among whole process failed, currently collected info will still be returned
@@ -128,15 +134,6 @@ public struct AppleMusicInfoFetch {
         
         goto()
         
-//        let urlRequest = AppleMusicRequestFactory.createGetUserLibraryPlaylistsRequest(developerToken: developerToken, userToken: userToken)
-//
-//        Alamofire.request(urlRequest)
-//            .responseJSON { response in
-//                // further refinement needed
-//
-////                completion(JSON(response.result.value ?? "NA"))
-//        }
-        
     }
     
     // FIXME: -  Error Handling part of this function has NOT been tested yet, possible to malfuntion or fail to work
@@ -146,15 +143,15 @@ public struct AppleMusicInfoFetch {
     ///   - developerToken: valid Apple Music DeveloperToken
     ///   - userToken: valid Apple Music UserToken
     ///   - completion: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
-    public static func fetchAllUserLibrarySongs(developerToken: String, userToken: String, completion: @escaping completionJSONChunk) {
+    public func fetchAllUserLibrarySongs(completion: @escaping completionJSONChunk) {
         
         var allFullInfo: JSON = []
         var offset: String = "0"
         var finished: Bool = false
         
-        func fetchPartialUserLibrarySongs(developerToken: String, userToken: String, Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool, _ statusCheck: Bool, _ error: Error?) -> Void ) {
+        func fetchPartialUserLibrarySongs(Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool, _ statusCheck: Bool, _ error: Error?) -> Void ) {
             
-            let urlRequest = AppleMusicRequestFactory.createGetUserLibrarySongsRequest(developerToken: developerToken, userToken: userToken, offset: Offset)
+            let urlRequest = requestGenerator.createGetUserLibrarySongsRequest(offset: Offset)
             
             var offsetIndexString: String = ""
             
@@ -168,14 +165,14 @@ public struct AppleMusicInfoFetch {
                     if currentJson["next"].exists() {
                         // extract offsetIndexString from "next"
                         guard let next = currentJson["next"].string else { return }
-                        offsetIndexString = self.offsetMatches(for: "(\\d{2,})", in: next)
+                        offsetIndexString = Self.offsetMatches(for: "(\\d{2,})", in: next)
                         
                         isFinished = false
                     } else {
                         isFinished = true
                     }
                     
-                    let result = decodeResponseStatus(response)
+                    let result = Self.decodeResponseStatus(response)
                     completion(songsInfoJson, offsetIndexString, isFinished, result.success, result.error)
             }
         }
@@ -184,7 +181,7 @@ public struct AppleMusicInfoFetch {
             switch finished {
             case false:
                 print("Fetching Continuing")
-                fetchPartialUserLibrarySongs(developerToken: developerToken, userToken: userToken, Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished, statusOK, error) in
+                fetchPartialUserLibrarySongs(Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished, statusOK, error) in
                     if !statusOK {
                         print("Fetching FAILED")
                         // One fetch among whole process failed, currently collected info will still be returned

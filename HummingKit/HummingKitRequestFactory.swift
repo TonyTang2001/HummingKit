@@ -1,5 +1,5 @@
 //
-//  AppleMusicRequestFactory.swift
+//  HummingKitRequestFactory.swift
 //  HummingKit
 //
 //  Created by 唐子轩 on 2019/9/3.
@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-public struct AppleMusicRequestFactory {
+public struct HummingKitRequestFactory {
     
     /// The base URL for all Apple Music API network calls.
     let appleMusicAPIBaseURLString = "api.music.apple.com"

@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		EA4593FC231D526100062F37 /* HummingKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4593FA231D526100062F37 /* HummingKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EA459406231D528900062F37 /* AppleMusicRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA459402231D528900062F37 /* AppleMusicRequestFactory.swift */; };
-		EA459407231D528900062F37 /* AppleMusicInfoFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA459403231D528900062F37 /* AppleMusicInfoFetch.swift */; };
+		EA459406231D528900062F37 /* HummingKitRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA459402231D528900062F37 /* HummingKitRequestFactory.swift */; };
+		EA459407231D528900062F37 /* HummingKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA459403231D528900062F37 /* HummingKit.swift */; };
 		EA8D5F3123201ED90049359A /* DebugOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D5F3023201ED90049359A /* DebugOptions.swift */; };
 		F4778C729F3C31EDDEFEF924 /* Pods_HummingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07543B08EA1EF4D08FB6D7EA /* Pods_HummingKit.framework */; };
 /* End PBXBuildFile section */
@@ -20,8 +20,8 @@
 		EA4593F7231D526100062F37 /* HummingKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HummingKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA4593FA231D526100062F37 /* HummingKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HummingKit.h; sourceTree = "<group>"; };
 		EA4593FB231D526100062F37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EA459402231D528900062F37 /* AppleMusicRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicRequestFactory.swift; sourceTree = "<group>"; };
-		EA459403231D528900062F37 /* AppleMusicInfoFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicInfoFetch.swift; sourceTree = "<group>"; };
+		EA459402231D528900062F37 /* HummingKitRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HummingKitRequestFactory.swift; sourceTree = "<group>"; };
+		EA459403231D528900062F37 /* HummingKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HummingKit.swift; sourceTree = "<group>"; };
 		EA8D5F3023201ED90049359A /* DebugOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOptions.swift; sourceTree = "<group>"; };
 		FDBCA0E37EA82DDB5806C787 /* Pods-HummingKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HummingKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HummingKit/Pods-HummingKit.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,8 +76,8 @@
 		EA4593F9231D526100062F37 /* HummingKit */ = {
 			isa = PBXGroup;
 			children = (
-				EA459403231D528900062F37 /* AppleMusicInfoFetch.swift */,
-				EA459402231D528900062F37 /* AppleMusicRequestFactory.swift */,
+				EA459403231D528900062F37 /* HummingKit.swift */,
+				EA459402231D528900062F37 /* HummingKitRequestFactory.swift */,
 				EA8D5F3023201ED90049359A /* DebugOptions.swift */,
 				EA4593FA231D526100062F37 /* HummingKit.h */,
 				EA4593FB231D526100062F37 /* Info.plist */,
@@ -187,9 +187,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA459406231D528900062F37 /* AppleMusicRequestFactory.swift in Sources */,
+				EA459406231D528900062F37 /* HummingKitRequestFactory.swift in Sources */,
 				EA8D5F3123201ED90049359A /* DebugOptions.swift in Sources */,
-				EA459407231D528900062F37 /* AppleMusicInfoFetch.swift in Sources */,
+				EA459407231D528900062F37 /* HummingKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
