@@ -12,32 +12,40 @@ import SwiftyJSON
 public struct AppleMusicRequestFactory {
     
     /// The base URL for all Apple Music API network calls.
-    static let appleMusicAPIBaseURLString = "api.music.apple.com"
+    let appleMusicAPIBaseURLString = "api.music.apple.com"
     
     /// The Apple Music API endpoint for requesting a list of recently played items.
-    static let recentlyPlayedPathURLString = "/v1/me/recent/played"
+    let recentlyPlayedPathURLString = "/v1/me/recent/played"
     
     /// The Apple Music API endpoint for requesting a the storefront of the currently logged in iTunes Store account.
-    static let userStorefrontPathURLString = "/v1/me/storefront"
+    let userStorefrontPathURLString = "/v1/me/storefront"
     
     /// The Apple Music API endpoint for requesting user library related resources.
-    static let userLibraryPathURLString = "/v1/me/library"
+    let userLibraryPathURLString = "/v1/me/library"
     
     /// The Apple Music API endpoint for requesting catalog resources.
-    static let catalogPathURLString = "/v1/catalog/"
+    let catalogPathURLString = "/v1/catalog/"
     
-    static let catalogSongPathURLString = "/songs"
-    static let catalogPlaylistPathURLString = "/playlists"
+    let catalogSongPathURLString = "/songs"
+    let catalogPlaylistPathURLString = "/playlists"
+    
+    /// Developer Token provided by the developer who use this package, required for authentication
+    var developerToken: String
+    
+    /// User Token fetched by device when app runs for the first time, required for authentication
+    var userToken: String
+    
+    init(developerToken: String, userToken: String) {
+        self.developerToken = developerToken
+        self.userToken = userToken
+    }
     
     /// Function for generating "Get A Catalog Song" URL request
     ///
     /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
-    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
-    ///   - storefront: the expected Apple Music storefront for request to happen, usually the same as user's Apple Music account storefront
     ///   - songID: catalogID for the targeted catalog song
     /// - Returns: the URL request for fetching the catalog song by using its identifier
-    public static func createGetCatalogSongRequest(developerToken: String, userToken: String, storefront: String, songID: String) -> URLRequest {
+    public func createGetCatalogSongRequest(storefront: String, songID: String) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -55,12 +63,10 @@ public struct AppleMusicRequestFactory {
     /// Function for generating "Get Multiple Catalog Songs" URL request
     ///
     /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
-    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
     ///   - storefront: the expected Apple Music storefront for request to happen, usually the same as user's Apple Music account storefront
     ///   - songIDs: an array of catalogIDs for targeted catalog songs
     /// - Returns: the URL request for fetching multiple catalog songs by using their identifiers
-    public static func createGetMultipleCatalogSongsRequest(developerToken: String, userToken: String, storefront: String, songIDs: [String]) -> URLRequest {
+    public func createGetMultipleCatalogSongsRequest(storefront: String, songIDs: [String]) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -86,12 +92,10 @@ public struct AppleMusicRequestFactory {
     /// Function for generating "Get Multiple Catalog Playlists" URL request
     ///
     /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
-    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
     ///   - storefront: the expected Apple Music storefront for request to happen, usually the same as user's Apple Music account storefront
     ///   - playlistsIDs: an array of catalogIDs of targeted playlists
     /// - Returns: the URL request for fetching one or more playlists by using their identifiers
-    public static func createGetCatalogPlaylistsRequest(developerToken: String, userToken: String, storefront: String, playlistsIDs: [String]) -> URLRequest {
+    public func createGetCatalogPlaylistsRequest(storefront: String, playlistsIDs: [String]) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -118,11 +122,10 @@ public struct AppleMusicRequestFactory {
     /// Function for generating "Search for Catalog Resources" URL request
     ///
     /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
     ///   - storefront: the expected Apple Music storefront for request to happen, usually the same as user's Apple Music account storefront
     ///   - term: the user entered text for search, " " -> "+" character replacement is handled
     /// - Returns: the URL request for searching catalog resources(by using a query) from Apple Music server
-    public static func createSearchRequest(developerToken: String, storefront: String, term: String) -> URLRequest {
+    public func createSearchRequest(storefront: String, term: String) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -151,10 +154,9 @@ public struct AppleMusicRequestFactory {
     /// Function for generating "Get a Storefront" URL request
     ///
     /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
     ///   - storefront: the expected Apple Music storefront for request to happen, usually the same as user's Apple Music account storefront
     /// - Returns: the URL request for fetching a storefront by using its identifier)
-    public static func createGetStorefrontRequest(developerToken: String, storefront: String) -> URLRequest {
+    public func createGetStorefrontRequest(storefront: String) -> URLRequest {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = appleMusicAPIBaseURLString
@@ -169,11 +171,8 @@ public struct AppleMusicRequestFactory {
     
     /// Function for generating "Get Recently Played Resources" URL request
     ///
-    /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
-    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
     /// - Returns: the URL request for fetching the recently played resources for the user
-    public static func createGetRecentlyPlayedRequest(developerToken: String, userToken: String) -> URLRequest {
+    public func createGetRecentlyPlayedRequest() -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -190,11 +189,8 @@ public struct AppleMusicRequestFactory {
     
     /// Function for generating "Get a User's Storefront" URL request
     ///
-    /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
-    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
     /// - Returns: the URL request for fetching a user’s storefront
-    public static func createGetUserStorefrontRequest(developerToken: String, userToken: String) -> URLRequest {
+    public func createGetUserStorefrontRequest() -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -212,11 +208,9 @@ public struct AppleMusicRequestFactory {
     /// Function for generating "Get All Library Songs" URL request, however, if songs.count > 100, this function needs to be called several times to completely fetch the whole library
     ///
     /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
-    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
     ///   - offset: the next page or group of objects to fetch (for progressive function calling)
     /// - Returns: the URL request for fetching all the library songs in alphabetical order
-    public static func createGetUserLibrarySongsRequest(developerToken: String, userToken: String, offset: String? = "0") -> URLRequest {
+    public func createGetUserLibrarySongsRequest(offset: String? = "0") -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -236,10 +230,9 @@ public struct AppleMusicRequestFactory {
     /// Function for generating "Get All Library Playlists" URL request, however, if playlists.count > 100, this function needs to be called several times to completely fetch the whole library
     ///
     /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
-    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
+    ///   - offset: the next page or group of objects to fetch (for progressive function calling)
     /// - Returns: the URL request for fetching all the library playlists in alphabetical order
-    public static func createGetUserLibraryPlaylistsRequest(developerToken: String, userToken: String, offset: String? = "0") -> URLRequest {
+    public func createGetUserLibraryPlaylistsRequest(offset: String? = "0") -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -260,14 +253,12 @@ public struct AppleMusicRequestFactory {
     /// Function for generating "Add a Resource to a Library" URL request
     ///
     /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
-    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
     ///   - playlistsIDs: an array of unique catalog identifiers for targeted playlists
     ///   - albumsIDs: an array of unique catalog identifiers for targeted albums
     ///   - songsIDs: an array of unique catalog identifiers for targeted songs
     ///   - musicVideosIDs: an array of unique catalog identifiers for targeted music videos
     /// - Returns: the URL request for adding catalog resources to a user’s iCloud Music Library
-    public static func createAddResourcesToLibraryRequest(developerToken: String, userToken: String, playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String]) -> URLRequest {
+    public func createAddResourcesToLibraryRequest(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String]) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -316,7 +307,7 @@ public struct AppleMusicRequestFactory {
     // FIXME: - Combination needed: createAddPlaylistsToLibraryRequest() & createAddSongsToLibraryRequest() are all belong to "Add a Resource to a Library"
     // https://developer.apple.com/documentation/applemusicapi/add_a_resource_to_a_library
     @available(*, deprecated, message: "Use createAddResourcesToLibraryRequest() function instead.")
-    public static func createAddPlaylistsToLibraryRequest(developerToken: String, userToken: String, playlistsIDs: [String]) -> URLRequest {
+    public func createAddPlaylistsToLibraryRequest(playlistsIDs: [String]) -> URLRequest {
 
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -341,7 +332,7 @@ public struct AppleMusicRequestFactory {
     }
     
     @available(*, deprecated, message: "Use createAddResourcesToLibraryRequest() function instead.")
-    public static func createAddSongsToLibraryRequest(developerToken: String, userToken: String, songsIDs: [String]) -> URLRequest {
+    public func createAddSongsToLibraryRequest(songsIDs: [String]) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -369,12 +360,10 @@ public struct AppleMusicRequestFactory {
     /// Function for generating "Add Tracks to a Library Playlist" URL request
     ///
     /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
-    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
     ///   - playlistID: the globalID of destination playlist to be added tracks to
     ///   - songIDs: an array of the catalogIDs of targeted songs
     /// - Returns: the URL request for adding new tracks to the end of a library playlist
-    public static func createAddSongsToPlaylistRequest(developerToken: String, userToken: String, playlistID: String, songsIDs: [String]) -> URLRequest {
+    public func createAddSongsToPlaylistRequest(playlistID: String, songsIDs: [String]) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -404,13 +393,11 @@ public struct AppleMusicRequestFactory {
     /// Function for generating "Create a New Library Playlist" URL request
     ///
     /// - Parameters:
-    ///   - developerToken: the Apple Music Developer Token required for authentication, fetched by developer from Apple Music server
-    ///   - userToken: the Apple Music User Token required for authentication, fetched by user's device when the app runs for the first time
     ///   - name: the name of playlist to be created
     ///   - description: the description of the playlist to be created
     ///   - songsIDs: an array of catalogIDs of songs need to be added to the to-be-created playlist
     /// - Returns: the URL request for creating a new playlist in user’s library
-    public static func createCreateNewPlaylistRequest(developerToken: String, userToken: String, name: String, description: String, songsIDs: [String]) -> URLRequest {
+    public func createCreateNewPlaylistRequest(name: String, description: String, songsIDs: [String]) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
