@@ -6,8 +6,6 @@
 //  Copyright © 2019 TonyTang. All rights reserved.
 //
 
-import Foundation
-import CoreData
 import StoreKit
 import Alamofire
 import SwiftyJSON
@@ -140,8 +138,6 @@ public struct HummingKit {
     /// Function for fetching all songs from user's library
     ///
     /// - Parameters:
-    ///   - developerToken: valid Apple Music DeveloperToken
-    ///   - userToken: valid Apple Music UserToken
     ///   - completion: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
     public func fetchAllUserLibrarySongs(completion: @escaping completionJSONChunk) {
         

@@ -6,7 +6,6 @@
 //  Copyright © 2019 TonyTang. All rights reserved.
 //
 
-import Foundation
 import SwiftyJSON
 
 public struct HummingKitRequestFactory {
@@ -40,11 +39,213 @@ public struct HummingKitRequestFactory {
         self.userToken = userToken
     }
     
+    // MARK: - Storefronts and Localization
+    // MARK: Get a User's Storefront
+    /// Generates "Fetch a User's Storefront" URL request
+    public func createGetUserStorefrontRequest() -> URLRequest {
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = userStorefrontPathURLString
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Storefront
+    /// Generates "Fetch a single storefront by using its identifier" URL request
+    /// - Parameter storefrontID: The identifier (an ISO 3166 alpha-2 country code) for the storefront you want to fetch.
+    public func createGetAStorefrontRequest(storefrontID: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/storefronts/\(storefrontID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Storefronts
+    /// Generates "Fetch one or more storefronts by using their identifiers" URL request
+    /// - Parameter storefrontIDs: A list of the identifiers (ISO 3166 alpha-2 country codes) for the storefronts you want to fetch.
+    public func createGetMultipleStorefrontsRequest(storefrontIDs: [String]) -> URLRequest {
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/storefronts"
+        
+        let storefrontIDsChunk = storefrontIDs.joined(separator: ",")
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: storefrontIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get All Storefronts
+    /// Generates "Fetch all the storefronts in alphabetical order" URL request
+    public func createGetAllStorefrontsRequest() -> URLRequest {
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/storefronts"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    
+    // MARK: - Albums
+    // MARK: Get a Catalog Album
+    /// Generates "Fetch an album by using its identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - albumID: The unique identifier for the album.
+    public func createGetACatalogAlbumRequest(storefront: String, albumID: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/catalog/\(storefront)/albums/\(albumID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Catalog Album's Relationship Directly by Name
+    /// Generates "Fetch an album's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - albumID: The unique identifier for the album.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetACatalogAlbumRelationshipRequest(storefront: String, albumID: String, relationship: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/catalog/\(storefront)/albums/\(albumID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Catalog Albums
+    /// Generates "Fetch one or more albums by using their identifiers" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
+    public func createGetMultipleCatalogAlbumsRequest(storefront: String, albumIDs: [String]) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/catalog/\(storefront)/albums"
+        
+        let albumIDsChunk = albumIDs.joined(separator: ",")
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: albumIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Library Album
+    /// Generates "Fetch a library album by using its identifier" URL request
+    /// - Parameter albumID: The unique identifier for the album.
+    public func createGetALibraryAlbumRequest(albumID: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/albums/\(albumID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Library Album's Relationship Directly by Name
+    /// Generates "Fetch an album's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - albumID: The unique identifier for the album.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetALibraryAlbumRelationshipRequest(albumID: String, relationship: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/albums/\(albumID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Library Albums
+    /// Generates "Fetch one or more library albums by using their identifiers" URL request
+    /// - Parameter albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
+    public func createGetMultipleLibraryAlbumsRequest(albumIDs: [String]) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/albums"
+        
+        let albumIDsChunk = albumIDs.joined(separator: ",")
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: albumIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get All Library Albums
+    // FIXME: limit & offset
+    /// Generates "Fetch all the library albums in alphabetical order" URL request
+    public func createGetAllLibraryAlbumsRequest() -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/albums"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    
     /// Function for generating "Get A Catalog Song" URL request
     ///
-    /// - Parameters:
-    ///   - songID: catalogID for the targeted catalog song
-    /// - Returns: the URL request for fetching the catalog song by using its identifier
+    /// - Parameter songID: catalogID for the targeted catalog song
     public func createGetCatalogSongRequest(storefront: String, songID: String) -> URLRequest {
         
         var urlComponents = URLComponents()
@@ -100,7 +301,7 @@ public struct HummingKitRequestFactory {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = appleMusicAPIBaseURLString
-        urlComponents.path = catalogPathURLString + storefront + "/playlists/"
+        urlComponents.path = catalogPathURLString + storefront + catalogPlaylistPathURLString + "/"
         
         var playlistsPart = playlistsIDs[0]
         for index in 1..<playlistsIDs.count {
@@ -151,24 +352,6 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    /// Function for generating "Get a Storefront" URL request
-    ///
-    /// - Parameters:
-    ///   - storefront: the expected Apple Music storefront for request to happen, usually the same as user's Apple Music account storefront
-    /// - Returns: the URL request for fetching a storefront by using its identifier)
-    public func createGetStorefrontRequest(storefront: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
-        urlComponents.path = "/v1/storefronts/\(storefront)"
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        
-        return urlRequest
-    }
-    
     /// Function for generating "Get Recently Played Resources" URL request
     ///
     /// - Returns: the URL request for fetching the recently played resources for the user
@@ -187,23 +370,7 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    /// Function for generating "Get a User's Storefront" URL request
-    ///
-    /// - Returns: the URL request for fetching a user’s storefront
-    public func createGetUserStorefrontRequest() -> URLRequest {
-        
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
-        urlComponents.path = userStorefrontPathURLString
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
+    
     
     /// Function for generating "Get All Library Songs" URL request, however, if songs.count > 100, this function needs to be called several times to completely fetch the whole library
     ///
@@ -249,7 +416,7 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    // FIXME: - This function serves to replace createAddPlaylistsToLibraryRequest() & createAddSongsToLibraryRequest() but has NOT been tested yet, may malfuntion or fail to work.
+    // FIXME: This function serves to replace createAddPlaylistsToLibraryRequest() & createAddSongsToLibraryRequest() but has NOT been tested yet.
     /// Function for generating "Add a Resource to a Library" URL request
     ///
     /// - Parameters:
@@ -304,7 +471,7 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    // FIXME: - Combination needed: createAddPlaylistsToLibraryRequest() & createAddSongsToLibraryRequest() are all belong to "Add a Resource to a Library"
+    // FIXME: Combination needed: createAddPlaylistsToLibraryRequest() & createAddSongsToLibraryRequest() are all belong to "Add a Resource to a Library"
     // https://developer.apple.com/documentation/applemusicapi/add_a_resource_to_a_library
     @available(*, deprecated, message: "Use createAddResourcesToLibraryRequest() function instead.")
     public func createAddPlaylistsToLibraryRequest(playlistsIDs: [String]) -> URLRequest {
@@ -356,7 +523,7 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    // FIXME: -  This function has NOT been tested yet, may malfuntion or fail to work
+    // FIXME: This function has NOT been tested yet
     /// Function for generating "Add Tracks to a Library Playlist" URL request
     ///
     /// - Parameters:
@@ -389,7 +556,7 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    // FIXME: - This function has NOT been tested yet, may malfuntion or fail to work
+    // FIXME: This function has NOT been tested yet
     /// Function for generating "Create a New Library Playlist" URL request
     ///
     /// - Parameters:
