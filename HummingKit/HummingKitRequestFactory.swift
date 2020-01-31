@@ -273,14 +273,10 @@ public struct HummingKitRequestFactory {
         urlComponents.scheme = "https"
         urlComponents.host = appleMusicAPIBaseURLString
         
-        var songIDChunk = songIDs[0]
-        for i in 1..<songIDs.count {
-            songIDChunk += ","
-            songIDChunk += songIDs[i]
-        }
+        let songIDsChunk = songIDs.joined(separator: ",")
         
         urlComponents.path = catalogPathURLString + storefront + catalogSongPathURLString
-        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: songIDChunk) ]
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: songIDsChunk) ]
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -303,12 +299,9 @@ public struct HummingKitRequestFactory {
         urlComponents.host = appleMusicAPIBaseURLString
         urlComponents.path = catalogPathURLString + storefront + catalogPlaylistPathURLString + "/"
         
-        var playlistsPart = playlistsIDs[0]
-        for index in 1..<playlistsIDs.count {
-            playlistsPart.append("," + playlistsIDs[index])
-        }
+        let playlistsIDsChunk = playlistsIDs.joined(separator: ",")
         
-        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: playlistsPart) ]
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: playlistsIDsChunk) ]
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest = URLRequest(url: urlComponents.url!)
