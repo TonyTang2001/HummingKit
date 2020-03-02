@@ -129,25 +129,6 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    // MARK: Get a Catalog Album's Relationship Directly by Name
-    /// Generates "Fetch an album's relationship by using its identifier" URL request
-    /// - Parameters:
-    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
-    ///   - albumID: The unique identifier for the album.
-    ///   - relationship: The name of the relationship you want to fetch for this resource.
-    public func createGetACatalogAlbumRelationshipRequest(storefront: String, albumID: String, relationship: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
-        urlComponents.path = "/v1/catalog/\(storefront)/albums/\(albumID)/\(relationship)"
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        
-        return urlRequest
-    }
-    
     // MARK: Get Multiple Catalog Albums
     /// Generates "Fetch one or more albums by using their identifiers" URL request
     /// - Parameters:
@@ -161,6 +142,25 @@ public struct HummingKitRequestFactory {
         
         let albumIDsChunk = albumIDs.joined(separator: ",")
         urlComponents.queryItems = [ URLQueryItem(name: "ids", value: albumIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Catalog Album's Relationship Directly by Name
+    /// Generates "Fetch an album's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - albumID: The unique identifier for the album.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetACatalogAlbumRelationshipRequest(storefront: String, albumID: String, relationship: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/catalog/\(storefront)/albums/\(albumID)/\(relationship)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -242,6 +242,7 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
+    // MARK: - Add Resources
     // MARK: Add a Resource to a Library
     /// Generates "Add a catalog resource to a user’s iCloud Music Library" URL request
     /// - Parameters:
@@ -295,6 +296,67 @@ public struct HummingKitRequestFactory {
         
         return urlRequest
     }
+    
+    // MARK: - Artists
+    // MARK: Get a Catalog Artist
+    /// Generates "Fetch an artist by using the artist's identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - artistID: The unique identifier for the artist.
+    public func createGetACatalogArtistRequest(storefront: String, artistID: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/catalog/\(storefront)/artists/\(artistID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Catalog Artists
+    /// Generates "Fetch one or more artists by using their identifiers" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - artistIDs: The unique identifiers for the artists. The maximum fetch limit is 25.
+    public func createGetMultipleCatalogArtistsRequest(storefront: String, artistIDs: [String]) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/catalog/\(storefront)/artists"
+        
+        let artistIDsChunk = artistIDs.joined(separator: ",")
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: artistIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Catalog Artist's Relationship Directly by Name
+    /// Generates "Fetch an artist's relationship by using the artist's identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - artistID: The unique identifier for the album.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetACatalogArtistRelationshipRequest(storefront: String, artistID: String, relationship: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/catalog/\(storefront)/artists/\(artistID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    
     
     /// Function for generating "Get A Catalog Song" URL request
     ///
