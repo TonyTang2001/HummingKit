@@ -242,6 +242,59 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
+    // MARK: Add a Resource to a Library
+    /// Generates "Add a catalog resource to a user’s iCloud Music Library" URL request
+    /// - Parameters:
+    ///   - playlistsIDs: an array of unique catalog identifiers for targeted playlists
+    ///   - albumsIDs: an array of unique catalog identifiers for targeted albums
+    ///   - songsIDs: an array of unique catalog identifiers for targeted songs
+    ///   - musicVideosIDs: an array of unique catalog identifiers for targeted music videos
+    /// - Returns: the URL request for adding catalog resources to a user’s iCloud Music Library
+    public func createAddResourcesToLibraryRequest(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String]) -> URLRequest {
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = userLibraryPathURLString
+        
+        // stack songsIDs together
+        var urlQuerySongsItems: [URLQueryItem] = []
+        for index in 0..<songsIDs.count {
+            urlQuerySongsItems.append(URLQueryItem(name: "ids[songs]", value: songsIDs[index]))
+        }
+        
+        // stack albumsIDs together
+        var urlQueryAlbumsItems: [URLQueryItem] = []
+        for index in 0..<albumsIDs.count {
+            urlQueryAlbumsItems.append(URLQueryItem(name: "ids[albums]", value: albumsIDs[index]))
+        }
+        
+        // stack playlistsIDs together
+        var urlQueryPlaylistsItems: [URLQueryItem] = []
+        for index in 0..<playlistsIDs.count {
+            urlQueryPlaylistsItems.append(URLQueryItem(name: "ids[playlists]", value: playlistsIDs[index]))
+        }
+        
+        // stack musicVideosIDs together
+        var urlQueryMVsItems: [URLQueryItem] = []
+        for index in 0..<musicVideosIDs.count {
+            urlQueryMVsItems.append(URLQueryItem(name: "ids[music-videos]", value: musicVideosIDs[index]))
+        }
+        
+        // combine all IDs: songsIDs, albumsIDs, playlistsIDs, musicVideosIDs
+        let urlQueryItemsFinal = urlQuerySongsItems + urlQueryAlbumsItems + urlQueryPlaylistsItems + urlQueryMVsItems
+        
+        // add all IDs into url
+        urlComponents.queryItems = urlQueryItemsFinal
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
     
     /// Function for generating "Get A Catalog Song" URL request
     ///
@@ -409,113 +462,6 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    // FIXME: This function serves to replace createAddPlaylistsToLibraryRequest() & createAddSongsToLibraryRequest() but has NOT been tested yet.
-    /// Function for generating "Add a Resource to a Library" URL request
-    ///
-    /// - Parameters:
-    ///   - playlistsIDs: an array of unique catalog identifiers for targeted playlists
-    ///   - albumsIDs: an array of unique catalog identifiers for targeted albums
-    ///   - songsIDs: an array of unique catalog identifiers for targeted songs
-    ///   - musicVideosIDs: an array of unique catalog identifiers for targeted music videos
-    /// - Returns: the URL request for adding catalog resources to a user’s iCloud Music Library
-    public func createAddResourcesToLibraryRequest(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String]) -> URLRequest {
-        
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
-        urlComponents.path = userLibraryPathURLString
-        
-        // stack songsIDs together
-        var urlQuerySongsItems: [URLQueryItem] = []
-        for index in 0..<songsIDs.count {
-            urlQuerySongsItems.append(URLQueryItem(name: "ids[songs]", value: songsIDs[index]))
-        }
-        
-        // stack albumsIDs together
-        var urlQueryAlbumsItems: [URLQueryItem] = []
-        for index in 0..<albumsIDs.count {
-            urlQueryAlbumsItems.append(URLQueryItem(name: "ids[albums]", value: albumsIDs[index]))
-        }
-        
-        // stack playlistsIDs together
-        var urlQueryPlaylistsItems: [URLQueryItem] = []
-        for index in 0..<playlistsIDs.count {
-            urlQueryPlaylistsItems.append(URLQueryItem(name: "ids[playlists]", value: playlistsIDs[index]))
-        }
-        
-        // stack musicVideosIDs together
-        var urlQueryMVsItems: [URLQueryItem] = []
-        for index in 0..<musicVideosIDs.count {
-            urlQueryMVsItems.append(URLQueryItem(name: "ids[music-videos]", value: musicVideosIDs[index]))
-        }
-        
-        // combine all IDs: songsIDs, albumsIDs, playlistsIDs, musicVideosIDs
-        let urlQueryItemsFinal = urlQuerySongsItems + urlQueryAlbumsItems + urlQueryPlaylistsItems + urlQueryMVsItems
-        
-        // add all IDs into url
-        urlComponents.queryItems = urlQueryItemsFinal
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
-    
-    // FIXME: Combination needed: createAddPlaylistsToLibraryRequest() & createAddSongsToLibraryRequest() are all belong to "Add a Resource to a Library"
-    // https://developer.apple.com/documentation/applemusicapi/add_a_resource_to_a_library
-    @available(*, deprecated, message: "Use createAddResourcesToLibraryRequest() function instead.")
-    public func createAddPlaylistsToLibraryRequest(playlistsIDs: [String]) -> URLRequest {
-
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
-        urlComponents.path = userLibraryPathURLString
-        
-        // stack playlistsIDs together
-        var urlQueryItems: [URLQueryItem] = []
-        for index in 0..<playlistsIDs.count {
-            urlQueryItems.append(URLQueryItem(name: "ids[playlists]", value: playlistsIDs[index]))
-        }
-        // add listed IDs into url
-        urlComponents.queryItems = urlQueryItems
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
-    
-    @available(*, deprecated, message: "Use createAddResourcesToLibraryRequest() function instead.")
-    public func createAddSongsToLibraryRequest(songsIDs: [String]) -> URLRequest {
-        
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
-        urlComponents.path = userLibraryPathURLString
-        
-        // stack IDs together
-        var urlQueryItems: [URLQueryItem] = []
-        for index in 0..<songsIDs.count {
-            urlQueryItems.append(URLQueryItem(name: "ids[songs]", value: songsIDs[index]))
-        }
-        // add listed IDs into url
-        urlComponents.queryItems = urlQueryItems
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
-    
     // FIXME: This function has NOT been tested yet
     /// Function for generating "Add Tracks to a Library Playlist" URL request
     ///
@@ -585,6 +531,5 @@ public struct HummingKitRequestFactory {
         
         return urlRequest
     }
-    
     
 }
