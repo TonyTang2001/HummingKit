@@ -429,12 +429,13 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    
-    
-    /// Function for generating "Get A Catalog Song" URL request
-    ///
-    /// - Parameter songID: catalogID for the targeted catalog song
-    public func createGetCatalogSongRequest(storefront: String, songID: String) -> URLRequest {
+    // MARK: - Songs
+    // MARK: Get a Catalog Song
+    /// Generates "Fetch a song by using its identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - songID: The unique identifier for the song.
+    public func createGetACatalogSongRequest(storefront: String, songID: String) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -449,12 +450,11 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    /// Function for generating "Get Multiple Catalog Songs" URL request
-    ///
+    // MARK: Get Multiple Catalog Songs by ID
+    /// Generates "Fetch one or more songs by using their identifiers" URL request
     /// - Parameters:
-    ///   - storefront: the expected Apple Music storefront for request to happen, usually the same as user's Apple Music account storefront
-    ///   - songIDs: an array of catalogIDs for targeted catalog songs
-    /// - Returns: the URL request for fetching multiple catalog songs by using their identifiers
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - songIDs: An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.
     public func createGetMultipleCatalogSongsRequest(storefront: String, songIDs: [String]) -> URLRequest {
         
         var urlComponents = URLComponents()
@@ -462,7 +462,6 @@ public struct HummingKitRequestFactory {
         urlComponents.host = appleMusicAPIBaseURLString
         
         let songIDsChunk = songIDs.joined(separator: ",")
-        
         urlComponents.path = catalogPathURLString + storefront + catalogSongPathURLString
         urlComponents.queryItems = [ URLQueryItem(name: "ids", value: songIDsChunk) ]
         
@@ -473,6 +472,104 @@ public struct HummingKitRequestFactory {
         
         return urlRequest
     }
+    
+    // MARK: Get Multiple Catalog Songs by ISRC
+    // FIXME: Todo
+    
+    
+    // MARK: Get a Catalog Song's Relationship Directly by Name
+    /// Generates "Fetch an song's relationship by using the song's identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - songID: The unique identifier for the song.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetACatalogSongRelationshipRequest(storefront: String, songID: String, relationship: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/catalog/\(storefront)/songs/\(songID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Library Song
+    /// Generates "Fetch a library song by using its identifier" URL request
+    /// - Parameter songID: The unique identifier for the song.
+    public func createGetALibrarySongRequest(songID: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/songs/\(songID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get All Library Songs
+    // FIXME: limit & offset
+    /// Generates "Fetch all the library songs in alphabetical order" URL request
+    public func createGetAllLibrarySongsRequest() -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/songs"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Library Songs
+    /// Generates "Fetch one or more library songs by using their identifiers" URL request
+    /// - Parameter songIDs: An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.
+    public func createGetMultipleLibrarySongsRequest(songIDs: [String]) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/songs"
+        
+        let songIDsChunk = songIDs.joined(separator: ",")
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: songIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Library Song's Relationship Directly by Name
+    /// Generates "Fetch a library song's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - songID: The unique identifier for the song.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetALibrarySongRelationshipRequest(songID: String, relationship: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/songs/\(songID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    
     
     /// Function for generating "Get Multiple Catalog Playlists" URL request
     ///
