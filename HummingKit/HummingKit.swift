@@ -12,19 +12,18 @@ import SwiftyJSON
 
 public struct HummingKit {
     
-    public typealias completionStringChunk = (_ success: Bool, _ error: Error?, _ result: String?) -> Void
-    public typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
-    
-    let requestGenerator: HummingKitRequestFactory
-    
     var developerToken: String
     var userToken: String
+    let requestGenerator: HummingKitRequestFactory
     
     init(developerToken: String, userToken: String) {
         self.developerToken = developerToken
         self.userToken = userToken
         requestGenerator = HummingKitRequestFactory(developerToken: developerToken, userToken: userToken)
     }
+    
+    public typealias completionStringChunk = (_ success: Bool, _ error: Error?, _ result: String?) -> Void
+    public typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
     
     /// Function for fetching Apple Music UserToken using DeveloperToken
     ///

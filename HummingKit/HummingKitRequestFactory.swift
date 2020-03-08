@@ -39,7 +39,7 @@ public struct HummingKitRequestFactory {
         self.userToken = userToken
     }
     
-    func createBaseURLComponents() -> URLComponents {
+    private func createBaseURLComponents() -> URLComponents {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = appleMusicAPIBaseURLString
@@ -525,8 +525,135 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
+    // MARK: - Music Videos(MV)
+    // MARK: Get a Catalog MV
+    /// Generates "Fetch a music video by using its identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - mvID: The unique identifier for the mv.
+    public func createGetACatalogMVRequest(storefront: String, mvID: String) -> URLRequest {
+        
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/catalog/\(storefront)/music-videos/\(mvID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Catalog MV's Relationship Directly by Name
+    /// Generates "Fetch a music video's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - mvID: The unique identifier for the mv.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetACatalogMVRelationshipRequest(storefront: String, mvID: String, relationship: String) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/catalog/\(storefront)/music-videos/\(mvID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Catalog MVs by ID
+    /// Generates "Fetch one or more music videos by using their identifiers" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - mvIDs: An array of catalogIDs for targeted catalog mvs. The maximum fetch limit is 100.
+    public func createGetMultipleCatalogMVsRequest(storefront: String, mvIDs: [String]) -> URLRequest {
+        
+        var urlComponents = createBaseURLComponents()
+        
+        let mvIDsChunk = mvIDs.joined(separator: ",")
+        urlComponents.path = "/v1/catalog/\(storefront)/music-videos"
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: mvIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Catalog MVs by ISRC
+    // FIXME: Todo
+    
+    // MARK: Get a Library MV
+    /// Generates "Fetch a library music video by using its identifier" URL request
+    /// - Parameter mvID: The unique identifier for the mv.
+    public func createGetALibraryMVRequest(mvID: String) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/music-videos/\(mvID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Library MV's Relationship Directly by Name
+    /// Generates "Fetch a library music video's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - mvID: The unique identifier for the mv.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetALibraryMVRelationshipRequest(mvID: String, relationship: String) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/music-videos/\(mvID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Library MVs
+    /// Generates "Fetch one or more library music videos by using their identifiers" URL request
+    /// - Parameter mvIDs: The unique identifiers for the mvs. The maximum fetch limit is 100.
+    public func createGetMultipleLibraryMVsRequest(mvIDs: [String]) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/music-videos"
+        
+        let mvIDsChunk = mvIDs.joined(separator: ",")
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: mvIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get All Library MVs
+    // FIXME: limit & offset
+    /// Generates "Fetch all the library music videos in alphabetical order" URL request
+    public func createGetAllLibraryMVsRequest() -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/music-videos"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
     
     
+    
+    
+    // MARK: - Not Revised
     /// Function for generating "Get Multiple Catalog Playlists" URL request
     ///
     /// - Parameters:
