@@ -356,6 +356,79 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
+    // MARK: Get a Library Artist
+    /// Generates "Fetch a library artist by using its identifier" URL request
+    /// - Parameter artistID: The unique identifier for the artist.
+    public func createGetALibraryArtistRequest(artistID: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/artists/\(artistID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get All Library Artists
+    // FIXME: limit & offset
+    /// Generates "Fetch all the library artists in alphabetical order" URL request
+    public func createGetAllLibraryArtistsRequest() -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/artists"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Library Artists
+    /// Generates "Fetch one or more library artists by using their identifiers" URL request
+    /// - Parameter artistIDs: The unique identifiers for the albums. The maximum fetch limit is 25.
+    public func createGetMultipleLibraryArtistsRequest(artistIDs: [String]) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/artists"
+        
+        let artistIDsChunk = artistIDs.joined(separator: ",")
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: artistIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Library Artist's Relationship Directly by Name
+    /// Generates "Fetch a library artist's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - artistID: The unique identifier for the artist.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetALibraryArtistRelationshipRequest(artistID: String, relationship: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        urlComponents.path = "/v1/me/library/artists/\(artistID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
     
     
     /// Function for generating "Get A Catalog Song" URL request
