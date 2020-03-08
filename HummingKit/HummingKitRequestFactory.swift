@@ -29,14 +29,21 @@ public struct HummingKitRequestFactory {
     let catalogPlaylistPathURLString = "/playlists"
     
     /// Developer Token provided by the developer who use this package, required for authentication
-    var developerToken: String
+    var developerToken: DeveloperToken
     
     /// User Token fetched by device when app runs for the first time, required for authentication
-    var userToken: String
+    var userToken: UserToken
     
-    init(developerToken: String, userToken: String) {
+    init(developerToken: DeveloperToken, userToken: UserToken) {
         self.developerToken = developerToken
         self.userToken = userToken
+    }
+    
+    func createBaseURLComponents() -> URLComponents {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = appleMusicAPIBaseURLString
+        return urlComponents
     }
     
     // MARK: - Storefronts and Localization
@@ -44,9 +51,7 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch a User's Storefront" URL request
     public func createGetUserStorefrontRequest() -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = userStorefrontPathURLString
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -61,9 +66,8 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch a single storefront by using its identifier" URL request
     /// - Parameter storefrontID: The identifier (an ISO 3166 alpha-2 country code) for the storefront you want to fetch.
     public func createGetAStorefrontRequest(storefrontID: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/storefronts/\(storefrontID)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -78,9 +82,7 @@ public struct HummingKitRequestFactory {
     /// - Parameter storefrontIDs: A list of the identifiers (ISO 3166 alpha-2 country codes) for the storefronts you want to fetch.
     public func createGetMultipleStorefrontsRequest(storefrontIDs: [String]) -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/storefronts"
         
         let storefrontIDsChunk = storefrontIDs.joined(separator: ",")
@@ -97,9 +99,7 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch all the storefronts in alphabetical order" URL request
     public func createGetAllStorefrontsRequest() -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/storefronts"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -117,9 +117,7 @@ public struct HummingKitRequestFactory {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - albumID: The unique identifier for the album.
     public func createGetACatalogAlbumRequest(storefront: String, albumID: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/catalog/\(storefront)/albums/\(albumID)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -135,9 +133,7 @@ public struct HummingKitRequestFactory {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     public func createGetMultipleCatalogAlbumsRequest(storefront: String, albumIDs: [String]) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/catalog/\(storefront)/albums"
         
         let albumIDsChunk = albumIDs.joined(separator: ",")
@@ -157,9 +153,7 @@ public struct HummingKitRequestFactory {
     ///   - albumID: The unique identifier for the album.
     ///   - relationship: The name of the relationship you want to fetch for this resource.
     public func createGetACatalogAlbumRelationshipRequest(storefront: String, albumID: String, relationship: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/catalog/\(storefront)/albums/\(albumID)/\(relationship)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -173,9 +167,7 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch a library album by using its identifier" URL request
     /// - Parameter albumID: The unique identifier for the album.
     public func createGetALibraryAlbumRequest(albumID: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/albums/\(albumID)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -192,9 +184,7 @@ public struct HummingKitRequestFactory {
     ///   - albumID: The unique identifier for the album.
     ///   - relationship: The name of the relationship you want to fetch for this resource.
     public func createGetALibraryAlbumRelationshipRequest(albumID: String, relationship: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/albums/\(albumID)/\(relationship)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -209,9 +199,7 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch one or more library albums by using their identifiers" URL request
     /// - Parameter albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     public func createGetMultipleLibraryAlbumsRequest(albumIDs: [String]) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/albums"
         
         let albumIDsChunk = albumIDs.joined(separator: ",")
@@ -229,9 +217,7 @@ public struct HummingKitRequestFactory {
     // FIXME: limit & offset
     /// Generates "Fetch all the library albums in alphabetical order" URL request
     public func createGetAllLibraryAlbumsRequest() -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/albums"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -253,9 +239,7 @@ public struct HummingKitRequestFactory {
     /// - Returns: the URL request for adding catalog resources to a user’s iCloud Music Library
     public func createAddResourcesToLibraryRequest(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String]) -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = userLibraryPathURLString
         
         // stack songsIDs together
@@ -304,9 +288,7 @@ public struct HummingKitRequestFactory {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - artistID: The unique identifier for the artist.
     public func createGetACatalogArtistRequest(storefront: String, artistID: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/catalog/\(storefront)/artists/\(artistID)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -322,9 +304,7 @@ public struct HummingKitRequestFactory {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - artistIDs: The unique identifiers for the artists. The maximum fetch limit is 25.
     public func createGetMultipleCatalogArtistsRequest(storefront: String, artistIDs: [String]) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/catalog/\(storefront)/artists"
         
         let artistIDsChunk = artistIDs.joined(separator: ",")
@@ -344,9 +324,7 @@ public struct HummingKitRequestFactory {
     ///   - artistID: The unique identifier for the album.
     ///   - relationship: The name of the relationship you want to fetch for this resource.
     public func createGetACatalogArtistRelationshipRequest(storefront: String, artistID: String, relationship: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/catalog/\(storefront)/artists/\(artistID)/\(relationship)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -360,9 +338,7 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch a library artist by using its identifier" URL request
     /// - Parameter artistID: The unique identifier for the artist.
     public func createGetALibraryArtistRequest(artistID: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/artists/\(artistID)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -377,9 +353,7 @@ public struct HummingKitRequestFactory {
     // FIXME: limit & offset
     /// Generates "Fetch all the library artists in alphabetical order" URL request
     public func createGetAllLibraryArtistsRequest() -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/artists"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -394,9 +368,7 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch one or more library artists by using their identifiers" URL request
     /// - Parameter artistIDs: The unique identifiers for the albums. The maximum fetch limit is 25.
     public func createGetMultipleLibraryArtistsRequest(artistIDs: [String]) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/artists"
         
         let artistIDsChunk = artistIDs.joined(separator: ",")
@@ -416,9 +388,7 @@ public struct HummingKitRequestFactory {
     ///   - artistID: The unique identifier for the artist.
     ///   - relationship: The name of the relationship you want to fetch for this resource.
     public func createGetALibraryArtistRelationshipRequest(artistID: String, relationship: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/artists/\(artistID)/\(relationship)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -437,9 +407,7 @@ public struct HummingKitRequestFactory {
     ///   - songID: The unique identifier for the song.
     public func createGetACatalogSongRequest(storefront: String, songID: String) -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = catalogPathURLString + storefront + catalogSongPathURLString + "/" + songID
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -457,9 +425,7 @@ public struct HummingKitRequestFactory {
     ///   - songIDs: An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.
     public func createGetMultipleCatalogSongsRequest(storefront: String, songIDs: [String]) -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         
         let songIDsChunk = songIDs.joined(separator: ",")
         urlComponents.path = catalogPathURLString + storefront + catalogSongPathURLString
@@ -484,9 +450,7 @@ public struct HummingKitRequestFactory {
     ///   - songID: The unique identifier for the song.
     ///   - relationship: The name of the relationship you want to fetch for this resource.
     public func createGetACatalogSongRelationshipRequest(storefront: String, songID: String, relationship: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/catalog/\(storefront)/songs/\(songID)/\(relationship)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -500,9 +464,7 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch a library song by using its identifier" URL request
     /// - Parameter songID: The unique identifier for the song.
     public func createGetALibrarySongRequest(songID: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/songs/\(songID)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -517,9 +479,7 @@ public struct HummingKitRequestFactory {
     // FIXME: limit & offset
     /// Generates "Fetch all the library songs in alphabetical order" URL request
     public func createGetAllLibrarySongsRequest() -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/songs"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -534,9 +494,7 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch one or more library songs by using their identifiers" URL request
     /// - Parameter songIDs: An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.
     public func createGetMultipleLibrarySongsRequest(songIDs: [String]) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/songs"
         
         let songIDsChunk = songIDs.joined(separator: ",")
@@ -556,9 +514,7 @@ public struct HummingKitRequestFactory {
     ///   - songID: The unique identifier for the song.
     ///   - relationship: The name of the relationship you want to fetch for this resource.
     public func createGetALibrarySongRelationshipRequest(songID: String, relationship: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/songs/\(songID)/\(relationship)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -579,9 +535,7 @@ public struct HummingKitRequestFactory {
     /// - Returns: the URL request for fetching one or more playlists by using their identifiers
     public func createGetCatalogPlaylistsRequest(storefront: String, playlistsIDs: [String]) -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = catalogPathURLString + storefront + catalogPlaylistPathURLString + "/"
         
         let playlistsIDsChunk = playlistsIDs.joined(separator: ",")
@@ -606,9 +560,7 @@ public struct HummingKitRequestFactory {
     /// - Returns: the URL request for searching catalog resources(by using a query) from Apple Music server
     public func createSearchRequest(storefront: String, term: String) -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = catalogPathURLString + "\(storefront)/search"
         
         let expectedTerms = term.replacingOccurrences(of: " ", with: "+")
@@ -635,9 +587,7 @@ public struct HummingKitRequestFactory {
     /// - Returns: the URL request for fetching the recently played resources for the user
     public func createGetRecentlyPlayedRequest() -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = recentlyPlayedPathURLString
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -657,9 +607,7 @@ public struct HummingKitRequestFactory {
     /// - Returns: the URL request for fetching all the library songs in alphabetical order
     public func createGetUserLibrarySongsRequest(offset: String? = "0") -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = userLibraryPathURLString + catalogSongPathURLString
         // One-time fetch limitation is manually set to maximum (its default value is 25 and the maximum value is 100)
         urlComponents.queryItems = [ URLQueryItem(name: "limit", value: "100"), URLQueryItem(name: "offset", value: offset) ]
@@ -679,9 +627,7 @@ public struct HummingKitRequestFactory {
     /// - Returns: the URL request for fetching all the library playlists in alphabetical order
     public func createGetUserLibraryPlaylistsRequest(offset: String? = "0") -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
         // One-time fetch limitation is manually set to maximum (its default value is 25 and the maximum value is 100)
         urlComponents.queryItems = [ URLQueryItem(name: "limit", value: "100"), URLQueryItem(name: "offset", value: offset) ]
@@ -703,9 +649,7 @@ public struct HummingKitRequestFactory {
     /// - Returns: the URL request for adding new tracks to the end of a library playlist
     public func createAddSongsToPlaylistRequest(playlistID: String, songsIDs: [String]) -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString + "/" + playlistID + "/tracks"
         
         var songsJson: [JSON] = []
@@ -737,9 +681,7 @@ public struct HummingKitRequestFactory {
     /// - Returns: the URL request for creating a new playlist in user’s library
     public func createCreateNewPlaylistRequest(name: String, description: String, songsIDs: [String]) -> URLRequest {
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = appleMusicAPIBaseURLString
+        var urlComponents = createBaseURLComponents()
         urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
         
         // prepare HTTP body
