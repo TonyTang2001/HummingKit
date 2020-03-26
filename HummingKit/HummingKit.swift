@@ -78,7 +78,7 @@ public struct HummingKit {
         
         func fetchPartialUserLibraryPlaylists(Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool, _ statusCheck: Bool, _ error: Error?) -> Void ) {
             
-            let urlRequest = requestGenerator.createGetUserLibraryPlaylistsRequest(offset: Offset)
+            let urlRequest = requestGenerator.createGetAllLibraryPlaylistsRequest(offset: Offset)
             
             var offsetIndexString: String = ""
             
@@ -146,7 +146,7 @@ public struct HummingKit {
         
         func fetchPartialUserLibrarySongs(Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool, _ statusCheck: Bool, _ error: Error?) -> Void ) {
             
-            let urlRequest = requestGenerator.createGetUserLibrarySongsRequest(offset: Offset)
+            let urlRequest = requestGenerator.createGetAllLibrarySongsRequest(offset: Offset)
             
             var offsetIndexString: String = ""
             
