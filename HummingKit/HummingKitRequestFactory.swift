@@ -476,11 +476,14 @@ public struct HummingKitRequestFactory {
     }
     
     // MARK: Get All Library Songs
-    // FIXME: limit & offset
-    /// Generates "Fetch all the library songs in alphabetical order" URL request
-    public func createGetAllLibrarySongsRequest() -> URLRequest {
+    /// Generates "Fetch all the library songs in alphabetical order" URL request. However, if songs.count > 100, this function needs to be called several times to completely fetch the whole library.
+    /// - Parameter offset: the next page or group of objects to fetch (for progressive function calling)
+    /// - Returns: the URL request for fetching all the library songs in alphabetical order
+    public func createGetAllLibrarySongsRequest(offset: String? = "0") -> URLRequest {
         var urlComponents = createBaseURLComponents()
-        urlComponents.path = "/v1/me/library/songs"
+        urlComponents.path = userLibraryPathURLString + catalogSongPathURLString
+        // One-time fetch limitation is manually set to maximum (its default value is 25 and the maximum value is 100)
+        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: "100"), URLQueryItem(name: "offset", value: offset) ]
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -582,8 +585,7 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    // MARK: Get Multiple Catalog MVs by ISRC
-    // FIXME: Todo
+    // TODO: Get Multiple Catalog MVs by ISRC
     
     // MARK: Get a Library MV
     /// Generates "Fetch a library music video by using its identifier" URL request
@@ -650,33 +652,203 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
-    
-    
-    
-    // MARK: - Not Revised
-    /// Function for generating "Get Multiple Catalog Playlists" URL request
-    ///
+    // MARK: - Playlist
+    // MARK: Get a Catalog Playlist
+    /// Generates "Fetch a playlist by using its identifier" URL request
     /// - Parameters:
-    ///   - storefront: the expected Apple Music storefront for request to happen, usually the same as user's Apple Music account storefront
-    ///   - playlistsIDs: an array of catalogIDs of targeted playlists
-    /// - Returns: the URL request for fetching one or more playlists by using their identifiers
-    public func createGetCatalogPlaylistsRequest(storefront: String, playlistsIDs: [String]) -> URLRequest {
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - playlistID: The unique identifier for the playlist.
+    public func createGetACatalogPlaylistRequest(storefront: String, playlistID: String) -> URLRequest {
         
         var urlComponents = createBaseURLComponents()
-        urlComponents.path = catalogPathURLString + storefront + catalogPlaylistPathURLString + "/"
-        
-        let playlistsIDsChunk = playlistsIDs.joined(separator: ",")
-        
-        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: playlistsIDsChunk) ]
+        urlComponents.path = "/v1/catalog/\(storefront)/playlists/\(playlistID)"
         
         var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
         urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
         urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
         
         return urlRequest
     }
+    
+    // MARK: Get a Catalog Playlist's Relationship Directly by Name
+    /// Generates "Fetch a playlist's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - playlistID: The unique identifier for the playlist.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetACatalogPlaylistRelationshipRequest(storefront: String, playlistID: String, relationship: String) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/catalog/\(storefront)/playlists/\(playlistID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Catalog Playlists
+    // FIXME: MaxLimit is 25
+    /// Generates "Fetch one or more playlists by using their identifiers" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - playlistIDs: An array of catalogIDs for targeted catalog playlists. The maximum fetch limit is 25.
+    public func createGetMultipleCatalogPlaylistsRequest(storefront: String, playlistIDs: [String]) -> URLRequest {
+        
+        if playlistIDs.count > 25 {
+            // TODO: issue error
+        }
+        
+        var urlComponents = createBaseURLComponents()
+        
+        let playlistIDsChunk = playlistIDs.joined(separator: ",")
+        urlComponents.path = "/v1/catalog/\(storefront)/playlists"
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: playlistIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Library Playlist
+    /// Generates "Fetch a library playlist by using its identifier" URL request
+    /// - Parameter playlistID: The unique identifier for the playlist.
+    public func createGetALibraryPlaylistRequest(playlistID: String) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/playlists/\(playlistID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Library Playlist's Relationship Directly by Name
+    /// Generates "Fetch a library playlist's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - playlistID: The unique identifier for the playlist.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetALibraryPlaylistRelationshipRequest(playlistID: String, relationship: String) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/music-videos/\(playlistID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Library Playlists
+    /// Generates "Fetch one or more library music videos by using their identifiers" URL request
+    /// - Parameter playlistIDs: An array of catalogIDs for targeted catalog playlists. The maximum fetch limit is 25.
+    public func createGetMultipleLibraryPlaylistsRequest(playlistIDs: [String]) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/playlists"
+        
+        let playlistIDsChunk = playlistIDs.joined(separator: ",")
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: playlistIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Get All Library Playlists
+    /// Generates "Fetch all the library music videos in alphabetical order" URL request. However, if playlists.count > 100, this function needs to be called several times to completely fetch the whole library.
+    /// - Parameter offset: the next page or group of objects to fetch
+    public func createGetAllLibraryPlaylistsRequest(offset: String? = "0") -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
+        
+        // One-time fetch limitation is manually set to maximum (its default value is 25 and the maximum value is 100)
+        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: "100"), URLQueryItem(name: "offset", value: offset) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // MARK: Create a New Library Playlist
+    /// Generates "Create a new playlist in a user’s library" URL request
+    ///
+    /// - Parameters:
+    ///   - name: the name of playlist to be created
+    ///   - description: the description of the playlist to be created
+    ///   - songsIDs: an array of catalogIDs of songs need to be added to the to-be-created playlist
+    public func createCreateANewLibraryPlaylistRequest(name: String, description: String, songsIDs: [String]) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
+        
+        // prepare HTTP body
+        let attributes: JSON = ["name": name, "description": description]
+        var songsJson: [JSON] = []
+        for index in 0..<songsIDs.count {
+            let aSong: JSON = ["id": songsIDs[index], "type": "songs"]
+            songsJson.append(aSong)
+        }
+        let songsDataJson: JSON = ["data": JSON(songsJson).object]
+        let tracksJson: JSON = ["tracks": songsDataJson.object]
+        let bodyJson: JSON = ["attributes": attributes.object, "relationships": tracksJson.object]
+        let bodyJsonData = try? JSONSerialization.data(withJSONObject: bodyJson)
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = bodyJsonData
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    // FIXME: This function has NOT been tested yet
+    /// Function for generating "Add Tracks to a Library Playlist" URL request
+    ///
+    /// - Parameters:
+    ///   - playlistID: The unique identifier for the playlist.
+    ///   - songIDs: An array of catalogIDs for targeted catalog songs.
+    public func createAddTracksToAPlaylistRequest(playlistID: String, songsIDs: [String]) -> URLRequest {
+        
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString + "/" + playlistID + "/tracks"
+        
+        var songsJson: [JSON] = []
+        for index in 0..<songsIDs.count {
+            let aSong: JSON = ["id": songsIDs[index], "type": "songs"]
+            songsJson.append(aSong)
+        }
+        
+        let bodyJson: JSON = ["data": JSON(songsJson).object]
+        let bodyJsonData = try? JSONSerialization.data(withJSONObject: bodyJson)
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = bodyJsonData
+        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        return urlRequest
+    }
+    
+    
+    
+    
+    // MARK: - Not Revised
     
     // FIXME: - search limit & offset need to be handled
     /// Function for generating "Search for Catalog Resources" URL request
@@ -719,114 +891,6 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
-    
-    
-    
-    /// Function for generating "Get All Library Songs" URL request, however, if songs.count > 100, this function needs to be called several times to completely fetch the whole library
-    ///
-    /// - Parameters:
-    ///   - offset: the next page or group of objects to fetch (for progressive function calling)
-    /// - Returns: the URL request for fetching all the library songs in alphabetical order
-    public func createGetUserLibrarySongsRequest(offset: String? = "0") -> URLRequest {
-        
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = userLibraryPathURLString + catalogSongPathURLString
-        // One-time fetch limitation is manually set to maximum (its default value is 25 and the maximum value is 100)
-        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: "100"), URLQueryItem(name: "offset", value: offset) ]
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
-    
-    /// Function for generating "Get All Library Playlists" URL request, however, if playlists.count > 100, this function needs to be called several times to completely fetch the whole library
-    ///
-    /// - Parameters:
-    ///   - offset: the next page or group of objects to fetch (for progressive function calling)
-    /// - Returns: the URL request for fetching all the library playlists in alphabetical order
-    public func createGetUserLibraryPlaylistsRequest(offset: String? = "0") -> URLRequest {
-        
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
-        // One-time fetch limitation is manually set to maximum (its default value is 25 and the maximum value is 100)
-        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: "100"), URLQueryItem(name: "offset", value: offset) ]
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
-    
-    // FIXME: This function has NOT been tested yet
-    /// Function for generating "Add Tracks to a Library Playlist" URL request
-    ///
-    /// - Parameters:
-    ///   - playlistID: the globalID of destination playlist to be added tracks to
-    ///   - songIDs: an array of the catalogIDs of targeted songs
-    /// - Returns: the URL request for adding new tracks to the end of a library playlist
-    public func createAddSongsToPlaylistRequest(playlistID: String, songsIDs: [String]) -> URLRequest {
-        
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString + "/" + playlistID + "/tracks"
-        
-        var songsJson: [JSON] = []
-        for index in 0..<songsIDs.count {
-            let aSong: JSON = ["id": songsIDs[index], "type": "songs"]
-            songsJson.append(aSong)
-        }
-        
-        let bodyJson: JSON = ["data": JSON(songsJson).object]
-        let bodyJsonData = try? JSONSerialization.data(withJSONObject: bodyJson)
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.httpBody = bodyJsonData
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
-    
-    // FIXME: This function has NOT been tested yet
-    /// Function for generating "Create a New Library Playlist" URL request
-    ///
-    /// - Parameters:
-    ///   - name: the name of playlist to be created
-    ///   - description: the description of the playlist to be created
-    ///   - songsIDs: an array of catalogIDs of songs need to be added to the to-be-created playlist
-    /// - Returns: the URL request for creating a new playlist in user’s library
-    public func createCreateNewPlaylistRequest(name: String, description: String, songsIDs: [String]) -> URLRequest {
-        
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
-        
-        // prepare HTTP body
-        let attributes: JSON = ["name": name, "description": description]
-        var songsJson: [JSON] = []
-        for index in 0..<songsIDs.count {
-            let aSong: JSON = ["id": songsIDs[index], "type": "songs"]
-            songsJson.append(aSong)
-        }
-        let songsDataJson: JSON = ["data": JSON(songsJson).object]
-        let tracksJson: JSON = ["tracks": songsDataJson.object]
-        let bodyJson: JSON = ["attributes": attributes.object, "relationships": tracksJson.object]
-        let bodyJsonData = try? JSONSerialization.data(withJSONObject: bodyJson)
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.httpBody = bodyJsonData
         urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
         urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
         
