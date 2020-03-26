@@ -46,6 +46,16 @@ public struct HummingKitRequestFactory {
         return urlComponents
     }
     
+    private func addDeveloperTokenToRequest(request: inout URLRequest) {
+        request.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+    }
+    
+    private func addDeveloperAndUserTokensToRequest(request: inout URLRequest) {
+        request.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        request.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+    }
+    
+    
     // MARK: - Storefronts and Localization
     // MARK: Get a User's Storefront
     /// Generates "Fetch a User's Storefront" URL request
@@ -56,8 +66,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -72,7 +81,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        addDeveloperTokenToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -90,7 +99,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        addDeveloperTokenToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -104,126 +113,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        
-        return urlRequest
-    }
-    
-    
-    // MARK: - Albums
-    // MARK: Get a Catalog Album
-    /// Generates "Fetch an album by using its identifier" URL request
-    /// - Parameters:
-    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
-    ///   - albumID: The unique identifier for the album.
-    public func createGetACatalogAlbumRequest(storefront: String, albumID: String) -> URLRequest {
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = "/v1/catalog/\(storefront)/albums/\(albumID)"
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        
-        return urlRequest
-    }
-    
-    // MARK: Get Multiple Catalog Albums
-    /// Generates "Fetch one or more albums by using their identifiers" URL request
-    /// - Parameters:
-    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
-    ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
-    public func createGetMultipleCatalogAlbumsRequest(storefront: String, albumIDs: [String]) -> URLRequest {
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = "/v1/catalog/\(storefront)/albums"
-        
-        let albumIDsChunk = albumIDs.joined(separator: ",")
-        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: albumIDsChunk) ]
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        
-        return urlRequest
-    }
-    
-    // MARK: Get a Catalog Album's Relationship Directly by Name
-    /// Generates "Fetch an album's relationship by using its identifier" URL request
-    /// - Parameters:
-    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
-    ///   - albumID: The unique identifier for the album.
-    ///   - relationship: The name of the relationship you want to fetch for this resource.
-    public func createGetACatalogAlbumRelationshipRequest(storefront: String, albumID: String, relationship: String) -> URLRequest {
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = "/v1/catalog/\(storefront)/albums/\(albumID)/\(relationship)"
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        
-        return urlRequest
-    }
-    
-    // MARK: Get a Library Album
-    /// Generates "Fetch a library album by using its identifier" URL request
-    /// - Parameter albumID: The unique identifier for the album.
-    public func createGetALibraryAlbumRequest(albumID: String) -> URLRequest {
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = "/v1/me/library/albums/\(albumID)"
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
-    
-    // MARK: Get a Library Album's Relationship Directly by Name
-    /// Generates "Fetch an album's relationship by using its identifier" URL request
-    /// - Parameters:
-    ///   - albumID: The unique identifier for the album.
-    ///   - relationship: The name of the relationship you want to fetch for this resource.
-    public func createGetALibraryAlbumRelationshipRequest(albumID: String, relationship: String) -> URLRequest {
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = "/v1/me/library/albums/\(albumID)/\(relationship)"
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
-    
-    // MARK: Get Multiple Library Albums
-    /// Generates "Fetch one or more library albums by using their identifiers" URL request
-    /// - Parameter albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
-    public func createGetMultipleLibraryAlbumsRequest(albumIDs: [String]) -> URLRequest {
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = "/v1/me/library/albums"
-        
-        let albumIDsChunk = albumIDs.joined(separator: ",")
-        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: albumIDsChunk) ]
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        return urlRequest
-    }
-    
-    // MARK: Get All Library Albums
-    // FIXME: limit & offset
-    /// Generates "Fetch all the library albums in alphabetical order" URL request
-    public func createGetAllLibraryAlbumsRequest() -> URLRequest {
-        var urlComponents = createBaseURLComponents()
-        urlComponents.path = "/v1/me/library/albums"
-        
-        var urlRequest = URLRequest(url: urlComponents.url!)
-        urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperTokenToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -275,8 +165,121 @@ public struct HummingKitRequestFactory {
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "POST"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
+        
+        return urlRequest
+    }
+    
+    // MARK: - Albums
+    // MARK: Get a Catalog Album
+    /// Generates "Fetch an album by using its identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - albumID: The unique identifier for the album.
+    public func createGetACatalogAlbumRequest(storefront: String, albumID: String) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/catalog/\(storefront)/albums/\(albumID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        addDeveloperTokenToRequest(request: &urlRequest)
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Catalog Albums
+    /// Generates "Fetch one or more albums by using their identifiers" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
+    public func createGetMultipleCatalogAlbumsRequest(storefront: String, albumIDs: [String]) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/catalog/\(storefront)/albums"
+        
+        let albumIDsChunk = albumIDs.joined(separator: ",")
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: albumIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        addDeveloperTokenToRequest(request: &urlRequest)
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Catalog Album's Relationship Directly by Name
+    /// Generates "Fetch an album's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - albumID: The unique identifier for the album.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetACatalogAlbumRelationshipRequest(storefront: String, albumID: String, relationship: String) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/catalog/\(storefront)/albums/\(albumID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        addDeveloperTokenToRequest(request: &urlRequest)
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Library Album
+    /// Generates "Fetch a library album by using its identifier" URL request
+    /// - Parameter albumID: The unique identifier for the album.
+    public func createGetALibraryAlbumRequest(albumID: String) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/albums/\(albumID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
+        
+        return urlRequest
+    }
+    
+    // MARK: Get a Library Album's Relationship Directly by Name
+    /// Generates "Fetch an album's relationship by using its identifier" URL request
+    /// - Parameters:
+    ///   - albumID: The unique identifier for the album.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    public func createGetALibraryAlbumRelationshipRequest(albumID: String, relationship: String) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/albums/\(albumID)/\(relationship)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Library Albums
+    /// Generates "Fetch one or more library albums by using their identifiers" URL request
+    /// - Parameter albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
+    public func createGetMultipleLibraryAlbumsRequest(albumIDs: [String]) -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/albums"
+        
+        let albumIDsChunk = albumIDs.joined(separator: ",")
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: albumIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
+        
+        return urlRequest
+    }
+    
+    // MARK: Get All Library Albums
+    // FIXME: limit & offset
+    /// Generates "Fetch all the library albums in alphabetical order" URL request
+    public func createGetAllLibraryAlbumsRequest() -> URLRequest {
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/me/library/albums"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -293,7 +296,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        addDeveloperTokenToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -312,7 +315,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        addDeveloperTokenToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -329,7 +332,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        addDeveloperTokenToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -343,8 +346,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -358,8 +360,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -376,8 +377,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -393,8 +393,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -412,8 +411,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -433,8 +431,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -455,7 +452,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        addDeveloperTokenToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -469,8 +466,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -487,8 +483,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -505,8 +500,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -522,8 +516,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -541,8 +534,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -559,7 +551,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        addDeveloperTokenToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -579,8 +571,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -596,8 +587,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -613,8 +603,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -631,8 +620,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -646,8 +634,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -665,8 +652,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -683,7 +669,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        addDeveloperTokenToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -708,8 +694,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -723,8 +708,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -740,8 +724,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -758,8 +741,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -776,8 +758,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -809,8 +790,7 @@ public struct HummingKitRequestFactory {
         urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "POST"
         urlRequest.httpBody = bodyJsonData
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -839,17 +819,14 @@ public struct HummingKitRequestFactory {
         urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "POST"
         urlRequest.httpBody = bodyJsonData
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
     
     
     
-    
     // MARK: - Not Revised
-    
     // FIXME: - search limit & offset need to be handled
     /// Function for generating "Search for Catalog Resources" URL request
     ///
@@ -876,7 +853,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+        addDeveloperTokenToRequest(request: &urlRequest)
         
         return urlRequest
     }
@@ -891,8 +868,7 @@ public struct HummingKitRequestFactory {
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
         
         return urlRequest
     }
