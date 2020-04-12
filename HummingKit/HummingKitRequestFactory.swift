@@ -796,7 +796,7 @@ public struct HummingKitRequestFactory {
     }
     
     // FIXME: This function has NOT been tested yet
-    /// Function for generating "Add Tracks to a Library Playlist" URL request
+    /// Generates "Add Tracks to a Library Playlist" URL request
     ///
     /// - Parameters:
     ///   - playlistID: The unique identifier for the playlist.
@@ -823,6 +823,51 @@ public struct HummingKitRequestFactory {
         
         return urlRequest
     }
+    
+    
+    // MARK: - Stations
+    // MARK: Get a Catalog Station
+    /// Generates "Fetch a station by using its identifier" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - stationID: The unique identifier for the station.
+    public func createGetACatalogStationRequest(storefront: String, stationID: String) -> URLRequest {
+        
+        var urlComponents = createBaseURLComponents()
+        urlComponents.path = "/v1/catalog/\(storefront)/stations/\(stationID)"
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
+        
+        return urlRequest
+    }
+    
+    // MARK: Get Multiple Catalog Stations
+    // FIXME: MaxLimit is 100
+    /// Generates "Fetch one or more stations by using their identifiers" URL request
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - stationIDs: An array of catalogIDs for targeted catalog stations. The maximum fetch limit is 100.
+    public func createGetMultipleCatalogStationsRequest(storefront: String, stationIDs: [String]) -> URLRequest {
+        
+        if stationIDs.count > 100 {
+            // TODO: issue error
+        }
+        
+        var urlComponents = createBaseURLComponents()
+        
+        let stationIDsChunk = stationIDs.joined(separator: ",")
+        urlComponents.path = "/v1/catalog/\(storefront)/stations"
+        urlComponents.queryItems = [ URLQueryItem(name: "ids", value: stationIDsChunk) ]
+        
+        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlRequest.httpMethod = "GET"
+        addDeveloperAndUserTokensToRequest(request: &urlRequest)
+        
+        return urlRequest
+    }
+    
     
     
     

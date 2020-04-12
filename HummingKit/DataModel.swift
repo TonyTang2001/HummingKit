@@ -16,3 +16,7 @@ typealias ArtistID = String
 typealias Relationship = String
 typealias StorefrontID = String
 typealias AlbumID = String
+
+struct Song {
+    
+}
