@@ -10,6 +10,29 @@ import StoreKit
 import Alamofire
 import SwiftyJSON
 
+public func fetchUserToken(developerToken: String, completion: @escaping (Swift.Result<String, Error>) -> Void) {
+    print("Start Fetching User Token")
+    var result: Swift.Result<String, Error> = .success("")
+    
+    let controller = SKCloudServiceController()
+    controller.requestUserToken(forDeveloperToken: developerToken) { (userToken: String?, error: Error?) in
+        
+        if let musicUserToken = userToken {
+            // Fetching SUCCEEDED
+            result = .success(musicUserToken)
+            print("Fetching SUCCEEDED, AppleMusicUserToken: \(musicUserToken)")
+            completion(result)
+        } else {
+            // Fetching FAILED
+            guard let error = error else { return }
+            result = .failure(error)
+            print("Fetching FAILED")
+            
+            completion(result)
+        }
+    }
+}
+
 public struct HummingKit {
     
     var developerToken: String
