@@ -10,29 +10,6 @@ import StoreKit
 import Alamofire
 import SwiftyJSON
 
-public func fetchUserToken(developerToken: String, completion: @escaping (Swift.Result<String, Error>) -> Void) {
-    print("Start Fetching User Token")
-    var result: Swift.Result<String, Error> = .success("")
-    
-    let controller = SKCloudServiceController()
-    controller.requestUserToken(forDeveloperToken: developerToken) { (userToken: String?, error: Error?) in
-        
-        if let musicUserToken = userToken {
-            // Fetching SUCCEEDED
-            result = .success(musicUserToken)
-            print("Fetching SUCCEEDED, AppleMusicUserToken: \(musicUserToken)")
-            completion(result)
-        } else {
-            // Fetching FAILED
-            guard let error = error else { return }
-            result = .failure(error)
-            print("Fetching FAILED")
-            
-            completion(result)
-        }
-    }
-}
-
 public struct HummingKit {
     
     var developerToken: String
@@ -48,42 +25,46 @@ public struct HummingKit {
     public typealias completionStringChunk = (_ success: Bool, _ error: Error?, _ result: String?) -> Void
     public typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
     
-    /// Function for fetching Apple Music UserToken using DeveloperToken
-    ///
+    
+    /// Private function that modularize Alamofire url requesting and responses
     /// - Parameters:
-    ///   - completion: status(true if succeeded), error(contains Error if failed), result(String response from server)
-    public func fetchUserToken(completion: @escaping completionStringChunk) {
-        print("Start Fetching User Token")
-        
-        let controller = SKCloudServiceController()
-        controller.requestUserToken(forDeveloperToken: developerToken) { (userToken: String?, error: Error?) in
-            if let musicUserToken = userToken {
-                // Fetching SUCCEEDED
-                print("Fetching SUCCEEDED, AppleMusicUserToken: \(musicUserToken)")
-                completion(true, nil, musicUserToken)
-            } else {
-                // Fetching FAILED
-                guard let error = error else { return }
-                print("Fetching FAILED")
-                print(error)
-                print(error.localizedDescription)
-                completion(false, error, nil)
-            }
+    ///   - urlRequest: URL request that needs to be conducted by Alamofire
+    ///   - completion: Swift.Result type handles json response, .success(JSON) or .failure(Error)
+    private func requestByAlamofire(urlRequest: URLRequest, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        Alamofire.request(urlRequest)
+            .responseJSON { response in
+                let data = Self.decodeResponseStatus(response)
+                var result: Swift.Result<JSON, Error>
+                if data.success {
+                    result = .success(data.responseJSON ?? "")
+                } else {
+                    guard let err = data.error else { return }
+                    result = .failure(err)
+                }
+                completion(result)
         }
     }
     
-    /// Function for fetching user's Apple Music Storefront information
-    ///
-    /// - Parameters:
-    ///   - completion: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
-    public func fetchUserStorefront(completion: @escaping completionJSONChunk) {
-        
+    /// Fetch user's Apple Music account storefront information
+    /// - Parameter completion: .success(JSON) or .failure(Error)
+    public func fetchUserStorefront(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetUserStorefrontRequest()
-        Alamofire.request(urlRequest)
-            .responseJSON { response in
-//                print("fetchUserStorefront Request Response: \(response)")
-                let result = Self.decodeResponseStatus(response)
-                completion(result.success, result.error, result.responseJSON)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+        
+    }
+    
+    /// Fetch a storefront from Apple Music server using its identifier
+    /// - Parameters:
+    ///   - storefrontID: The identifier (an ISO 3166 alpha-2 country code) for the storefront you want to fetch.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchAStorefront(storefrontID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetAStorefrontRequest(storefrontID: storefrontID)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
         }
         
     }
