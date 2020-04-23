@@ -45,6 +45,47 @@ public struct HummingKit {
         }
     }
     
+    /// Private function that modularize Alamofire url requesting without response body, such that only status code is returned for clearance of whether the action is approved by the server or not
+    /// - Parameters:
+    ///   - urlRequest: URL request that needs to be conducted by Alamofire
+    ///   - completion: Swift.Result type handles json response, .success("") or .failure(Error)
+    private func requestByAlamofire2(urlRequest: URLRequest, completion: @escaping (Swift.Result<String?, Error>) -> Void) {
+        Alamofire.request(urlRequest)
+            .responseJSON { response in
+                var result: Swift.Result<String?, Error>
+                
+                if let statusCode = response.response?.statusCode {
+                    print("Request Status Code: \(statusCode)")
+                    let decodedStatus = HummingKit.handleResponseStatusCode(statusCode: statusCode)
+                    
+                    if decodedStatus.success {
+                        result = .success("")
+                    } else {
+                        let data = Self.decodeResponseStatus(response)
+                        guard let err = data.error else { return }
+                        result = .failure(err)
+                    }
+                    
+                } else {
+                    // No HTTP Status Code, report in console & error returned is nil
+                    print("NO HTTP Status Code, Check Internet Availability and Retry Request")
+                    let data = Self.decodeResponseStatus(response)
+                    guard let err = data.error else { return }
+                    result = .failure(err)
+                }
+                
+//                let data = Self.decodeResponseStatus(response)
+                
+//                if data.success {
+//                    result = .success("")
+//                } else {
+//                    guard let err = data.error else { return }
+//                    result = .failure(err)
+//                }
+                completion(result)
+        }
+    }
+    
     /// Fetch user's Apple Music account storefront information
     /// - Parameter completion: .success(JSON) or .failure(Error)
     public func fetchUserStorefront(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
@@ -53,7 +94,6 @@ public struct HummingKit {
         requestByAlamofire(urlRequest: urlRequest) { result in
             completion(result)
         }
-        
     }
     
     /// Fetch a storefront from Apple Music server using its identifier
@@ -66,8 +106,46 @@ public struct HummingKit {
         requestByAlamofire(urlRequest: urlRequest) { result in
             completion(result)
         }
-        
     }
+    
+    /// Fetch a number of storefronts by their identifiers at the same time
+    /// - Parameters:
+    ///   - storefrontIDs: An array of the identifiers (ISO 3166 alpha-2 country codes) for the storefronts you want to fetch.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchMultipleStorefronts(storefrontIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetMultipleStorefrontsRequest(storefrontIDs: storefrontIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch all storefronts available at the same time
+    /// - Parameter completion: .success(JSON) or .failure(Error)
+    public func fetchAllStorefronts(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetAllStorefrontsRequest()
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    
+    /// Add reources (playlists, albums, songs, MVs) to user library
+    /// - Parameters:
+    ///   - playlistsIDs: an array of unique catalog identifiers for targeted playlists
+    ///   - albumsIDs: an array of unique catalog identifiers for targeted albums
+    ///   - songsIDs: an array of unique catalog identifiers for targeted songs
+    ///   - musicVideosIDs: an array of unique catalog identifiers for targeted music videos
+    ///   - completion: .success(StatusCode) or .failure(Error)
+    public func addResourcesToLibrary(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String], completion: @escaping (Swift.Result<String?, Error>) -> Void) {
+        let urlRequest = requestGenerator.createAddResourcesToLibraryRequest(playlistsIDs: playlistsIDs, albumsIDs: albumsIDs, songsIDs: songsIDs, musicVideosIDs: musicVideosIDs)
+        
+        requestByAlamofire2(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
     
     // FIXME: -  This function has NOT been tested yet, possible to malfuntion or fail to work
     /// Function for fetching all playlists from user's library
@@ -230,11 +308,10 @@ public struct HummingKit {
     /// - Parameter response: response from server
     /// - Returns: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
     private static func decodeResponseStatus(_ response: DataResponse<Any>) -> (success: Bool, error: Error?, responseJSON: JSON?) {
-        var statusCode = response.response?.statusCode
+        
         if let error = response.result.error as? AFError {
-            
-            if let status = statusCode {
-                statusCode = handleResponseAFError(statusCode: status, error: error)
+            if let status = response.response?.statusCode {
+                let statusCode = handleResponseAFError(statusCode: status, error: error)
                 print("AFError: \(String(describing: statusCode))")
                 // handling Alamofire Error
                 return (false, error, nil)

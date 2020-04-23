@@ -92,7 +92,7 @@ public struct HummingKitRequestFactory {
     
     // MARK: Get Multiple Storefronts
     /// Generates "Fetch one or more storefronts by using their identifiers" URL request
-    /// - Parameter storefrontIDs: A list of the identifiers (ISO 3166 alpha-2 country codes) for the storefronts you want to fetch.
+    /// - Parameter storefrontIDs: An array of the identifiers (ISO 3166 alpha-2 country codes) for the storefronts you want to fetch.
     public func createGetMultipleStorefrontsRequest(storefrontIDs: [String]) -> URLRequest {
         
         var urlComponents = createBaseURLComponents()
