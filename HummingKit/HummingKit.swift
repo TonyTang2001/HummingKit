@@ -45,11 +45,11 @@ public struct HummingKit {
         }
     }
     
-    /// Private function that modularize Alamofire url requesting without response body, such that only status code is returned for clearance of whether the action is approved by the server or not
+    /// Overloads requestByAlamofire() for requests without response body, such that only status code is returned for clearance of whether the action is approved by the server or not
     /// - Parameters:
     ///   - urlRequest: URL request that needs to be conducted by Alamofire
     ///   - completion: Swift.Result type handles json response, .success("") or .failure(Error)
-    private func requestByAlamofire2(urlRequest: URLRequest, completion: @escaping (Swift.Result<String?, Error>) -> Void) {
+    private func requestByAlamofire(urlRequest: URLRequest, completion: @escaping (Swift.Result<String?, Error>) -> Void) {
         Alamofire.request(urlRequest)
             .responseJSON { response in
                 var result: Swift.Result<String?, Error>
@@ -141,7 +141,7 @@ public struct HummingKit {
     public func addResourcesToLibrary(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String], completion: @escaping (Swift.Result<String?, Error>) -> Void) {
         let urlRequest = requestGenerator.createAddResourcesToLibraryRequest(playlistsIDs: playlistsIDs, albumsIDs: albumsIDs, songsIDs: songsIDs, musicVideosIDs: musicVideosIDs)
         
-        requestByAlamofire2(urlRequest: urlRequest) { result in
+        requestByAlamofire(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
