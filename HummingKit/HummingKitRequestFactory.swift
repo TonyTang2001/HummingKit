@@ -328,7 +328,7 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch an artist's relationship by using the artist's identifier" URL request
     /// - Parameters:
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
-    ///   - artistID: The unique identifier for the album.
+    ///   - artistID: The unique identifier for the artist.
     ///   - relationship: The name of the relationship you want to fetch for this resource.
     public func createGetACatalogArtistRelationshipRequest(storefront: String, artistID: String, relationship: String) -> URLRequest {
         var urlComponents = createBaseURLComponents()

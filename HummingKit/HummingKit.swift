@@ -49,10 +49,10 @@ public struct HummingKit {
     /// - Parameters:
     ///   - urlRequest: URL request that needs to be conducted by Alamofire
     ///   - completion: Swift.Result type handles json response, .success("") or .failure(Error)
-    private func requestByAlamofire(urlRequest: URLRequest, completion: @escaping (Swift.Result<String?, Error>) -> Void) {
+    private func requestByAlamofire(urlRequest: URLRequest, completion: @escaping (Swift.Result<String, Error>) -> Void) {
         Alamofire.request(urlRequest)
             .responseJSON { response in
-                var result: Swift.Result<String?, Error>
+                var result: Swift.Result<String, Error>
                 
                 if let statusCode = response.response?.statusCode {
                     print("Request Status Code: \(statusCode)")
@@ -86,6 +86,7 @@ public struct HummingKit {
         }
     }
     
+    // MARK: - Storefonts
     /// Fetch user's Apple Music account storefront information
     /// - Parameter completion: .success(JSON) or .failure(Error)
     public func fetchUserStorefront(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
@@ -130,7 +131,7 @@ public struct HummingKit {
         }
     }
     
-    
+    // MARK: - Add Resources
     /// Add reources (playlists, albums, songs, MVs) to user library
     /// - Parameters:
     ///   - playlistsIDs: an array of unique catalog identifiers for targeted playlists
@@ -138,8 +139,138 @@ public struct HummingKit {
     ///   - songsIDs: an array of unique catalog identifiers for targeted songs
     ///   - musicVideosIDs: an array of unique catalog identifiers for targeted music videos
     ///   - completion: .success(StatusCode) or .failure(Error)
-    public func addResourcesToLibrary(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String], completion: @escaping (Swift.Result<String?, Error>) -> Void) {
+    public func addResourcesToLibrary(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String], completion: @escaping (Swift.Result<String, Error>) -> Void) {
         let urlRequest = requestGenerator.createAddResourcesToLibraryRequest(playlistsIDs: playlistsIDs, albumsIDs: albumsIDs, songsIDs: songsIDs, musicVideosIDs: musicVideosIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    // MARK: - Albums
+    /// Fetch a catalog album using its identifier
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - albumID: The unique identifier for the album.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchACatalogAlbum(storefront: String, albumID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetACatalogAlbumRequest(storefront: storefront, albumID: albumID)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch multiple catalog albums using their identifiers
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchMultipleCatalogAlbums(storefront: String, albumIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetMultipleCatalogAlbumsRequest(storefront: storefront, albumIDs: albumIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch the relationship of a catalog album using its identifier and relationship name
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - albumID: The unique identifier for the album.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchACatalogAlbumRelationship(storefront: String, albumID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetACatalogAlbumRelationshipRequest(storefront: storefront, albumID: albumID, relationship: relationship)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch a library album using its identifier
+    /// - Parameters:
+    ///   - albumID: The unique identifier for the album.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchALibraryAlbum(storefront: String, albumID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetALibraryAlbumRequest(albumID: albumID)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch the relationship of a library album using its identifier and relationship name
+    /// - Parameters:
+    ///   - albumID: The unique identifier for the album.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchALibraryAlbumRelationship(albumID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetALibraryAlbumRelationshipRequest(albumID: albumID, relationship: relationship)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch multiple library albums using their identifiers
+    /// - Parameters:
+    ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchMultipleLibraryAlbums(albumIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetMultipleLibraryAlbumsRequest(albumIDs: albumIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch all library albums at once
+    /// - Parameters:
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchAllLibraryAlbums(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetAllLibraryAlbumsRequest()
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    // MARK: - Artists
+    /// Fetch a catalog artist using their identifier
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - artistID: The unique identifier for the artist.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchACatalogArtist(storefront: String, artistID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetACatalogArtistRequest(storefront: storefront, artistID: artistID)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch multiple catalog artists using their identifiers
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - artistIDs: The unique identifiers for the artists. The maximum fetch limit is 25.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchMultipleCatalogArtists(storefront: String, artistIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetMultipleCatalogArtistsRequest(storefront: storefront, artistIDs: artistIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch relationship of a catalog artist using their identifier and relationship name
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - artistID: The unique identifier for the artist.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchACatalogArtistRelationship(storefront: String, artistID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetACatalogArtistRelationshipRequest(storefront: storefront, artistID: artistID, relationship: relationship)
         
         requestByAlamofire(urlRequest: urlRequest) { result in
             completion(result)
