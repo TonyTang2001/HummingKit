@@ -771,9 +771,9 @@ public struct HummingKitRequestFactory {
     /// Generates "Create a new playlist in a user’s library" URL request
     ///
     /// - Parameters:
-    ///   - name: the name of playlist to be created
-    ///   - description: the description of the playlist to be created
-    ///   - songsIDs: an array of catalogIDs of songs need to be added to the to-be-created playlist
+    ///   - name: The name of playlist to be created.
+    ///   - description: The description of the playlist to be created.
+    ///   - songsIDs: An array of identifiers of songs in the new playlist.
     public func createCreateANewLibraryPlaylistRequest(name: String, description: String, songsIDs: [String]) -> URLRequest {
         var urlComponents = createBaseURLComponents()
         urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
@@ -804,7 +804,7 @@ public struct HummingKitRequestFactory {
     ///
     /// - Parameters:
     ///   - playlistID: The unique identifier for the playlist.
-    ///   - songIDs: An array of catalogIDs for targeted catalog songs.
+    ///   - songIDs: An array of identifiers of songs to be added to playlist.
     public func createAddTracksToAPlaylistRequest(playlistID: String, songsIDs: [String]) -> URLRequest {
         
         var urlComponents = createBaseURLComponents()

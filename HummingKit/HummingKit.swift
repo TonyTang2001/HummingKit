@@ -508,6 +508,126 @@ public struct HummingKit {
         }
     }
     
+    // MARK: - Playlist
+    /// Fetch a catalog playlist using its identifier
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - playlistID: The unique identifier for the playlist.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchACatalogPlaylist(storefront: String, playlistID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetACatalogPlaylistRequest(storefront: storefront, playlistID: playlistID)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch relationship of a catalog playlist using its identifier and relationship name
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - playlistID: The unique identifier for the playlist.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchACatalogPlaylistRelationship(storefront: String, playlistID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetACatalogPlaylistRelationshipRequest(storefront: storefront, playlistID: playlistID, relationship: relationship)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch multiple catalog playlists using their identifiers, 25 at max at a time
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - playlistIDs: An array of catalogIDs for targeted catalog playlists. The maximum fetch limit is 25.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchMultipleCatalogPlaylists(storefront: String, playlistIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetMultipleCatalogPlaylistsRequest(storefront: storefront, playlistIDs: playlistIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch a library playlist using its identifier
+    /// - Parameters:
+    ///   - playlistID: The unique identifier for the playlist.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchALibraryPlaylist(playlistID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetALibraryPlaylistRequest(playlistID: playlistID)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch relationship of a library playlist using its identifier and relationship name
+    /// - Parameters:
+    ///   - playlistID: The unique identifier for the playlist.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchALibraryPlaylistRelationship(playlistID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetALibraryPlaylistRelationshipRequest(playlistID: playlistID, relationship: relationship)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch multiple library playlists using their identifiers, 25 at max at a time
+    /// - Parameters:
+    ///   - playlistIDs: An array of catalogIDs for targeted catalog playlists. The maximum fetch limit is 25.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchMultipleLibraryPlaylists(storefront: String, playlistIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetMultipleLibraryPlaylistsRequest(playlistIDs: playlistIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch all library playlists at once, 100 at max at a time
+    /// - Parameters:
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchAllLibraryPlaylists(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetAllLibraryPlaylistsRequest()
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    
+    /// Create a new library playlist, there is no catalog playlist to be created, hence the function name is shortened from original. Nil parameters are handled.
+    /// - Parameters:
+    ///   - name: The name of playlist to be created.
+    ///   - description: The description of the playlist to be created.
+    ///   - songsIDs: An array of identifiers of songs in the new playlist.
+    ///   - completion: .success(StatusCode) or .failure(Error)
+    public func createAPlaylist(name: String?, description: String?, songsIDs: [String]?, completion: @escaping (Swift.Result<String, Error>) -> Void) {
+        let plName = name ?? "New Playlist"
+        let plDescription = description ?? ""
+        let plSongsIDs = songsIDs ?? []
+        
+        let urlRequest = requestGenerator.createCreateANewLibraryPlaylistRequest(name: plName, description: plDescription, songsIDs: plSongsIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Add songs to a playlist owned by the user, using their identifiers
+    /// - Parameters:
+    ///   - playlistID: The unique identifier for the playlist.
+    ///   - songsIDs: An array of identifiers of songs to be added to playlist.
+    ///   - completion: .success(StatusCode) or .failure(Error)
+    public func addTracksToAPlaylist(playlistID: String, songsIDs: [String], completion: @escaping (Swift.Result<String, Error>) -> Void) {
+        let urlRequest = requestGenerator.createAddTracksToAPlaylistRequest(playlistID: playlistID, songsIDs: songsIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
     
     
     
