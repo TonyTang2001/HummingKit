@@ -597,7 +597,6 @@ public struct HummingKit {
         }
     }
     
-    
     /// Create a new library playlist, there is no catalog playlist to be created, hence the function name is shortened from original. Nil parameters are handled.
     /// - Parameters:
     ///   - name: The name of playlist to be created.
@@ -623,6 +622,33 @@ public struct HummingKit {
     ///   - completion: .success(StatusCode) or .failure(Error)
     public func addTracksToAPlaylist(playlistID: String, songsIDs: [String], completion: @escaping (Swift.Result<String, Error>) -> Void) {
         let urlRequest = requestGenerator.createAddTracksToAPlaylistRequest(playlistID: playlistID, songsIDs: songsIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    // MARK: - Stations
+    /// Fetch a catalog station using its identifier
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - stationID: The unique identifier for the station.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchACatalogStation(storefront: String, stationID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetACatalogStationRequest(storefront: storefront, stationID: stationID)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch multiple catalog stations using their identifiers, 100 at max at a time
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - stationIDs: An array of catalogIDs for targeted catalog stations. The maximum fetch limit is 100.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchMultipleCatalogStations(storefront: String, stationIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetMultipleCatalogStationsRequest(storefront: storefront, stationIDs: stationIDs)
         
         requestByAlamofire(urlRequest: urlRequest) { result in
             completion(result)
