@@ -416,6 +416,100 @@ public struct HummingKit {
         }
     }
     
+    // MARK: - Music Videos(MV)
+    /// Fetch a catalog music video using its identifier
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - mvID: The unique identifier for the mv.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchACatalogMV(storefront: String, mvID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetACatalogMVRequest(storefront: storefront, mvID: mvID)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch relationship of a catalog music video using its identifier and relationship name
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - mvID: The unique identifier for the mv.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchACatalogMVRelationship(storefront: String, mvID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetACatalogMVRelationshipRequest(storefront: storefront, mvID: mvID, relationship: relationship)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch multiple catalog music videos using their identifiers
+    /// - Parameters:
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - mvIDs: An array of catalogIDs for targeted catalog mvs. The maximum fetch limit is 100.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchMultipleCatalogMVs(storefront: String, mvIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetMultipleCatalogMVsRequest(storefront: storefront, mvIDs: mvIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    
+    // TODO: Get Multiple Catalog MVs by ISRC
+    
+    
+    /// Fetch a library music video using its identifier
+    /// - Parameters:
+    ///   - mvID: The unique identifier for the mv.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchALibraryMV(mvID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetALibraryMVRequest(mvID: mvID)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch relationship of a library music video using its identifier and relationship name
+    /// - Parameters:
+    ///   - mvID: The unique identifier for the mv.
+    ///   - relationship: The name of the relationship you want to fetch for this resource.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchALibraryMVRelationship(mvID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetALibraryMVRelationshipRequest(mvID: mvID, relationship: relationship)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch multiple library music videos using their identifiers
+    /// - Parameters:
+    ///   - mvIDs: An array of catalogIDs for targeted library mvs. The maximum fetch limit is 100.
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchMultipleLibraryMVs(mvIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetMultipleLibraryMVsRequest(mvIDs: mvIDs)
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    /// Fetch all library music videos at once, 100 at max at a time
+    /// - Parameters:
+    ///   - completion: .success(JSON) or .failure(Error)
+    public func fetchAllLibraryMVs(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+        let urlRequest = requestGenerator.createGetAllLibraryMVsRequest()
+        
+        requestByAlamofire(urlRequest: urlRequest) { result in
+            completion(result)
+        }
+    }
+    
+    
+    
     
     // FIXME: -  This function has NOT been tested yet, possible to malfuntion or fail to work
     /// Function for fetching all playlists from user's library

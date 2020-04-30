@@ -631,8 +631,8 @@ public struct HummingKitRequestFactory {
     
     // MARK: Get All Library MVs
     // FIXME: limit & offset
-    /// Generates "Fetch all the library music videos in alphabetical order" URL request
-    public func createGetAllLibraryMVsRequest() -> URLRequest {
+    /// Generates "Fetch all the library music videos in alphabetical order" URL request, maximum limit is 100
+    public func createGetAllLibraryMVsRequest(offset: String? = "0") -> URLRequest {
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/music-videos"
         
