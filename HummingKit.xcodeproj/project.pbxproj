@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		EA59F473245EADDB007BCF02 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = EA59F472245EADDB007BCF02 /* Alamofire */; };
 		EA59F476245EADFB007BCF02 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = EA59F475245EADFB007BCF02 /* SwiftyJSON */; };
-		EA8FB2E5245EC26800F5FE7C /* HummingKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8FB2E4245EC26800F5FE7C /* HummingKitTests.swift */; };
 		OBJ_27 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* DataModel.swift */; };
 		OBJ_28 /* DebugOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* DebugOptions.swift */; };
 		OBJ_29 /* HummingKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* HummingKit.swift */; };
@@ -20,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EA8FB2E4245EC26800F5FE7C /* HummingKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingKitTests.swift; sourceTree = "<group>"; };
+		EA8FB2E8245EC2EE00F5FE7C /* HummingKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingKitTests.swift; sourceTree = "<group>"; };
 		"HummingKit::HummingKit::Product" /* HummingKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HummingKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		OBJ_11 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -48,21 +47,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EA8FB2E3245EC23200F5FE7C /* HummingKitTests */ = {
+		EA8FB2E6245EC2EE00F5FE7C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				EA8FB2E4245EC26800F5FE7C /* HummingKitTests.swift */,
+				EA8FB2E7245EC2EE00F5FE7C /* HummingKitTests */,
 			);
-			name = HummingKitTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
-		OBJ_17 /* Tests */ = {
+		EA8FB2E7245EC2EE00F5FE7C /* HummingKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				EA8FB2E3245EC23200F5FE7C /* HummingKitTests */,
+				EA8FB2E8245EC2EE00F5FE7C /* HummingKitTests.swift */,
 			);
-			name = Tests;
-			sourceTree = SOURCE_ROOT;
+			path = HummingKitTests;
+			sourceTree = "<group>";
 		};
 		OBJ_18 /* Products */ = {
 			isa = PBXGroup;
@@ -77,7 +76,7 @@
 			children = (
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
-				OBJ_17 /* Tests */,
+				EA8FB2E6245EC2EE00F5FE7C /* Tests */,
 				OBJ_18 /* Products */,
 				OBJ_20 /* LICENSE */,
 				OBJ_21 /* README.md */,
@@ -184,7 +183,6 @@
 				OBJ_27 /* DataModel.swift in Sources */,
 				OBJ_28 /* DebugOptions.swift in Sources */,
 				OBJ_29 /* HummingKit.swift in Sources */,
-				EA8FB2E5245EC26800F5FE7C /* HummingKitTests.swift in Sources */,
 				OBJ_30 /* HummingKitAuthentication.swift in Sources */,
 				OBJ_31 /* HummingKitErrors.swift in Sources */,
 				OBJ_32 /* HummingKitRequestFactory.swift in Sources */,
