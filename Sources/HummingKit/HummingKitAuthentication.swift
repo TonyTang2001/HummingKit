@@ -20,17 +20,19 @@ public struct HummingKitAuthentication {
         
         var result: Result<String, Error> = .success("") // initialzation required before closure
         
-        let controller = SKCloudServiceController()
-        controller.requestUserToken(forDeveloperToken: developerToken) { (userToken: String?, error: Error?) in
-            if let musicUserToken = userToken {
-                // Fetching SUCCEEDED
-                result = .success(musicUserToken)
-                completion(result)
-            } else {
-                // Fetching FAILED
-                guard let error = error else { return }
-                result = .failure(error)
-                completion(result)
+        if #available(iOS 11.0, *) {
+            let controller = SKCloudServiceController()
+            controller.requestUserToken(forDeveloperToken: developerToken) { (userToken: String?, error: Error?) in
+                if let musicUserToken = userToken {
+                    // Fetching SUCCEEDED
+                    result = .success(musicUserToken)
+                    completion(result)
+                } else {
+                    // Fetching FAILED
+                    guard let error = error else { return }
+                    result = .failure(error)
+                    completion(result)
+                }
             }
         }
     }
@@ -39,3 +41,4 @@ public struct HummingKitAuthentication {
     
     
 }
+
