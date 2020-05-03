@@ -16,7 +16,7 @@ public struct HummingKit {
     private var userToken: String
     private let requestGenerator: HummingKitRequestFactory
     
-    init(developerToken: String, userToken: String) {
+    public init(developerToken: String, userToken: String) {
         self.developerToken = developerToken
         self.userToken = userToken
         requestGenerator = HummingKitRequestFactory(developerToken: developerToken, userToken: userToken)
