@@ -13,6 +13,7 @@
 		EA8CA68A2414AC27008530A3 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CA6892414AC27008530A3 /* DataModel.swift */; };
 		EA8D5F3123201ED90049359A /* DebugOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D5F3023201ED90049359A /* DebugOptions.swift */; };
 		EABFD5ED244BB66D000831AA /* HummingKitAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABFD5EC244BB66D000831AA /* HummingKitAuthentication.swift */; };
+		EAD87844245E81ED006E8F27 /* HummingKitErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD87843245E81ED006E8F27 /* HummingKitErrors.swift */; };
 		F4778C729F3C31EDDEFEF924 /* Pods_HummingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07543B08EA1EF4D08FB6D7EA /* Pods_HummingKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		EA8CA6892414AC27008530A3 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		EA8D5F3023201ED90049359A /* DebugOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOptions.swift; sourceTree = "<group>"; };
 		EABFD5EC244BB66D000831AA /* HummingKitAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingKitAuthentication.swift; sourceTree = "<group>"; };
+		EAD87843245E81ED006E8F27 /* HummingKitErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingKitErrors.swift; sourceTree = "<group>"; };
 		FDBCA0E37EA82DDB5806C787 /* Pods-HummingKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HummingKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HummingKit/Pods-HummingKit.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +84,7 @@
 			children = (
 				EA459403231D528900062F37 /* HummingKit.swift */,
 				EA459402231D528900062F37 /* HummingKitRequestFactory.swift */,
+				EAD87843245E81ED006E8F27 /* HummingKitErrors.swift */,
 				EABFD5EC244BB66D000831AA /* HummingKitAuthentication.swift */,
 				EA8CA6892414AC27008530A3 /* DataModel.swift */,
 				EA8D5F3023201ED90049359A /* DebugOptions.swift */,
@@ -198,6 +201,7 @@
 				EA8D5F3123201ED90049359A /* DebugOptions.swift in Sources */,
 				EA459407231D528900062F37 /* HummingKit.swift in Sources */,
 				EABFD5ED244BB66D000831AA /* HummingKitAuthentication.swift in Sources */,
+				EAD87844245E81ED006E8F27 /* HummingKitErrors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

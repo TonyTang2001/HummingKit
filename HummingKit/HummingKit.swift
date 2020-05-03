@@ -12,9 +12,9 @@ import SwiftyJSON
 
 public struct HummingKit {
     
-    var developerToken: String
-    var userToken: String
-    let requestGenerator: HummingKitRequestFactory
+    private var developerToken: String
+    private var userToken: String
+    private let requestGenerator: HummingKitRequestFactory
     
     init(developerToken: String, userToken: String) {
         self.developerToken = developerToken
@@ -167,7 +167,11 @@ public struct HummingKit {
     ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleCatalogAlbums(storefront: String, albumIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        let urlRequest = requestGenerator.createGetMultipleCatalogAlbumsRequest(storefront: storefront, albumIDs: albumIDs)
+        guard let urlRequest =
+            try? requestGenerator.createGetMultipleCatalogAlbumsRequest(storefront: storefront, albumIDs: albumIDs)
+            else {
+            return
+        }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
             completion(result)
@@ -218,7 +222,11 @@ public struct HummingKit {
     ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleLibraryAlbums(albumIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        let urlRequest = requestGenerator.createGetMultipleLibraryAlbumsRequest(albumIDs: albumIDs)
+        guard let urlRequest =
+            try? requestGenerator.createGetMultipleLibraryAlbumsRequest(albumIDs: albumIDs)
+            else {
+                return
+        }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
             completion(result)
@@ -229,7 +237,11 @@ public struct HummingKit {
     /// - Parameters:
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchAllLibraryAlbums(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        let urlRequest = requestGenerator.createGetAllLibraryAlbumsRequest()
+        guard let urlRequest =
+            try? requestGenerator.createGetAllLibraryAlbumsRequest()
+            else {
+                return
+        }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
             completion(result)
@@ -655,9 +667,9 @@ public struct HummingKit {
         }
     }
     
+    // TODO: - More
     
     
-    // FIXME: -  This function has NOT been tested yet, possible to malfuntion or fail to work
     /// Function for fetching all playlists from user's library
     ///
     /// - Parameters:

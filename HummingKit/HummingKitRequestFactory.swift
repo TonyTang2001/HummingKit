@@ -196,7 +196,12 @@ public struct HummingKitRequestFactory {
     /// - Parameters:
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
-    public func createGetMultipleCatalogAlbumsRequest(storefront: String, albumIDs: [String]) -> URLRequest {
+    public func createGetMultipleCatalogAlbumsRequest(storefront: String, albumIDs: [String]) throws -> URLRequest {
+        // throw error if item requested count exceeds maximum limit
+        if albumIDs.count > 100 {
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
+        }
+        
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/catalog/\(storefront)/albums"
         
@@ -260,7 +265,12 @@ public struct HummingKitRequestFactory {
     // MARK: Get Multiple Library Albums
     /// Generates "Fetch one or more library albums by using their identifiers" URL request
     /// - Parameter albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
-    public func createGetMultipleLibraryAlbumsRequest(albumIDs: [String]) -> URLRequest {
+    public func createGetMultipleLibraryAlbumsRequest(albumIDs: [String]) throws -> URLRequest {
+        // throw error if item requested count exceeds maximum limit
+        if albumIDs.count > 100 {
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
+        }
+        
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/albums"
         
@@ -277,9 +287,28 @@ public struct HummingKitRequestFactory {
     // MARK: Get All Library Albums
     // FIXME: limit & offset
     /// Generates "Fetch all the library albums in alphabetical order" URL request
-    public func createGetAllLibraryAlbumsRequest() -> URLRequest {
+    public func createGetAllLibraryAlbumsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
+        
+        if !(limit.isInt && offset.isInt) {
+            throw HummingKitRequestGenerationError.invalidArgument
+        } else {
+            guard let limitInt = Int(limit), let offsetInt = Int(offset)
+                else {
+                    // cannot convert limit and offset to Int
+                    throw HummingKitRequestGenerationError.unknownInternalError
+            }
+            
+            // check if argument values are valid
+            if limitInt <= 0 || offsetInt < 0 {
+                throw HummingKitRequestGenerationError.invalidArgument
+            }
+            
+        }
+        
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/albums"
+        // concatenate query parameters
+        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: limit), URLQueryItem(name: "offset", value: offset) ]
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -922,4 +951,10 @@ public struct HummingKitRequestFactory {
         return urlRequest
     }
     
+}
+
+extension String {
+    var isInt: Bool {
+        return Int(self) != nil
+    }
 }
