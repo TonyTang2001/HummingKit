@@ -197,7 +197,7 @@ public struct HummingKitRequestFactory {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     public func createGetMultipleCatalogAlbumsRequest(storefront: String, albumIDs: [String]) throws -> URLRequest {
-        // throw error if item requested count exceeds maximum limit
+        // check if exceeds max fetch limit
         if albumIDs.count > 100 {
             throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
         }
@@ -266,7 +266,7 @@ public struct HummingKitRequestFactory {
     /// Generates "Fetch one or more library albums by using their identifiers" URL request
     /// - Parameter albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     public func createGetMultipleLibraryAlbumsRequest(albumIDs: [String]) throws -> URLRequest {
-        // throw error if item requested count exceeds maximum limit
+        // check if exceeds max fetch limit
         if albumIDs.count > 100 {
             throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
         }
@@ -285,10 +285,10 @@ public struct HummingKitRequestFactory {
     }
     
     // MARK: Get All Library Albums
-    // FIXME: limit & offset
     /// Generates "Fetch all the library albums in alphabetical order" URL request
     public func createGetAllLibraryAlbumsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
         
+        // check if arguments are valid
         if !(limit.isInt && offset.isInt) {
             throw HummingKitRequestGenerationError.invalidArgument
         } else {
@@ -301,6 +301,11 @@ public struct HummingKitRequestFactory {
             // check if argument values are valid
             if limitInt <= 0 || offsetInt < 0 {
                 throw HummingKitRequestGenerationError.invalidArgument
+            }
+            
+            // check if exceeds max fetch limit
+            if limitInt > 100 {
+                throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
             }
             
         }
@@ -339,7 +344,12 @@ public struct HummingKitRequestFactory {
     /// - Parameters:
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - artistIDs: The unique identifiers for the artists. The maximum fetch limit is 25.
-    public func createGetMultipleCatalogArtistsRequest(storefront: String, artistIDs: [String]) -> URLRequest {
+    public func createGetMultipleCatalogArtistsRequest(storefront: String, artistIDs: [String]) throws -> URLRequest {
+        // check if exceeds max fetch limit
+        if artistIDs.count > 25 {
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 25)
+        }
+        
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/catalog/\(storefront)/artists"
         
@@ -385,11 +395,35 @@ public struct HummingKitRequestFactory {
     }
     
     // MARK: Get All Library Artists
-    // FIXME: limit & offset
     /// Generates "Fetch all the library artists in alphabetical order" URL request
-    public func createGetAllLibraryArtistsRequest() -> URLRequest {
+    public func createGetAllLibraryArtistsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
+        
+        // check if arguments are valid
+        if !(limit.isInt && offset.isInt) {
+            throw HummingKitRequestGenerationError.invalidArgument
+        } else {
+            guard let limitInt = Int(limit), let offsetInt = Int(offset)
+                else {
+                    // cannot convert limit and offset to Int
+                    throw HummingKitRequestGenerationError.unknownInternalError
+            }
+            
+            // check if argument values are valid
+            if limitInt <= 0 || offsetInt < 0 {
+                throw HummingKitRequestGenerationError.invalidArgument
+            }
+            
+            // check if exceeds max fetch limit
+            if limitInt > 25 {
+                throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 25)
+            }
+            
+        }
+        
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/artists"
+        // concatenate query parameters
+        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: limit), URLQueryItem(name: "offset", value: offset) ]
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -401,7 +435,12 @@ public struct HummingKitRequestFactory {
     // MARK: Get Multiple Library Artists
     /// Generates "Fetch one or more library artists by using their identifiers" URL request
     /// - Parameter artistIDs: The unique identifiers for the albums. The maximum fetch limit is 25.
-    public func createGetMultipleLibraryArtistsRequest(artistIDs: [String]) -> URLRequest {
+    public func createGetMultipleLibraryArtistsRequest(artistIDs: [String]) throws -> URLRequest {
+        // check if exceeds max fetch limit
+        if artistIDs.count > 25 {
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 25)
+        }
+        
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/artists"
         
@@ -454,7 +493,11 @@ public struct HummingKitRequestFactory {
     /// - Parameters:
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - songIDs: An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.
-    public func createGetMultipleCatalogSongsRequest(storefront: String, songIDs: [String]) -> URLRequest {
+    public func createGetMultipleCatalogSongsRequest(storefront: String, songIDs: [String]) throws -> URLRequest {
+        // check if exceeds max fetch limit
+        if songIDs.count > 300 {
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 300)
+        }
         
         var urlComponents = createBaseURLComponents()
         
@@ -505,14 +548,36 @@ public struct HummingKitRequestFactory {
     }
     
     // MARK: Get All Library Songs
-    /// Generates "Fetch all the library songs in alphabetical order" URL request. However, if songs.count > 100, this function needs to be called several times to completely fetch the whole library.
+    /// Generates "Fetch all the library songs in alphabetical order" URL request.
     /// - Parameter offset: the next page or group of objects to fetch (for progressive function calling)
     /// - Returns: the URL request for fetching all the library songs in alphabetical order
-    public func createGetAllLibrarySongsRequest(offset: String? = "0") -> URLRequest {
+    public func createGetAllLibrarySongsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
+        // check if arguments are valid
+        if !(limit.isInt && offset.isInt) {
+            throw HummingKitRequestGenerationError.invalidArgument
+        } else {
+            guard let limitInt = Int(limit), let offsetInt = Int(offset)
+                else {
+                    // cannot convert limit and offset to Int
+                    throw HummingKitRequestGenerationError.unknownInternalError
+            }
+            
+            // check if argument values are valid
+            if limitInt <= 0 || offsetInt < 0 {
+                throw HummingKitRequestGenerationError.invalidArgument
+            }
+            
+            // check if exceeds max fetch limit
+            if limitInt > 100 {
+                throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
+            }
+            
+        }
+        
         var urlComponents = createBaseURLComponents()
         urlComponents.path = userLibraryPathURLString + catalogSongPathURLString
-        // One-time fetch limitation is manually set to maximum (its default value is 25 and the maximum value is 100)
-        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: "100"), URLQueryItem(name: "offset", value: offset) ]
+        // concatenate query parameters
+        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: limit), URLQueryItem(name: "offset", value: offset) ]
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -524,7 +589,12 @@ public struct HummingKitRequestFactory {
     // MARK: Get Multiple Library Songs
     /// Generates "Fetch one or more library songs by using their identifiers" URL request
     /// - Parameter songIDs: An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.
-    public func createGetMultipleLibrarySongsRequest(songIDs: [String]) -> URLRequest {
+    public func createGetMultipleLibrarySongsRequest(songIDs: [String]) throws -> URLRequest {
+        // check if exceeds max fetch limit
+        if songIDs.count > 300 {
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 300)
+        }
+        
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/songs"
         
@@ -594,7 +664,11 @@ public struct HummingKitRequestFactory {
     /// - Parameters:
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - mvIDs: An array of catalogIDs for targeted catalog mvs. The maximum fetch limit is 100.
-    public func createGetMultipleCatalogMVsRequest(storefront: String, mvIDs: [String]) -> URLRequest {
+    public func createGetMultipleCatalogMVsRequest(storefront: String, mvIDs: [String]) throws -> URLRequest {
+        // check if exceeds max fetch limit
+        if mvIDs.count > 100 {
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
+        }
         
         var urlComponents = createBaseURLComponents()
         
@@ -644,7 +718,12 @@ public struct HummingKitRequestFactory {
     // MARK: Get Multiple Library MVs
     /// Generates "Fetch one or more library music videos by using their identifiers" URL request
     /// - Parameter mvIDs: The unique identifiers for the mvs. The maximum fetch limit is 100.
-    public func createGetMultipleLibraryMVsRequest(mvIDs: [String]) -> URLRequest {
+    public func createGetMultipleLibraryMVsRequest(mvIDs: [String]) throws -> URLRequest {
+        // check if exceeds max fetch limit
+        if mvIDs.count > 100 {
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
+        }
+        
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/music-videos"
         
@@ -659,11 +738,34 @@ public struct HummingKitRequestFactory {
     }
     
     // MARK: Get All Library MVs
-    // FIXME: limit & offset
     /// Generates "Fetch all the library music videos in alphabetical order" URL request, maximum limit is 100
-    public func createGetAllLibraryMVsRequest(offset: String? = "0") -> URLRequest {
+    public func createGetAllLibraryMVsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
+        
+        // check if arguments are valid
+        if !(limit.isInt && offset.isInt) {
+            throw HummingKitRequestGenerationError.invalidArgument
+        } else {
+            guard let limitInt = Int(limit), let offsetInt = Int(offset)
+                else {
+                    // cannot convert limit and offset to Int
+                    throw HummingKitRequestGenerationError.unknownInternalError
+            }
+            
+            // check if argument values are valid
+            if limitInt <= 0 || offsetInt < 0 {
+                throw HummingKitRequestGenerationError.invalidArgument
+            }
+            
+            // check if exceeds max fetch limit
+            if limitInt > 100 {
+                throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
+            }
+            
+        }
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/music-videos"
+        // concatenate query parameters
+        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: limit), URLQueryItem(name: "offset", value: offset) ]
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -713,10 +815,10 @@ public struct HummingKitRequestFactory {
     /// - Parameters:
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - playlistIDs: An array of catalogIDs for targeted catalog playlists. The maximum fetch limit is 25.
-    public func createGetMultipleCatalogPlaylistsRequest(storefront: String, playlistIDs: [String]) -> URLRequest {
-        
+    public func createGetMultipleCatalogPlaylistsRequest(storefront: String, playlistIDs: [String]) throws -> URLRequest {
+        // check if exceeds max fetch limit
         if playlistIDs.count > 25 {
-            // TODO: issue error
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 25)
         }
         
         var urlComponents = createBaseURLComponents()
@@ -765,7 +867,11 @@ public struct HummingKitRequestFactory {
     // MARK: Get Multiple Library Playlists
     /// Generates "Fetch one or more library music videos by using their identifiers" URL request
     /// - Parameter playlistIDs: An array of catalogIDs for targeted catalog playlists. The maximum fetch limit is 25.
-    public func createGetMultipleLibraryPlaylistsRequest(playlistIDs: [String]) -> URLRequest {
+    public func createGetMultipleLibraryPlaylistsRequest(playlistIDs: [String]) throws -> URLRequest {
+        // check if exceeds max fetch limit
+        if playlistIDs.count > 25 {
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 25)
+        }
         var urlComponents = createBaseURLComponents()
         urlComponents.path = "/v1/me/library/playlists"
         
@@ -782,12 +888,34 @@ public struct HummingKitRequestFactory {
     // MARK: Get All Library Playlists
     /// Generates "Fetch all the library music videos in alphabetical order" URL request. However, if playlists.count > 100, this function needs to be called several times to completely fetch the whole library.
     /// - Parameter offset: the next page or group of objects to fetch
-    public func createGetAllLibraryPlaylistsRequest(offset: String? = "0") -> URLRequest {
+    public func createGetAllLibraryPlaylistsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
+        
+        // check if arguments are valid
+        if !(limit.isInt && offset.isInt) {
+            throw HummingKitRequestGenerationError.invalidArgument
+        } else {
+            guard let limitInt = Int(limit), let offsetInt = Int(offset)
+                else {
+                    // cannot convert limit and offset to Int
+                    throw HummingKitRequestGenerationError.unknownInternalError
+            }
+            
+            // check if argument values are valid
+            if limitInt <= 0 || offsetInt < 0 {
+                throw HummingKitRequestGenerationError.invalidArgument
+            }
+            
+            // check if exceeds max fetch limit
+            if limitInt > 100 {
+                throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
+            }
+            
+        }
+        
         var urlComponents = createBaseURLComponents()
         urlComponents.path = userLibraryPathURLString + catalogPlaylistPathURLString
-        
-        // One-time fetch limitation is manually set to maximum (its default value is 25 and the maximum value is 100)
-        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: "100"), URLQueryItem(name: "offset", value: offset) ]
+        // concatenate query parameters
+        urlComponents.queryItems = [ URLQueryItem(name: "limit", value: limit), URLQueryItem(name: "offset", value: offset) ]
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         urlRequest.httpMethod = "GET"
@@ -882,10 +1010,10 @@ public struct HummingKitRequestFactory {
     /// - Parameters:
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - stationIDs: An array of catalogIDs for targeted catalog stations. The maximum fetch limit is 100.
-    public func createGetMultipleCatalogStationsRequest(storefront: String, stationIDs: [String]) -> URLRequest {
-        
+    public func createGetMultipleCatalogStationsRequest(storefront: String, stationIDs: [String]) throws -> URLRequest {
+        // check if exceeds max fetch limit
         if stationIDs.count > 100 {
-            // TODO: issue error
+            throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
         }
         
         var urlComponents = createBaseURLComponents()
