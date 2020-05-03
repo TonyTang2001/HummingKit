@@ -39,7 +39,7 @@ public struct HummingKitRequestFactory {
     /// - Parameters:
     ///   - developerToken: Developer Token provided by the developer who use this package, required for authentication.
     ///   - userToken: User Token fetched by device when app runs for the first time, required for authentication
-    init(developerToken: DeveloperToken, userToken: UserToken) {
+    public init(developerToken: DeveloperToken, userToken: UserToken) {
         self.developerToken = developerToken
         self.userToken = userToken
     }

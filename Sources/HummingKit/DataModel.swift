@@ -9,13 +9,13 @@
 import Foundation
 
 public typealias DeveloperToken = String
-typealias UserToken = String
+public typealias UserToken = String
 
-typealias SongID = String
-typealias ArtistID = String
-typealias Relationship = String
-typealias StorefrontID = String
-typealias AlbumID = String
+public typealias SongID = String
+public typealias ArtistID = String
+public typealias Relationship = String
+public typealias StorefrontID = String
+public typealias AlbumID = String
 
 struct Song {
     
