@@ -9,7 +9,9 @@
 import Foundation
 
 enum HummingKitRequestGenerationError: Error {
+    
     case exceedMaxFetchLimit(maxLimit: Int)
     case invalidArgument
     case unknownInternalError
+    
 }
