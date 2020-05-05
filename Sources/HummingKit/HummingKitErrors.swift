@@ -15,3 +15,9 @@ enum HummingKitRequestGenerationError: Error {
     case unknownInternalError
     
 }
+
+enum HummingKitEnvironmentError: Error {
+    
+    case systemVersionOutdated
+    
+}

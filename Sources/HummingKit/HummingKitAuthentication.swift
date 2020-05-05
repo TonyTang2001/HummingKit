@@ -34,9 +34,12 @@ public struct HummingKitAuthentication {
                     completion(result)
                 }
             }
+        } else {
+            // return failure if iOS version is too low to support functionality
+            result = .failure(HummingKitEnvironmentError.systemVersionOutdated)
+            completion(result)
         }
     }
-    
     
     
     
