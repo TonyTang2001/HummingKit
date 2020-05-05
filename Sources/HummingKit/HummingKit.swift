@@ -74,14 +74,6 @@ public struct HummingKit {
                     result = .failure(err)
                 }
                 
-                //                let data = Self.decodeResponseStatus(response)
-                
-                //                if data.success {
-                //                    result = .success("")
-                //                } else {
-                //                    guard let err = data.error else { return }
-                //                    result = .failure(err)
-                //                }
                 completion(result)
         }
     }
@@ -167,10 +159,14 @@ public struct HummingKit {
     ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleCatalogAlbums(storefront: String, albumIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleCatalogAlbumsRequest(storefront: storefront, albumIDs: albumIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleCatalogAlbumsRequest(storefront: storefront, albumIDs: albumIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -222,10 +218,14 @@ public struct HummingKit {
     ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleLibraryAlbums(albumIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleLibraryAlbumsRequest(albumIDs: albumIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleLibraryAlbumsRequest(albumIDs: albumIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -237,10 +237,14 @@ public struct HummingKit {
     /// - Parameters:
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchAllLibraryAlbums(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetAllLibraryAlbumsRequest()
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetAllLibraryAlbumsRequest()
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -268,10 +272,14 @@ public struct HummingKit {
     ///   - artistIDs: The unique identifiers for the artists. The maximum fetch limit is 25.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleCatalogArtists(storefront: String, artistIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleCatalogArtistsRequest(storefront: storefront, artistIDs: artistIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleCatalogArtistsRequest(storefront: storefront, artistIDs: artistIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -309,10 +317,14 @@ public struct HummingKit {
     /// - Parameters:
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchAllLibraryArtists(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetAllLibraryArtistsRequest()
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetAllLibraryArtistsRequest()
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -325,10 +337,14 @@ public struct HummingKit {
     ///   - artistIDs: The unique identifiers for the albums. The maximum fetch limit is 25.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleLibraryArtists(artistIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleLibraryArtistsRequest(artistIDs: artistIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleLibraryArtistsRequest(artistIDs: artistIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -369,10 +385,14 @@ public struct HummingKit {
     ///   - songIDs: An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleCatalogSongs(storefront: String, songIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleCatalogSongsRequest(storefront: storefront, songIDs: songIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleCatalogSongsRequest(storefront: storefront, songIDs: songIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -414,10 +434,14 @@ public struct HummingKit {
     ///   - songIDs: An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleLibrarySongs(songIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleLibrarySongsRequest(songIDs: songIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleLibrarySongsRequest(songIDs: songIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -429,10 +453,14 @@ public struct HummingKit {
     /// - Parameters:
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchAllLibrarySongs(storefront: String, songID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetAllLibrarySongsRequest()
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetAllLibrarySongsRequest()
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -485,10 +513,14 @@ public struct HummingKit {
     ///   - mvIDs: An array of catalogIDs for targeted catalog mvs. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleCatalogMVs(storefront: String, mvIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleCatalogMVsRequest(storefront: storefront, mvIDs: mvIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleCatalogMVsRequest(storefront: storefront, mvIDs: mvIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -530,10 +562,14 @@ public struct HummingKit {
     ///   - mvIDs: An array of catalogIDs for targeted library mvs. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleLibraryMVs(mvIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleLibraryMVsRequest(mvIDs: mvIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleLibraryMVsRequest(mvIDs: mvIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -545,10 +581,14 @@ public struct HummingKit {
     /// - Parameters:
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchAllLibraryMVs(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetAllLibraryMVsRequest()
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetAllLibraryMVsRequest()
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -590,10 +630,14 @@ public struct HummingKit {
     ///   - playlistIDs: An array of catalogIDs for targeted catalog playlists. The maximum fetch limit is 25.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleCatalogPlaylists(storefront: String, playlistIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleCatalogPlaylistsRequest(storefront: storefront, playlistIDs: playlistIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleCatalogPlaylistsRequest(storefront: storefront, playlistIDs: playlistIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -631,10 +675,14 @@ public struct HummingKit {
     ///   - playlistIDs: An array of catalogIDs for targeted catalog playlists. The maximum fetch limit is 25.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleLibraryPlaylists(storefront: String, playlistIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleLibraryPlaylistsRequest(playlistIDs: playlistIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleLibraryPlaylistsRequest(playlistIDs: playlistIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -646,10 +694,14 @@ public struct HummingKit {
     /// - Parameters:
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchAllLibraryPlaylists(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetAllLibraryPlaylistsRequest()
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetAllLibraryPlaylistsRequest()
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
@@ -708,10 +760,14 @@ public struct HummingKit {
     ///   - stationIDs: An array of catalogIDs for targeted catalog stations. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleCatalogStations(storefront: String, stationIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        guard let urlRequest =
-            try? requestGenerator.createGetMultipleCatalogStationsRequest(storefront: storefront, stationIDs: stationIDs)
-            else {
-                return
+        
+        var urlRequest: URLRequest
+        
+        do {
+            urlRequest = try requestGenerator.createGetMultipleCatalogStationsRequest(storefront: storefront, stationIDs: stationIDs)
+        } catch {
+            completion(.failure(error))
+            return
         }
         
         requestByAlamofire(urlRequest: urlRequest) { result in
