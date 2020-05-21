@@ -106,10 +106,6 @@ public extension CatalogSong {
     }
 }
 
-public struct ResourceRelationship {
-    
-}
-
 public struct LibrarySong {
     let id: String
     let href: String
@@ -125,11 +121,38 @@ public extension LibrarySong {
         let artwork: Artwork
         let name: String
         let trackNumber: Int
+        
+        init?(attributesData: JSON) {
+            guard let albumName = attributesData["albumName"].string,
+                  let artistName = attributesData["artistName"].string,
+                  let artwork = Artwork(artworkData: attributesData["artwork"]),
+                  let name = attributesData["name"].string,
+                  let trackNumber = attributesData["trackNumber"].int
+            else { return nil }
+            
+            self.albumName = albumName
+            self.artistName = artistName
+            self.artwork = artwork
+            self.name = name
+            self.trackNumber = trackNumber
+        }
     }
     
-//    init?(data: JSON) {
-//
-//    }
+    init?(songData: JSON) {
+        guard let id = songData["id"].string, let href = songData["href"].string, let type = songData["type"].string
+            else { return nil }
+        guard let attributes = Attributes(attributesData: songData["attributes"])
+            else { return nil }
+        
+        self.id = id
+        self.href = href
+        self.type = type
+        self.attributes = attributes
+    }
+}
+
+public struct ResourceRelationship {
+    
 }
 
 public struct Resource {
