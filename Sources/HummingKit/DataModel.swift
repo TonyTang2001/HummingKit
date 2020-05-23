@@ -43,10 +43,10 @@ public extension CatalogSong {
         let trackNumber:       Int
         let url:               String
         
-        init?(attributesData: JSON) {
+        init?(_ attributesData: JSON) {
             guard let albumName = attributesData["albumName"].string,
                   let artistName = attributesData["artistName"].string,
-                  let artwork = Artwork(artworkData: attributesData["artwork"]),
+                  let artwork = Artwork(attributesData["artwork"]),
                   let composerName = attributesData["composerName"].string,
                   let discNumber = attributesData["discNumber"].int,
                   let durationInMillis = attributesData["durationInMillis"].int,
@@ -70,7 +70,7 @@ public extension CatalogSong {
             // convert previewsJSON array to previews array containing Preview objects
             var previews: [Preview] = []
             previewsJSON.forEach { previewJSON in
-                if let preview = Preview(previewData: previewJSON) {
+                if let preview = Preview(previewJSON) {
                     previews.append(preview)
                 }
             }
@@ -94,7 +94,7 @@ public extension CatalogSong {
     init?(songData: JSON) {
         guard let id = songData["id"].string, let href = songData["href"].string, let type = songData["type"].string
             else { return nil }
-        guard let attributes = Attributes(attributesData: songData["attributes"])
+        guard let attributes = Attributes(songData["attributes"])
             else { return nil }
         
         self.id = id
@@ -122,10 +122,10 @@ public extension LibrarySong {
         let name: String
         let trackNumber: Int
         
-        init?(attributesData: JSON) {
+        init?(_ attributesData: JSON) {
             guard let albumName = attributesData["albumName"].string,
                   let artistName = attributesData["artistName"].string,
-                  let artwork = Artwork(artworkData: attributesData["artwork"]),
+                  let artwork = Artwork(attributesData["artwork"]),
                   let name = attributesData["name"].string,
                   let trackNumber = attributesData["trackNumber"].int
             else { return nil }
@@ -138,10 +138,10 @@ public extension LibrarySong {
         }
     }
     
-    init?(songData: JSON) {
+    public init?(songData: JSON) {
         guard let id = songData["id"].string, let href = songData["href"].string, let type = songData["type"].string
             else { return nil }
-        guard let attributes = Attributes(attributesData: songData["attributes"])
+        guard let attributes = Attributes(songData["attributes"])
             else { return nil }
         
         self.id = id
@@ -151,17 +151,146 @@ public extension LibrarySong {
     }
 }
 
-public struct ResourceRelationship {
+public struct LibraryAlbum {
+    let id: String
+    let href: String
+    let type: String
+    
+    let attributes: Attributes
+    let relationships: JSON
+}
+
+public extension LibraryAlbum {
+    struct Attributes {
+        let artistName: String
+        let artwork:    Artwork
+        let name:       String
+        let trackCount: Int
+        
+        init?(_ attributesData: JSON) {
+            guard let artistName = attributesData["artistName"].string,
+                  let artwork = Artwork(attributesData["artwork"]),
+                  let name = attributesData["name"].string,
+                  let trackCount = attributesData["trackCount"].int
+            else { return nil }
+            
+            
+            self.artistName = artistName
+            self.artwork = artwork
+            self.name = name
+            self.trackCount = trackCount
+        }
+    }
+    
+    init?(albumData: JSON) {
+        guard let id = albumData["id"].string, let href = albumData["href"].string, let type = albumData["type"].string
+            else { return nil }
+        guard let attributes = Attributes(albumData["attributes"])
+            else { return nil }
+        
+        self.id = id
+        self.href = href
+        self.type = type
+        self.attributes = attributes
+        
+        self.relationships = albumData["relationships"]
+    }
+}
+
+public struct CatalogAlbum {
+    let id: String
+    let href: String
+    let type: String
+    
+    let attributes: Attributes
+    let relationships: JSON
+}
+
+public extension CatalogAlbum {
+    struct Attributes {
+        let artistName:          String
+        let artwork:             Artwork
+        let copyright:           String
+        let editorialNotes:      EditorialNotes
+        let genreNames:          [String]
+        let isComplete:          Bool
+        let isMasteredForItunes: Bool
+        let isSingle:            Bool
+        let name:                String
+        let recordLabel:         String
+        let releaseDate:         String
+        let trackCount:          Int
+        let url:                 String
+        
+        init?(attributesData: JSON) {
+            guard let artistName = attributesData["artistName"].string,
+                  let artwork = Artwork(attributesData["artwork"]),
+                  let copyright = attributesData["copyright"].string,
+                  let editorialNotes = EditorialNotes(attributesData["editorialNotes"]),
+                  let genreNamesJSON = attributesData["genreNames"].array,
+                  let isComplete = attributesData["isComplete"].bool,
+                  let isMasteredForItunes = attributesData["isMasteredForItunes"].bool,
+                  let isSingle = attributesData["isSingle"].bool,
+                  let name = attributesData["name"].string,
+                  let recordLabel = attributesData["recordLabel"].string,
+                  let releaseDate = attributesData["releaseDate"].string,
+                  let trackCount = attributesData["trackCount"].int,
+                  let url = attributesData["url"].string
+            else { return nil }
+            
+            // convert genreNamesJSON array to genreNames array containing String
+            var genreNames: [String] = []
+            genreNamesJSON.forEach { genreNameJSON in
+                if let genreName = genreNameJSON.string {
+                    genreNames.append(genreName)
+                }
+            }
+            
+            self.artistName = artistName
+            self.artwork = artwork
+            self.copyright = copyright
+            self.editorialNotes = editorialNotes
+            self.genreNames = genreNames
+            self.isComplete = isComplete
+            self.isMasteredForItunes = isMasteredForItunes
+            self.isSingle = isSingle
+            self.name = name
+            self.recordLabel = recordLabel
+            self.releaseDate = releaseDate
+            self.trackCount = trackCount
+            self.url = url
+        }
+    }
+    
+    init?(albumData: JSON) {
+        guard let id = albumData["id"].string, let href = albumData["href"].string, let type = albumData["type"].string
+            else { return nil }
+        guard let attributes = Attributes(attributesData: albumData["attributes"])
+            else { return nil }
+        
+        self.id = id
+        self.href = href
+        self.type = type
+        self.attributes = attributes
+        
+        self.relationships = albumData["relationships"]
+    }
+}
+
+
+
+
+struct ResourceRelationship {
     
 }
 
-public struct Resource {
+struct Resource {
     let id: String      // Persistent identifier of the resource.
     let href: String    // A URL subpath that fetches the resource as the primary object.
     let type: String    // The type of resource.
 }
 
-public struct Artwork {
+struct Artwork {
     let height: Int     // The maximum height available for the image.
     let width: Int      // The maximum width available for the image.
     let url: String     // The URL to request the image asset. The image filename must be preceded by {w}x{h}, as placeholders for the width and height values as described above (for example, {w}x{h}bb.jpeg).
@@ -172,7 +301,7 @@ public struct Artwork {
     let textColor3: String // The tertiary text color that may be used if the background color is displayed.
     let textColor4: String // The final post-tertiary text color that may be used if the background color is displayed.
     
-    init?(artworkData: JSON) {
+    public init?(_ artworkData: JSON) {
         guard let height = artworkData["height"].int, let width = artworkData["width"].int, let url = artworkData["url"].string
             else { return nil }
         
@@ -192,21 +321,29 @@ public struct Artwork {
     }
 }
 
-public struct Preview {
+struct Preview {
     let url: String         // The preview URL for the content.
     let artwork: Artwork?   // The preview artwork for the associated preview music video.
     
-    init?(previewData: JSON) {
+    init?(_ previewData: JSON) {
         guard let url = previewData["url"].string else { return nil }
         self.url = url
         
-        self.artwork = Artwork(artworkData: previewData["artwork"])
+        self.artwork = Artwork(previewData["artwork"])
     }
 }
 
 /// An object that represents notes.
-public struct EditorialNotes {
+struct EditorialNotes {
     // Notes may include XML tags for formatting (<b> for bold, <i> for italic, or <br> for line break) and special characters (&amp; for &, &lt; for <, &gt; for >, &apos; for ‘, and &quot; for “).
     let short: String       // Notes shown when the content is prominently displayed.
     let standard: String    // Abbreviated notes shown inline or when the content is shown alongside other content.
+    
+    init?(_ editorialNotesData: JSON) {
+        guard let short = editorialNotesData["short"].string, let standard = editorialNotesData["standard"].string
+            else { return nil }
+        
+        self.short = short
+        self.standard = standard
+    }
 }
