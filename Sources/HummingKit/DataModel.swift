@@ -18,6 +18,8 @@ public typealias Relationship = String
 public typealias StorefrontID = String
 public typealias AlbumID = String
 
+// MARK: - Song
+// MARK: CatalogSong
 public struct CatalogSong {
     let id: String
     let href: String
@@ -106,6 +108,7 @@ public extension CatalogSong {
     }
 }
 
+// MARK: LibrarySong
 public struct LibrarySong {
     let id: String
     let href: String
@@ -138,7 +141,7 @@ public extension LibrarySong {
         }
     }
     
-    public init?(songData: JSON) {
+    init?(songData: JSON) {
         guard let id = songData["id"].string, let href = songData["href"].string, let type = songData["type"].string
             else { return nil }
         guard let attributes = Attributes(songData["attributes"])
@@ -151,52 +154,9 @@ public extension LibrarySong {
     }
 }
 
-public struct LibraryAlbum {
-    let id: String
-    let href: String
-    let type: String
-    
-    let attributes: Attributes
-    let relationships: JSON
-}
 
-public extension LibraryAlbum {
-    struct Attributes {
-        let artistName: String
-        let artwork:    Artwork
-        let name:       String
-        let trackCount: Int
-        
-        init?(_ attributesData: JSON) {
-            guard let artistName = attributesData["artistName"].string,
-                  let artwork = Artwork(attributesData["artwork"]),
-                  let name = attributesData["name"].string,
-                  let trackCount = attributesData["trackCount"].int
-            else { return nil }
-            
-            
-            self.artistName = artistName
-            self.artwork = artwork
-            self.name = name
-            self.trackCount = trackCount
-        }
-    }
-    
-    init?(albumData: JSON) {
-        guard let id = albumData["id"].string, let href = albumData["href"].string, let type = albumData["type"].string
-            else { return nil }
-        guard let attributes = Attributes(albumData["attributes"])
-            else { return nil }
-        
-        self.id = id
-        self.href = href
-        self.type = type
-        self.attributes = attributes
-        
-        self.relationships = albumData["relationships"]
-    }
-}
-
+// MARK: - Album
+// MARK: CatalogAlbum
 public struct CatalogAlbum {
     let id: String
     let href: String
@@ -277,6 +237,137 @@ public extension CatalogAlbum {
     }
 }
 
+// MARK: LibraryAlbum
+public struct LibraryAlbum {
+    let id: String
+    let href: String
+    let type: String
+    
+    let attributes: Attributes
+    let relationships: JSON
+}
+
+public extension LibraryAlbum {
+    struct Attributes {
+        let artistName: String
+        let artwork:    Artwork
+        let name:       String
+        let trackCount: Int
+        
+        init?(_ attributesData: JSON) {
+            guard let artistName = attributesData["artistName"].string,
+                  let artwork = Artwork(attributesData["artwork"]),
+                  let name = attributesData["name"].string,
+                  let trackCount = attributesData["trackCount"].int
+            else { return nil }
+            
+            
+            self.artistName = artistName
+            self.artwork = artwork
+            self.name = name
+            self.trackCount = trackCount
+        }
+    }
+    
+    init?(albumData: JSON) {
+        guard let id = albumData["id"].string, let href = albumData["href"].string, let type = albumData["type"].string
+            else { return nil }
+        guard let attributes = Attributes(albumData["attributes"])
+            else { return nil }
+        
+        self.id = id
+        self.href = href
+        self.type = type
+        self.attributes = attributes
+        
+        self.relationships = albumData["relationships"]
+    }
+}
+
+
+// MARK: - Artist
+// MARK: CatalogArtist
+public struct CatalogArtist {
+    let id: String
+    let href: String
+    let type: String
+    
+    let attributes: Attributes
+    let relationships: JSON
+}
+
+public extension CatalogArtist {
+    struct Attributes {
+        let genreNames:        [String]
+        let name:              String
+        let url:               String
+        
+        init?(_ attributesData: JSON) {
+            guard let genreNamesJSON = attributesData["genreNames"].array,
+                  let name = attributesData["name"].string,
+                  let url = attributesData["url"].string
+            else { return nil }
+            
+            // convert genreNamesJSON array to genreNames array containing String
+            var genreNames: [String] = []
+            genreNamesJSON.forEach { genreNameJSON in
+                if let genreName = genreNameJSON.string {
+                    genreNames.append(genreName)
+                }
+            }
+            
+            self.genreNames = genreNames
+            self.name = name
+            self.url = url
+        }
+    }
+    
+    init?(artistData: JSON) {
+        guard let id = artistData["id"].string, let href = artistData["href"].string, let type = artistData["type"].string
+            else { return nil }
+        guard let attributes = Attributes(artistData["attributes"])
+            else { return nil }
+        
+        self.id = id
+        self.href = href
+        self.type = type
+        self.attributes = attributes
+        
+        self.relationships = artistData["relationships"]
+    }
+}
+
+// MARK: LibraryArtist
+public struct LibraryArtist {
+    let id: String
+    let href: String
+    let type: String
+    
+    let attributes: Attributes
+}
+
+public extension LibraryArtist {
+    struct Attributes {
+        let name: String
+        
+        init?(_ attributesData: JSON) {
+            guard let name = attributesData["name"].string else { return nil }
+            self.name = name
+        }
+    }
+    
+    init?(artistData: JSON) {
+        guard let id = artistData["id"].string, let href = artistData["href"].string, let type = artistData["type"].string
+            else { return nil }
+        guard let attributes = Attributes(artistData["attributes"])
+            else { return nil }
+        
+        self.id = id
+        self.href = href
+        self.type = type
+        self.attributes = attributes
+    }
+}
 
 
 
