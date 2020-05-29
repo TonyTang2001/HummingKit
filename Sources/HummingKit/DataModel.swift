@@ -466,12 +466,150 @@ public extension LibraryPlaylist {
 }
 
 
+// MARK: - Music Videos
+// MARK: Catalog Music Videos
+public struct CatalogMV {
+    let id:   String
+    let href: String
+    let type: String
+    
+    let attributes: Attributes
+    let relationships: JSON
+}
+
+public extension CatalogMV {
+    struct Attributes {
+        let albumName:   String
+        let artistName:  String
+        let artwork:     Artwork
+        let genreNames: [String]
+        let has4K:       Bool
+        let hasHDR:      Bool
+        let isrc:        String
+        let name:        String
+        let previews:   [Preview]
+        let releaseDate: String
+        let trackNumber: Int
+        let url:         String
+        
+        init?(_ attributesData: JSON) {
+            guard let albumName = attributesData["albumName"].string,
+                  let artistName = attributesData["artistName"].string,
+                  let artwork = Artwork(attributesData["artwork"]),
+                  let genreNamesJSON = attributesData["genreNames"].array,
+                  let has4K = attributesData["has4K"].bool,
+                  let hasHDR = attributesData["hasHDR"].bool,
+                  let isrc = attributesData["isrc"].string,
+                  let name = attributesData["name"].string,
+                  let previewsJSON = attributesData["previews"].array,
+                  let releaseDate = attributesData["releaseDate"].string,
+                  let trackNumber = attributesData["trackNumber"].int,
+                  let url = attributesData["url"].string
+            else { return nil }
+            
+            // convert genreNamesJSON array to genreNames array containing String
+            var genreNames: [String] = []
+            genreNamesJSON.forEach { genreNameJSON in
+                if let genreName = genreNameJSON.string {
+                    genreNames.append(genreName)
+                }
+            }
+            
+            // convert previewsJSON array to previews array containing Preview objects
+            var previews: [Preview] = []
+            previewsJSON.forEach { previewJSON in
+                if let preview = Preview(previewJSON) {
+                    previews.append(preview)
+                }
+            }
+            
+            self.albumName = albumName
+            self.artistName = artistName
+            self.artwork = artwork
+            self.genreNames = genreNames
+            self.has4K = has4K
+            self.hasHDR = hasHDR
+            self.isrc = isrc
+            self.name = name
+            self.previews = previews
+            self.releaseDate = releaseDate
+            self.trackNumber = trackNumber
+            self.url = url
+        }
+    }
+    
+    init?(mvData: JSON) {
+        guard let id = mvData["id"].string, let href = mvData["href"].string, let type = mvData["type"].string
+            else { return nil }
+        guard let attributes = Attributes(mvData["attributes"])
+            else { return nil }
+        
+        self.id = id
+        self.href = href
+        self.type = type
+        self.attributes = attributes
+        
+        self.relationships = mvData["relationships"]
+    }
+}
+
+// MARK: Library Music Videos
+public struct LibraryMV {
+    let id:   String
+    let href: String
+    let type: String
+    
+    let attributes: Attributes
+}
+
+public extension LibraryMV {
+    struct Attributes {
+        let albumName:     String
+        let artistName:    String
+        let artwork:       Artwork
+        let contentRating: String
+        let name:          String
+        let trackNumber:   Int
+        
+        init?(_ attributesData: JSON) {
+            guard let albumName = attributesData["albumName"].string,
+                  let artistName = attributesData["artistName"].string,
+                  let artwork = Artwork(attributesData["artwork"]),
+                  let name = attributesData["name"].string,
+                  let contentRating = attributesData["contentRating"].string,
+                  let trackNumber = attributesData["trackNumber"].int
+            else { return nil }
+            
+            self.albumName = albumName
+            self.artistName = artistName
+            self.artwork = artwork
+            self.contentRating = contentRating
+            self.name = name
+            self.trackNumber = trackNumber
+        }
+    }
+    
+    init?(mvData: JSON) {
+        guard let id = mvData["id"].string, let href = mvData["href"].string, let type = mvData["type"].string
+            else { return nil }
+        guard let attributes = Attributes(mvData["attributes"])
+            else { return nil }
+        
+        self.id = id
+        self.href = href
+        self.type = type
+        self.attributes = attributes
+    }
+}
+
+
+
 struct ResourceRelationship {
     
 }
 
 struct Resource {
-    let id:   String      // Persistent identifier of the resource.
+    let id:   String    // Persistent identifier of the resource.
     let href: String    // A URL subpath that fetches the resource as the primary object.
     let type: String    // The type of resource.
 }
@@ -508,8 +646,8 @@ struct Artwork {
 }
 
 struct Preview {
-    let url:     String         // The preview URL for the content.
-    let artwork: Artwork?   // The preview artwork for the associated preview music video.
+    let url:     String     // The preview URL for the content.
+    var artwork: Artwork?   // The preview artwork for the associated preview music video.
     
     init?(_ previewData: JSON) {
         guard let url = previewData["url"].string else { return nil }

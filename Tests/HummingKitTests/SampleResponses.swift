@@ -1204,3 +1204,86 @@ let libraryPlaylistJSON =
             "type": "library-playlists"
         }
     """)
+
+let catalogMVJSON =
+    JSON.init(parseJSON:
+        """
+        {
+            "attributes": {
+                "albumName": "Rubber Soul",
+                "artistName": "The Beatles",
+                "artwork": {
+                    "height": 480,
+                    "url": "https://example.mzstatic.com/image/thumb/Video/80/7c/7b/mzi.whntyxqw.jpg/{w}x{h}bb.jpeg",
+                    "width": 640
+                },
+                "genreNames": [
+                    "Rock"
+                ],
+                "has4K": false,
+                "hasHDR": false,
+                "isrc": "GBDCE0900012",
+                "name": "Rubber Soul (Documentary)",
+                "previews": [
+                    {
+                        "artwork": {
+                            "height": 480,
+                            "url": "https://example.mzstatic.com/image/thumb/Video/80/7c/7b/mzi.whntyxqw.jpg/{w}x{h}bb.jpeg",
+                            "width": 640
+                        },
+                        "url": "http://video.itunes.apple.com/apple-itms7-assets-us-std-000001/Video/04/9b/4b/mzm.dlcrzuou..640x480.h264lc.u.p.m4v"
+                    }
+                ],
+                "releaseDate": "2010-11-16",
+                "trackNumber": 15,
+                "url": "https://itunes.apple.com/us/music-video/rubber-soul-documentary/401135199"
+            },
+            "href": "/v1/catalog/us/music-videos/401135199",
+            "id": "401135199",
+            "relationships": {
+                "albums": {
+                    "data": [
+                        {
+                            "href": "/v1/catalog/us/albums/401134909",
+                            "id": "401134909",
+                            "type": "albums"
+                        }
+                    ],
+                    "href": "/v1/catalog/us/music-videos/401135199/albums"
+                },
+                "artists": {
+                    "data": [
+                        {
+                            "href": "/v1/catalog/us/artists/136975",
+                            "id": "136975",
+                            "type": "artists"
+                        }
+                    ],
+                    "href": "/v1/catalog/us/music-videos/401135199/artists"
+                }
+            },
+            "type": "music-videos"
+        }
+    """)
+
+let libraryMVJSON =
+JSON.init(parseJSON:
+    """
+    {
+        "attributes": {
+            "albumName": "I'll Go Crazy If I Don't Go Crazy Tonight",
+            "artistName": "U2",
+            "artwork": {
+                "height": 1200,
+                "url": "https://example.mzstatic.com/image/thumb/Video/e2/e4/92/mzi.tbabydcf.jpeg/{w}x{h}bb.jpeg",
+                "width": 1200
+            },
+            "contentRating": "clean",
+            "name": "I'll Go Crazy If I Don't Go Crazy Tonight (David O'Reilly Video) [David O'Reilly]",
+            "trackNumber": 0
+        },
+        "href": "/v1/me/library/music-videos/i.B0Vz1lxT9dYXOV",
+        "id": "i.B0Vz1lxT9dYXOV",
+        "type": "library-music-videos"
+    }
+""")
