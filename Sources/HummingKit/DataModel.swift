@@ -603,6 +603,53 @@ public extension LibraryMV {
 }
 
 
+// MARK: - Catalog Station
+public struct CatalogStation {
+    let id:   String
+    let href: String
+    let type: String
+    
+    let attributes: Attributes
+}
+
+public extension CatalogStation {
+    struct Attributes {
+        let artwork:        Artwork
+        let editorialNotes: EditorialNotes
+        let isLive:         Bool
+        let name:           String
+        let url:            String
+        
+        init?(_ attributesData: JSON) {
+            guard let artwork = Artwork(attributesData["artwork"]),
+                  let editorialNotes = EditorialNotes(attributesData["editorialNotes"]),
+                  let isLive = attributesData["isLive"].bool,
+                  let name = attributesData["name"].string,
+                  let url = attributesData["url"].string
+            else { return nil }
+            
+            self.artwork = artwork
+            self.editorialNotes = editorialNotes
+            self.isLive = isLive
+            self.name = name
+            self.url = url
+        }
+    }
+    
+    init?(stationData: JSON) {
+        guard let id = stationData["id"].string, let href = stationData["href"].string, let type = stationData["type"].string
+            else { return nil }
+        guard let attributes = Attributes(stationData["attributes"])
+            else { return nil }
+        
+        self.id = id
+        self.href = href
+        self.type = type
+        self.attributes = attributes
+    }
+}
+
+
 
 struct ResourceRelationship {
     

@@ -1286,4 +1286,36 @@ JSON.init(parseJSON:
         "id": "i.B0Vz1lxT9dYXOV",
         "type": "library-music-videos"
     }
-""")
+    """)
+
+let catalogStationJSON =
+    JSON.init(parseJSON:
+        """
+        {
+            "attributes": {
+                "artwork": {
+                    "bgColor": "eee9d5",
+                    "height": 1080,
+                    "textColor1": "040404",
+                    "textColor2": "121211",
+                    "textColor3": "32312e",
+                    "textColor4": "3e3d38",
+                    "url": "https://example.mzstatic.com/image/thumb/Features42/v4/ed/32/b8/ed32b8eb-6b23-aafe-5c5d-4cdb22f65da4/source/{w}x{h}bb.jpeg",
+                    "width": 4320
+                },
+                "editorialNotes": {
+                    "short": "From the margins to the mainstream."
+                },
+                "isLive": false,
+                "name": "Alternative",
+                "playParams": {
+                    "id": "ra.985484166",
+                    "kind": "radioStation"
+                },
+                "url": "https://itunes.apple.com/us/station/alternative/idra.985484166"
+            },
+            "href": "/v1/catalog/us/stations/ra.985484166",
+            "id": "ra.985484166",
+            "type": "stations"
+        }
+    """)
