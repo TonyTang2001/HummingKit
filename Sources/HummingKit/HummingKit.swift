@@ -22,9 +22,6 @@ public struct HummingKit {
         requestGenerator = HummingKitRequestFactory(developerToken: developerToken, userToken: userToken)
     }
     
-    public typealias completionStringChunk = (_ success: Bool, _ error: Error?, _ result: String?) -> Void
-    public typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
-    
     
     /// Private function that modularize Alamofire url requesting and responses
     /// - Parameters:
@@ -777,6 +774,10 @@ public struct HummingKit {
     
     // TODO: - More
     
+    
+    
+    public typealias completionStringChunk = (_ success: Bool, _ error: Error?, _ result: String?) -> Void
+    public typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
     
     /// Function for fetching all playlists from user's library
     ///
