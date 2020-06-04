@@ -141,7 +141,7 @@ public struct HummingKit {
     /// - Parameters:
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - albumID: The unique identifier for the album.
-    ///   - completion: .success(JSON) or .failure(Error)
+    ///   - completion: .success(CatalogAlbum) or .failure(Error)
     public func fetchACatalogAlbum(storefront: String, albumID: String, completion: @escaping (Swift.Result<CatalogAlbum, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogAlbumRequest(storefront: storefront, albumID: albumID)
         
@@ -201,12 +201,23 @@ public struct HummingKit {
     /// Fetch a library album using its identifier
     /// - Parameters:
     ///   - albumID: The unique identifier for the album.
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchALibraryAlbum(storefront: String, albumID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success(LibraryAlbum) or .failure(Error)
+    public func fetchALibraryAlbum(storefront: String, albumID: String, completion: @escaping (Swift.Result<LibraryAlbum, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryAlbumRequest(albumID: albumID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var libraryAlbumResult: Swift.Result<LibraryAlbum, Error>
+            
+            switch result {
+            case .success(let responseJson):
+                let libraryAlbumData: JSON = responseJson["data"].array![0]
+                let libraryAlbum = LibraryAlbum(albumData: libraryAlbumData)
+                libraryAlbumResult = .success(libraryAlbum!)
+            case .failure(let err):
+                libraryAlbumResult = .failure(err)
+            }
+            
+            completion(libraryAlbumResult)
         }
     }
     
@@ -267,12 +278,23 @@ public struct HummingKit {
     /// - Parameters:
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - artistID: The unique identifier for the artist.
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchACatalogArtist(storefront: String, artistID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success(CatalogArtist) or .failure(Error)
+    public func fetchACatalogArtist(storefront: String, artistID: String, completion: @escaping (Swift.Result<CatalogArtist, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogArtistRequest(storefront: storefront, artistID: artistID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var catalogArtistResult: Swift.Result<CatalogArtist, Error>
+            
+            switch result {
+            case .success(let responseJson):
+                let catalogArtistData: JSON = responseJson["data"].array![0]
+                let catalogArtist = CatalogArtist(artistData: catalogArtistData)
+                catalogArtistResult = .success(catalogArtist!)
+            case .failure(let err):
+                catalogArtistResult = .failure(err)
+            }
+            
+            completion(catalogArtistResult)
         }
     }
     
@@ -314,12 +336,23 @@ public struct HummingKit {
     /// Fetch a library artist using their identifier
     /// - Parameters:
     ///   - artistID: The unique identifier for the artist.
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchALibraryArtist(artistID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success(LibraryArtist) or .failure(Error)
+    public func fetchALibraryArtist(artistID: String, completion: @escaping (Swift.Result<LibraryArtist, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryArtistRequest(artistID: artistID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var libraryArtistResult: Swift.Result<LibraryArtist, Error>
+            
+            switch result {
+            case .success(let responseJson):
+                let libraryArtistData: JSON = responseJson["data"].array![0]
+                let libraryArtist = LibraryArtist(artistData: libraryArtistData)
+                libraryArtistResult = .success(libraryArtist!)
+            case .failure(let err):
+                libraryArtistResult = .failure(err)
+            }
+            
+            completion(libraryArtistResult)
         }
     }
     
@@ -380,12 +413,23 @@ public struct HummingKit {
     /// - Parameters:
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - songID: The unique identifier for the song.
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchACatalogSong(storefront: String, songID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success(CatalogSong) or .failure(Error)
+    public func fetchACatalogSong(storefront: String, songID: String, completion: @escaping (Swift.Result<CatalogSong, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogSongRequest(storefront: storefront, songID: songID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var catalogSongResult: Swift.Result<CatalogSong, Error>
+            
+            switch result {
+            case .success(let responseJson):
+                let catalogSongData: JSON = responseJson["data"].array![0]
+                let catalogSong = CatalogSong(songData: catalogSongData)
+                catalogSongResult = .success(catalogSong!)
+            case .failure(let err):
+                catalogSongResult = .failure(err)
+            }
+            
+            completion(catalogSongResult)
         }
     }
     
@@ -430,12 +474,23 @@ public struct HummingKit {
     /// Fetch a library song using its identifier
     /// - Parameters:
     ///   - songID: The unique identifier for the song.
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchALibrarySong(storefront: String, songID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success(LibrarySong) or .failure(Error)
+    public func fetchALibrarySong(storefront: String, songID: String, completion: @escaping (Swift.Result<LibrarySong, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibrarySongRequest(songID: songID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var librarySongResult: Swift.Result<LibrarySong, Error>
+            
+            switch result {
+            case .success(let responseJson):
+                let librarySongData: JSON = responseJson["data"].array![0]
+                let librarySong = LibrarySong(songData: librarySongData)
+                librarySongResult = .success(librarySong!)
+            case .failure(let err):
+                librarySongResult = .failure(err)
+            }
+            
+            completion(librarySongResult)
         }
     }
     
