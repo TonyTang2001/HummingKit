@@ -27,7 +27,7 @@ public struct HummingKit {
     /// - Parameters:
     ///   - urlRequest: URL request that needs to be conducted by Alamofire
     ///   - completion: Swift.Result type handles json response, .success(JSON) or .failure(Error)
-    private func requestByAlamofire(urlRequest: URLRequest, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    private func requestByAlamofireJSON(urlRequest: URLRequest, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         Alamofire.request(urlRequest)
             .responseJSON { response in
                 let data = Self.decodeResponseStatus(response)
@@ -46,7 +46,7 @@ public struct HummingKit {
     /// - Parameters:
     ///   - urlRequest: URL request that needs to be conducted by Alamofire
     ///   - completion: Swift.Result type handles json response, .success("") or .failure(Error)
-    private func requestByAlamofire(urlRequest: URLRequest, completion: @escaping (Swift.Result<String, Error>) -> Void) {
+    private func requestByAlamofireString(urlRequest: URLRequest, completion: @escaping (Swift.Result<String, Error>) -> Void) {
         Alamofire.request(urlRequest)
             .responseJSON { response in
                 var result: Swift.Result<String, Error>
@@ -81,7 +81,7 @@ public struct HummingKit {
     public func fetchUserStorefront(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetUserStorefrontRequest()
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -93,7 +93,7 @@ public struct HummingKit {
     public func fetchAStorefront(storefrontID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetAStorefrontRequest(storefrontID: storefrontID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -105,7 +105,7 @@ public struct HummingKit {
     public func fetchMultipleStorefronts(storefrontIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetMultipleStorefrontsRequest(storefrontIDs: storefrontIDs)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -115,7 +115,7 @@ public struct HummingKit {
     public func fetchAllStorefronts(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetAllStorefrontsRequest()
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -131,7 +131,7 @@ public struct HummingKit {
     public func addResourcesToLibrary(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String], completion: @escaping (Swift.Result<String, Error>) -> Void) {
         let urlRequest = requestGenerator.createAddResourcesToLibraryRequest(playlistsIDs: playlistsIDs, albumsIDs: albumsIDs, songsIDs: songsIDs, musicVideosIDs: musicVideosIDs)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireString(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -142,11 +142,24 @@ public struct HummingKit {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - albumID: The unique identifier for the album.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchACatalogAlbum(storefront: String, albumID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchACatalogAlbum(storefront: String, albumID: String, completion: @escaping (Swift.Result<CatalogAlbum, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogAlbumRequest(storefront: storefront, albumID: albumID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
-            completion(result)
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
+            
+            var catalogAlbumResult: Swift.Result<CatalogAlbum, Error>
+            
+            switch result {
+            case .success(let responseJson):
+                let catalogAlbumData: JSON = responseJson["data"].array![0]
+                let catalogAlbum = CatalogAlbum(albumData: catalogAlbumData)
+                catalogAlbumResult = .success(catalogAlbum!)
+            case .failure(let err):
+                catalogAlbumResult = .failure(err)
+            }
+            
+            completion(catalogAlbumResult)
+            
         }
     }
     
@@ -166,7 +179,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -180,7 +193,7 @@ public struct HummingKit {
     public func fetchACatalogAlbumRelationship(storefront: String, albumID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogAlbumRelationshipRequest(storefront: storefront, albumID: albumID, relationship: relationship)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -192,7 +205,7 @@ public struct HummingKit {
     public func fetchALibraryAlbum(storefront: String, albumID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryAlbumRequest(albumID: albumID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -205,7 +218,7 @@ public struct HummingKit {
     public func fetchALibraryAlbumRelationship(albumID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryAlbumRelationshipRequest(albumID: albumID, relationship: relationship)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -225,7 +238,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -244,7 +257,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -258,7 +271,7 @@ public struct HummingKit {
     public func fetchACatalogArtist(storefront: String, artistID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogArtistRequest(storefront: storefront, artistID: artistID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -279,7 +292,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -293,7 +306,7 @@ public struct HummingKit {
     public func fetchACatalogArtistRelationship(storefront: String, artistID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogArtistRelationshipRequest(storefront: storefront, artistID: artistID, relationship: relationship)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -305,7 +318,7 @@ public struct HummingKit {
     public func fetchALibraryArtist(artistID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryArtistRequest(artistID: artistID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -324,7 +337,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -344,7 +357,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -357,7 +370,7 @@ public struct HummingKit {
     public func fetchALibraryArtistRelationship(artistID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryArtistRelationshipRequest(artistID: artistID, relationship: relationship)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -371,7 +384,7 @@ public struct HummingKit {
     public func fetchACatalogSong(storefront: String, songID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogSongRequest(storefront: storefront, songID: songID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -392,7 +405,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -409,7 +422,7 @@ public struct HummingKit {
     public func fetchACatalogSongRelationship(storefront: String, songID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogSongRelationshipRequest(storefront: storefront, songID: songID, relationship: relationship)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -421,7 +434,7 @@ public struct HummingKit {
     public func fetchALibrarySong(storefront: String, songID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibrarySongRequest(songID: songID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -441,7 +454,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -460,7 +473,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -472,7 +485,7 @@ public struct HummingKit {
     public func fetchALibrarySongRelationship(songID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibrarySongRelationshipRequest(songID: songID, relationship: relationship)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -486,7 +499,7 @@ public struct HummingKit {
     public func fetchACatalogMV(storefront: String, mvID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogMVRequest(storefront: storefront, mvID: mvID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -499,7 +512,7 @@ public struct HummingKit {
     public func fetchACatalogMVRelationship(storefront: String, mvID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogMVRelationshipRequest(storefront: storefront, mvID: mvID, relationship: relationship)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -520,7 +533,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -536,7 +549,7 @@ public struct HummingKit {
     public func fetchALibraryMV(mvID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryMVRequest(mvID: mvID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -549,7 +562,7 @@ public struct HummingKit {
     public func fetchALibraryMVRelationship(mvID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryMVRelationshipRequest(mvID: mvID, relationship: relationship)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -569,7 +582,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -588,7 +601,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -602,7 +615,7 @@ public struct HummingKit {
     public func fetchACatalogPlaylist(storefront: String, playlistID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogPlaylistRequest(storefront: storefront, playlistID: playlistID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -616,7 +629,7 @@ public struct HummingKit {
     public func fetchACatalogPlaylistRelationship(storefront: String, playlistID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogPlaylistRelationshipRequest(storefront: storefront, playlistID: playlistID, relationship: relationship)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -637,7 +650,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -649,7 +662,7 @@ public struct HummingKit {
     public func fetchALibraryPlaylist(playlistID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryPlaylistRequest(playlistID: playlistID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -662,7 +675,7 @@ public struct HummingKit {
     public func fetchALibraryPlaylistRelationship(playlistID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryPlaylistRelationshipRequest(playlistID: playlistID, relationship: relationship)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -682,7 +695,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -701,7 +714,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -719,7 +732,7 @@ public struct HummingKit {
         
         let urlRequest = requestGenerator.createCreateANewLibraryPlaylistRequest(name: plName, description: plDescription, songsIDs: plSongsIDs)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireString(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -732,7 +745,7 @@ public struct HummingKit {
     public func addTracksToAPlaylist(playlistID: String, songsIDs: [String], completion: @escaping (Swift.Result<String, Error>) -> Void) {
         let urlRequest = requestGenerator.createAddTracksToAPlaylistRequest(playlistID: playlistID, songsIDs: songsIDs)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireString(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -746,7 +759,7 @@ public struct HummingKit {
     public func fetchACatalogStation(storefront: String, stationID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogStationRequest(storefront: storefront, stationID: stationID)
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
@@ -767,7 +780,7 @@ public struct HummingKit {
             return
         }
         
-        requestByAlamofire(urlRequest: urlRequest) { result in
+        requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
         }
     }
