@@ -666,28 +666,28 @@ struct Artwork {
     let width:  Int     // The maximum width available for the image.
     let url:    String  // The URL to request the image asset. The image filename must be preceded by {w}x{h}, as placeholders for the width and height values as described above (for example, {w}x{h}bb.jpeg).
     
-    let bgColor:    String // The average background color of the image.
-    let textColor1: String // The primary text color that may be used if the background color is displayed.
-    let textColor2: String // The secondary text color that may be used if the background color is displayed.
-    let textColor3: String // The tertiary text color that may be used if the background color is displayed.
-    let textColor4: String // The final post-tertiary text color that may be used if the background color is displayed.
+    var bgColor:    String? // The average background color of the image.
+    var textColor1: String? // The primary text color that may be used if the background color is displayed.
+    var textColor2: String? // The secondary text color that may be used if the background color is displayed.
+    var textColor3: String? // The tertiary text color that may be used if the background color is displayed.
+    var textColor4: String? // The final post-tertiary text color that may be used if the background color is displayed.
     
     public init?(_ artworkData: JSON) {
         guard let height = artworkData["height"].int, let width = artworkData["width"].int, let url = artworkData["url"].string
             else { return nil }
         
-        guard let bgColor = artworkData["bgColor"].string, let textColor1 = artworkData["textColor1"].string, let textColor2 = artworkData["textColor2"].string, let textColor3 = artworkData["textColor3"].string, let textColor4 = artworkData["textColor4"].string
-            else { return nil }
+        if let bgColor = artworkData["bgColor"].string, let textColor1 = artworkData["textColor1"].string, let textColor2 = artworkData["textColor2"].string, let textColor3 = artworkData["textColor3"].string, let textColor4 = artworkData["textColor4"].string {
+            
+            self.bgColor = bgColor
+            self.textColor1 = textColor1
+            self.textColor2 = textColor2
+            self.textColor3 = textColor3
+            self.textColor4 = textColor4
+        }
         
         self.height = height
         self.width = width
         self.url = url
-        
-        self.bgColor = bgColor
-        self.textColor1 = textColor1
-        self.textColor2 = textColor2
-        self.textColor3 = textColor3
-        self.textColor4 = textColor4
         
     }
 }

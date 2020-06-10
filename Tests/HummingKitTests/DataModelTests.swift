@@ -43,6 +43,24 @@ class DataModelTests: XCTestCase {
         XCTAssertEqual(catalogSong?.attributes.url, "https://itunes.apple.com/us/album/something-for-the-pain/900032785?i=900032829", "Unexpected Catalog Song url")
         
     }
+    
+    func testLibrarySongInitialization() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let librarySong = LibrarySong(songData: librarySongJSON)
+        XCTAssertEqual(librarySong?.id, "i.vMXdDW1TKQWRAd", "Unexpected Library Song id")
+        XCTAssertEqual(librarySong?.href, "/v1/me/library/songs/i.vMXdDW1TKQWRAd", "Unexpected Library Song href")
+        XCTAssertEqual(librarySong?.type, "library-songs", "Unexpected Library Song type")
+        XCTAssertEqual(librarySong?.attributes.albumName, "Mozart: 7 Minuets, K. 61b", "Unexpected Library Song albumName")
+        XCTAssertEqual(librarySong?.attributes.artistName, "Wiener Mozart Ensemble & Willi Boskovsky", "Unexpected Library Song artistName")
+        XCTAssertEqual(librarySong?.attributes.artwork.url, "https://example.mzstatic.com/image/thumb/Features/6c/83/03/dj.npsbmsfx.jpeg/{w}x{h}bb.jpeg", "Unexpected Library Song artwork url")
+        XCTAssertEqual(librarySong?.attributes.name, "7 Minuets, K. 61b: No. 1 in G", "Unexpected Library Song name")
+        XCTAssertEqual(librarySong?.attributes.trackNumber, 1, "Unexpected Library Song trackNumber")
+
+        
+        
+    }
 
 //    func testPerformanceExample() throws {
 //        // This is an example of a performance test case.
