@@ -57,8 +57,6 @@ class DataModelTests: XCTestCase {
         XCTAssertEqual(librarySong?.attributes.artwork.url, "https://example.mzstatic.com/image/thumb/Features/6c/83/03/dj.npsbmsfx.jpeg/{w}x{h}bb.jpeg", "Unexpected Library Song artwork url")
         XCTAssertEqual(librarySong?.attributes.name, "7 Minuets, K. 61b: No. 1 in G", "Unexpected Library Song name")
         XCTAssertEqual(librarySong?.attributes.trackNumber, 1, "Unexpected Library Song trackNumber")
-
-        
         
     }
 

@@ -159,7 +159,6 @@ public struct HummingKit {
             }
             
             completion(catalogAlbumResult)
-            
         }
     }
     
@@ -168,7 +167,7 @@ public struct HummingKit {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchMultipleCatalogAlbums(storefront: String, albumIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchMultipleCatalogAlbums(storefront: String, albumIDs: [String], completion: @escaping (Swift.Result<[CatalogAlbum], Error>) -> Void) {
         
         var urlRequest: URLRequest
         
@@ -180,7 +179,30 @@ public struct HummingKit {
         }
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            
+            var catalogAlbumsResult: Swift.Result<[CatalogAlbum], Error>
+            
+            switch result {
+            case .success(let responseJson):    // successfully get response from server
+                // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
+                let catalogAlbumsDataArray: [JSON] = responseJson["data"].array!
+                
+                var catalogAlbumsArray: [CatalogAlbum] = []
+                
+                // parse each catalogAlbum from each JSON
+                catalogAlbumsDataArray.forEach { catalogAlbumData in
+                    let catalogAlbum = CatalogAlbum(albumData: catalogAlbumData)
+                    catalogAlbumsArray.append(catalogAlbum!)
+                }
+                
+                // set result to be returned
+                catalogAlbumsResult = .success(catalogAlbumsArray)
+                
+            case .failure(let err): // failed to get response
+                catalogAlbumsResult = .failure(err)
+            }
+            
+            completion(catalogAlbumsResult)
         }
     }
     
@@ -238,7 +260,7 @@ public struct HummingKit {
     /// - Parameters:
     ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchMultipleLibraryAlbums(albumIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchMultipleLibraryAlbums(albumIDs: [String], completion: @escaping (Swift.Result<[LibraryAlbum], Error>) -> Void) {
         
         var urlRequest: URLRequest
         
@@ -250,7 +272,30 @@ public struct HummingKit {
         }
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            
+            var libraryAlbumsResult: Swift.Result<[LibraryAlbum], Error>
+            
+            switch result {
+            case .success(let responseJson):    // successfully get response from server
+                // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
+                let libraryAlbumsDataArray: [JSON] = responseJson["data"].array!
+                
+                var libraryAlbumsArray: [LibraryAlbum] = []
+                
+                // parse each catalogAlbum from each JSON
+                libraryAlbumsDataArray.forEach { catalogAlbumData in
+                    let libraryAlbum = LibraryAlbum(albumData: catalogAlbumData)
+                    libraryAlbumsArray.append(libraryAlbum!)
+                }
+                
+                // set result to be returned
+                libraryAlbumsResult = .success(libraryAlbumsArray)
+                
+            case .failure(let err): // failed to get response
+                libraryAlbumsResult = .failure(err)
+            }
+            
+            completion(libraryAlbumsResult)
         }
     }
     
@@ -267,6 +312,8 @@ public struct HummingKit {
             completion(.failure(error))
             return
         }
+        
+        // TODO: - Handling progressive calls for pagination
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
