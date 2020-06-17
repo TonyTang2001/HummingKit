@@ -283,8 +283,8 @@ public struct HummingKit {
                 var libraryAlbumsArray: [LibraryAlbum] = []
                 
                 // parse each catalogAlbum from each JSON
-                libraryAlbumsDataArray.forEach { catalogAlbumData in
-                    let libraryAlbum = LibraryAlbum(albumData: catalogAlbumData)
+                libraryAlbumsDataArray.forEach { libraryAlbumData in
+                    let libraryAlbum = LibraryAlbum(albumData: libraryAlbumData)
                     libraryAlbumsArray.append(libraryAlbum!)
                 }
                 
@@ -350,7 +350,7 @@ public struct HummingKit {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - artistIDs: The unique identifiers for the artists. The maximum fetch limit is 25.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchMultipleCatalogArtists(storefront: String, artistIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchMultipleCatalogArtists(storefront: String, artistIDs: [String], completion: @escaping (Swift.Result<[CatalogArtist], Error>) -> Void) {
         
         var urlRequest: URLRequest
         
@@ -362,7 +362,29 @@ public struct HummingKit {
         }
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var catalogArtistsResult: Swift.Result<[CatalogArtist], Error>
+            
+            switch result {
+            case .success(let responseJson):    // successfully get response from server
+                // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
+                let catalogArtistsDataArray: [JSON] = responseJson["data"].array!
+                
+                var catalogArtistsArray: [CatalogArtist] = []
+                
+                // parse each catalogAlbum from each JSON
+                catalogArtistsDataArray.forEach { catalogArtistData in
+                    let catalogArtist = CatalogArtist(artistData: catalogArtistData)
+                    catalogArtistsArray.append(catalogArtist!)
+                }
+                
+                // set result to be returned
+                catalogArtistsResult = .success(catalogArtistsArray)
+                
+            case .failure(let err): // failed to get response
+                catalogArtistsResult = .failure(err)
+            }
+            
+            completion(catalogArtistsResult)
         }
     }
     
@@ -426,7 +448,7 @@ public struct HummingKit {
     /// - Parameters:
     ///   - artistIDs: The unique identifiers for the albums. The maximum fetch limit is 25.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchMultipleLibraryArtists(artistIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchMultipleLibraryArtists(artistIDs: [String], completion: @escaping (Swift.Result<[LibraryArtist], Error>) -> Void) {
         
         var urlRequest: URLRequest
         
@@ -438,7 +460,30 @@ public struct HummingKit {
         }
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            
+            var libraryArtistsResult: Swift.Result<[LibraryArtist], Error>
+            
+            switch result {
+            case .success(let responseJson):    // successfully get response from server
+                // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
+                let libraryArtistsDataArray: [JSON] = responseJson["data"].array!
+                
+                var libraryArtistsArray: [LibraryArtist] = []
+                
+                // parse each catalogAlbum from each JSON
+                libraryArtistsDataArray.forEach { libaryArtistData in
+                    let librarySong = LibraryArtist(artistData: libaryArtistData)
+                    libraryArtistsArray.append(librarySong!)
+                }
+                
+                // set result to be returned
+                libraryArtistsResult = .success(libraryArtistsArray)
+                
+            case .failure(let err): // failed to get response
+                libraryArtistsResult = .failure(err)
+            }
+            
+            completion(libraryArtistsResult)
         }
     }
     
@@ -485,7 +530,7 @@ public struct HummingKit {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - songIDs: An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchMultipleCatalogSongs(storefront: String, songIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchMultipleCatalogSongs(storefront: String, songIDs: [String], completion: @escaping (Swift.Result<[CatalogSong], Error>) -> Void) {
         
         var urlRequest: URLRequest
         
@@ -497,7 +542,29 @@ public struct HummingKit {
         }
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var catalogSongsResult: Swift.Result<[CatalogSong], Error>
+            
+            switch result {
+            case .success(let responseJson):    // successfully get response from server
+                // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
+                let catalogSongsDataArray: [JSON] = responseJson["data"].array!
+                
+                var catalogSongsArray: [CatalogSong] = []
+                
+                // parse each catalogAlbum from each JSON
+                catalogSongsDataArray.forEach { catalogSongData in
+                    let catalogSong = CatalogSong(songData: catalogSongData)
+                    catalogSongsArray.append(catalogSong!)
+                }
+                
+                // set result to be returned
+                catalogSongsResult = .success(catalogSongsArray)
+                
+            case .failure(let err): // failed to get response
+                catalogSongsResult = .failure(err)
+            }
+            
+            completion(catalogSongsResult)
         }
     }
     
@@ -545,7 +612,7 @@ public struct HummingKit {
     /// - Parameters:
     ///   - songIDs: An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchMultipleLibrarySongs(songIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchMultipleLibrarySongs(songIDs: [String], completion: @escaping (Swift.Result<[LibrarySong], Error>) -> Void) {
         
         var urlRequest: URLRequest
         
@@ -557,7 +624,30 @@ public struct HummingKit {
         }
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            
+            var librarySongsResult: Swift.Result<[LibrarySong], Error>
+            
+            switch result {
+            case .success(let responseJson):    // successfully get response from server
+                // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
+                let librarySongsDataArray: [JSON] = responseJson["data"].array!
+                
+                var librarySongsArray: [LibrarySong] = []
+                
+                // parse each catalogAlbum from each JSON
+                librarySongsDataArray.forEach { libarySongData in
+                    let librarySong = LibrarySong(songData: libarySongData)
+                    librarySongsArray.append(librarySong!)
+                }
+                
+                // set result to be returned
+                librarySongsResult = .success(librarySongsArray)
+                
+            case .failure(let err): // failed to get response
+                librarySongsResult = .failure(err)
+            }
+            
+            completion(librarySongsResult)
         }
     }
     
