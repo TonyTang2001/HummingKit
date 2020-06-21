@@ -688,11 +688,23 @@ public struct HummingKit {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - mvID: The unique identifier for the mv.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchACatalogMV(storefront: String, mvID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchACatalogMV(storefront: String, mvID: String, completion: @escaping (Swift.Result<CatalogMV, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetACatalogMVRequest(storefront: storefront, mvID: mvID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            
+            var catalogMVResult: Swift.Result<CatalogMV, Error>
+            
+            switch result {
+            case .success(let responseJson):
+                let catalogMVData: JSON = responseJson["data"].array![0]
+                let catalogMV = CatalogMV(mvData: catalogMVData)
+                catalogMVResult = .success(catalogMV!)
+            case .failure(let err):
+                catalogMVResult = .failure(err)
+            }
+            
+            completion(catalogMVResult)
         }
     }
     
@@ -714,7 +726,7 @@ public struct HummingKit {
     ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
     ///   - mvIDs: An array of catalogIDs for targeted catalog mvs. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchMultipleCatalogMVs(storefront: String, mvIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchMultipleCatalogMVs(storefront: String, mvIDs: [String], completion: @escaping (Swift.Result<[CatalogMV], Error>) -> Void) {
         
         var urlRequest: URLRequest
         
@@ -726,7 +738,29 @@ public struct HummingKit {
         }
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var catalogMVsResult: Swift.Result<[CatalogMV], Error>
+            
+            switch result {
+            case .success(let responseJson):    // successfully get response from server
+                // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
+                let catalogMVsDataArray: [JSON] = responseJson["data"].array!
+                
+                var catalogMVsArray: [CatalogMV] = []
+                
+                // parse each catalogAlbum from each JSON
+                catalogMVsDataArray.forEach { catalogMVData in
+                    let catalogMV = CatalogMV(mvData: catalogMVData)
+                    catalogMVsArray.append(catalogMV!)
+                }
+                
+                // set result to be returned
+                catalogMVsResult = .success(catalogMVsArray)
+                
+            case .failure(let err): // failed to get response
+                catalogMVsResult = .failure(err)
+            }
+            
+            completion(catalogMVsResult)
         }
     }
     
@@ -738,11 +772,22 @@ public struct HummingKit {
     /// - Parameters:
     ///   - mvID: The unique identifier for the mv.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchALibraryMV(mvID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchALibraryMV(mvID: String, completion: @escaping (Swift.Result<LibraryMV, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetALibraryMVRequest(mvID: mvID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var libraryMVResult: Swift.Result<LibraryMV, Error>
+            
+            switch result {
+            case .success(let responseJson):
+                let libraryMVData: JSON = responseJson["data"].array![0]
+                let libraryMV = LibraryMV(mvData: libraryMVData)
+                libraryMVResult = .success(libraryMV!)
+            case .failure(let err):
+                libraryMVResult = .failure(err)
+            }
+            
+            completion(libraryMVResult)
         }
     }
     
@@ -763,7 +808,7 @@ public struct HummingKit {
     /// - Parameters:
     ///   - mvIDs: An array of catalogIDs for targeted library mvs. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchMultipleLibraryMVs(mvIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchMultipleLibraryMVs(mvIDs: [String], completion: @escaping (Swift.Result<[LibraryMV], Error>) -> Void) {
         
         var urlRequest: URLRequest
         
@@ -775,7 +820,29 @@ public struct HummingKit {
         }
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var libraryMVsResult: Swift.Result<[LibraryMV], Error>
+            
+            switch result {
+            case .success(let responseJson):    // successfully get response from server
+                // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
+                let libraryMVsDataArray: [JSON] = responseJson["data"].array!
+                
+                var libraryMVsArray: [LibraryMV] = []
+                
+                // parse each catalogAlbum from each JSON
+                libraryMVsDataArray.forEach { libaryMVData in
+                    let libraryMV = LibraryMV(mvData: libaryMVData)
+                    libraryMVsArray.append(libraryMV!)
+                }
+                
+                // set result to be returned
+                libraryMVsResult = .success(libraryMVsArray)
+                
+            case .failure(let err): // failed to get response
+                libraryMVsResult = .failure(err)
+            }
+            
+            completion(libraryMVsResult)
         }
     }
     
