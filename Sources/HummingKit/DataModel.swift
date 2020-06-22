@@ -18,6 +18,55 @@ public typealias Relationship = String
 public typealias StorefrontID = String
 public typealias AlbumID = String
 
+
+// MARK: - Storefronts
+public struct Storefront {
+    let id:   String
+    let href: String
+    let type: String
+    
+    let attributes: Attributes
+}
+
+public extension Storefront {
+    struct Attributes {
+        let name:                   String
+        let defaultLanguageTag:     String
+        let supportedLanguageTags: [String]
+        
+        init?(_ attributesData: JSON) {
+            guard let name = attributesData["name"].string,
+                  let defaultLanguageTag = attributesData["defaultLanguageTag"].string,
+                  let supportedLanguageTagsJSONArray = attributesData["supportedLanguageTags"].array
+            else { return nil }
+            
+            var supportedLanguageTags: [String] = []
+            supportedLanguageTagsJSONArray.forEach { upportedLanguageTagJSON in
+                if let upportedLanguageTag = upportedLanguageTagJSON.string {
+                    supportedLanguageTags.append(upportedLanguageTag)
+                }
+            }
+            
+            self.name = name
+            self.defaultLanguageTag = defaultLanguageTag
+            self.supportedLanguageTags = supportedLanguageTags
+        }
+    }
+    
+    init?(storefrontData: JSON) {
+        guard let id = storefrontData["id"].string, let href = storefrontData["href"].string, let type = storefrontData["type"].string
+            else { return nil }
+        guard let attributes = Attributes(storefrontData["attributes"])
+            else { return nil }
+        
+        self.id = id
+        self.href = href
+        self.type = type
+        self.attributes = attributes
+    }
+}
+
+
 // MARK: - Song
 // MARK: CatalogSong
 public struct CatalogSong {
@@ -52,10 +101,10 @@ public extension CatalogSong {
                   let composerName = attributesData["composerName"].string,
                   let discNumber = attributesData["discNumber"].int,
                   let durationInMillis = attributesData["durationInMillis"].int,
-                  let genreNamesJSON = attributesData["genreNames"].array,
+                  let genreNamesJSONArray = attributesData["genreNames"].array,
                   let isrc = attributesData["isrc"].string,
                   let name = attributesData["name"].string,
-                  let previewsJSON = attributesData["previews"].array,
+                  let previewsJSONArray = attributesData["previews"].array,
                   let releaseDate = attributesData["releaseDate"].string,
                   let trackNumber = attributesData["trackNumber"].int,
                   let url = attributesData["url"].string
@@ -63,7 +112,7 @@ public extension CatalogSong {
             
             // convert genreNamesJSON array to genreNames array containing String
             var genreNames: [String] = []
-            genreNamesJSON.forEach { genreNameJSON in
+            genreNamesJSONArray.forEach { genreNameJSON in
                 if let genreName = genreNameJSON.string {
                     genreNames.append(genreName)
                 }
@@ -71,7 +120,7 @@ public extension CatalogSong {
             
             // convert previewsJSON array to previews array containing Preview objects
             var previews: [Preview] = []
-            previewsJSON.forEach { previewJSON in
+            previewsJSONArray.forEach { previewJSON in
                 if let preview = Preview(previewJSON) {
                     previews.append(preview)
                 }
@@ -187,7 +236,7 @@ public extension CatalogAlbum {
                   let artwork = Artwork(attributesData["artwork"]),
                   let copyright = attributesData["copyright"].string,
                   let editorialNotes = EditorialNotes(attributesData["editorialNotes"]),
-                  let genreNamesJSON = attributesData["genreNames"].array,
+                  let genreNamesJSONArray = attributesData["genreNames"].array,
                   let isComplete = attributesData["isComplete"].bool,
                   let isMasteredForItunes = attributesData["isMasteredForItunes"].bool,
                   let isSingle = attributesData["isSingle"].bool,
@@ -200,7 +249,7 @@ public extension CatalogAlbum {
             
             // convert genreNamesJSON array to genreNames array containing String
             var genreNames: [String] = []
-            genreNamesJSON.forEach { genreNameJSON in
+            genreNamesJSONArray.forEach { genreNameJSON in
                 if let genreName = genreNameJSON.string {
                     genreNames.append(genreName)
                 }
@@ -302,14 +351,14 @@ public extension CatalogArtist {
         let url:         String
         
         init?(_ attributesData: JSON) {
-            guard let genreNamesJSON = attributesData["genreNames"].array,
+            guard let genreNamesJSONArray = attributesData["genreNames"].array,
                   let name = attributesData["name"].string,
                   let url = attributesData["url"].string
             else { return nil }
             
             // convert genreNamesJSON array to genreNames array containing String
             var genreNames: [String] = []
-            genreNamesJSON.forEach { genreNameJSON in
+            genreNamesJSONArray.forEach { genreNameJSON in
                 if let genreName = genreNameJSON.string {
                     genreNames.append(genreName)
                 }
@@ -436,9 +485,9 @@ public struct LibraryPlaylist {
 
 public extension LibraryPlaylist {
     struct Attributes {
-        let canEdit: Bool
+        let canEdit:     Bool
         let description: EditorialNotes
-        let name: String
+        let name:        String
         
         init?(_ attributesData: JSON) {
             guard let canEdit = attributesData["canEdit"].bool,
@@ -496,12 +545,12 @@ public extension CatalogMV {
             guard let albumName = attributesData["albumName"].string,
                   let artistName = attributesData["artistName"].string,
                   let artwork = Artwork(attributesData["artwork"]),
-                  let genreNamesJSON = attributesData["genreNames"].array,
+                  let genreNamesJSONArray = attributesData["genreNames"].array,
                   let has4K = attributesData["has4K"].bool,
                   let hasHDR = attributesData["hasHDR"].bool,
                   let isrc = attributesData["isrc"].string,
                   let name = attributesData["name"].string,
-                  let previewsJSON = attributesData["previews"].array,
+                  let previewsJSONArray = attributesData["previews"].array,
                   let releaseDate = attributesData["releaseDate"].string,
                   let trackNumber = attributesData["trackNumber"].int,
                   let url = attributesData["url"].string
@@ -509,7 +558,7 @@ public extension CatalogMV {
             
             // convert genreNamesJSON array to genreNames array containing String
             var genreNames: [String] = []
-            genreNamesJSON.forEach { genreNameJSON in
+            genreNamesJSONArray.forEach { genreNameJSON in
                 if let genreName = genreNameJSON.string {
                     genreNames.append(genreName)
                 }
@@ -517,7 +566,7 @@ public extension CatalogMV {
             
             // convert previewsJSON array to previews array containing Preview objects
             var previews: [Preview] = []
-            previewsJSON.forEach { previewJSON in
+            previewsJSONArray.forEach { previewJSON in
                 if let preview = Preview(previewJSON) {
                     previews.append(preview)
                 }
