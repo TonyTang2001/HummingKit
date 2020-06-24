@@ -20,7 +20,9 @@ public struct HummingKitAuthentication {
         
         var result: Result<String, Error> = .success("") // initialzation required before closure
         
-        if #available(iOS 11.0, *) {
+        if #available(iOS 11.0, macOS 11.0, *) {
+            // SKCloudServiceController() is specifically disabled by macOS
+            #if iOS
             let controller = SKCloudServiceController()
             controller.requestUserToken(forDeveloperToken: developerToken) { (userToken: String?, error: Error?) in
                 if let musicUserToken = userToken {
@@ -34,6 +36,8 @@ public struct HummingKitAuthentication {
                     completion(result)
                 }
             }
+            #endif
+            
         } else {
             // return failure if iOS version is too low to support functionality
             result = .failure(HummingKitEnvironmentError.systemVersionOutdated)
