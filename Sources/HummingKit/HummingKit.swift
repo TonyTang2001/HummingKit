@@ -10,7 +10,7 @@ import StoreKit
 import Alamofire
 import SwiftyJSON
 
-public struct HummingKit {
+public class HummingKit {
     
     private var developerToken: String
     private var userToken: String
@@ -77,36 +77,78 @@ public struct HummingKit {
     
     // MARK: - Storefonts
     /// Fetch user's Apple Music account storefront information
-    /// - Parameter completion: .success(JSON) or .failure(Error)
-    public func fetchUserStorefront(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    /// - Parameter completion: .success(Storefront) or .failure(Error)
+    public func fetchUserStorefront(completion: @escaping (Swift.Result<Storefront, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetUserStorefrontRequest()
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var storefrontResult: Swift.Result<Storefront, Error>
+            
+            switch result {
+            case .success(let responseJson):
+                let storefrontData: JSON = responseJson["data"].array![0]
+                let storefront = Storefront(storefrontData: storefrontData)
+                storefrontResult = .success(storefront!)
+            case .failure(let err):
+                storefrontResult = .failure(err)
+            }
+            
+            completion(storefrontResult)
         }
     }
     
     /// Fetch a storefront from Apple Music server using its identifier
     /// - Parameters:
     ///   - storefrontID: The identifier (an ISO 3166 alpha-2 country code) for the storefront you want to fetch.
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchAStorefront(storefrontID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success(Storefront) or .failure(Error)
+    public func fetchAStorefront(storefrontID: String, completion: @escaping (Swift.Result<Storefront, Error>) -> Void) {
         let urlRequest = requestGenerator.createGetAStorefrontRequest(storefrontID: storefrontID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var storefrontResult: Swift.Result<Storefront, Error>
+            
+            switch result {
+            case .success(let responseJson):
+                let storefrontData: JSON = responseJson["data"].array![0]
+                let storefront = Storefront(storefrontData: storefrontData)
+                storefrontResult = .success(storefront!)
+            case .failure(let err):
+                storefrontResult = .failure(err)
+            }
+            
+            completion(storefrontResult)
         }
     }
     
     /// Fetch a number of storefronts by their identifiers at the same time
     /// - Parameters:
     ///   - storefrontIDs: An array of the identifiers (ISO 3166 alpha-2 country codes) for the storefronts you want to fetch.
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchMultipleStorefronts(storefrontIDs: [String], completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success([Storefront]) or .failure(Error)
+    public func fetchMultipleStorefronts(storefrontIDs: [String], completion: @escaping (Swift.Result<[Storefront], Error>) -> Void) {
         let urlRequest = requestGenerator.createGetMultipleStorefrontsRequest(storefrontIDs: storefrontIDs)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var storefrontsResult: Swift.Result<[Storefront], Error>
+            
+            switch result {
+            case .success(let responseJson):    // successfully get response from server
+                
+                var storefrontsArray: [Storefront] = []
+                let storefrontsDataArray: [JSON] = responseJson["data"].array!
+                
+                storefrontsDataArray.forEach { storefrontData in
+                    let storefront = Storefront(storefrontData: storefrontData)
+                    storefrontsArray.append(storefront!)
+                }
+                
+                // set result to be returned
+                storefrontsResult = .success(storefrontsArray)
+                
+            case .failure(let err): // failed to get response
+                storefrontsResult = .failure(err)
+            }
+            
+            completion(storefrontsResult)
         }
     }
     

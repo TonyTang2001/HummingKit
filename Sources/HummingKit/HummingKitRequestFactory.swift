@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-public struct HummingKitRequestFactory {
+public class HummingKitRequestFactory {
     
     /// The base URL for all Apple Music API network calls.
     let appleMusicAPIBaseURLString = "api.music.apple.com"
