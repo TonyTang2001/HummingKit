@@ -12,7 +12,8 @@ import SwiftyJSON
 
 class DataModelTests: XCTestCase {
     
-    
+    let devToken: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IjQyRFEzTVc4WDgifQ.eyJpc3MiOiIzSzRQVDlSSjk4IiwiaWF0IjoxNTkyNzAyNTg4LjMwNzkyMSwiZXhwIjoxNjA4NDc5NTg4LjMwNzkyMX0.DbbRfWDaZcjPb6wC8MOh0hYUn8G300-66eqx6AVek7POCH4Dc5863XOxFN1X911e3q2dubBjX4JnNaXn9tjZoA"
+    var usrToken: String = "Atqm5eRShbXfa4q8X9zO5xrBGWT/GiTVwaSWPJuSl1m6X3jYuZmL0K4gMlbJp4oxKXQ1Ax8rFitqWo0h8LFvNzJWYhsTtxfmB2fNd47mlBg3pkTk9kcNS9YzBYpDvxGVKjlwVUTUYUAzfZbWYR3XGdWDTggfhmlTAzhgW9nMtByHH1NClStikIZI2DJNrPF+lH59rcb+iJJewYDE9YK4pKfhq5nBVD3ra3HviVwpVe87U8vwUA=="
     var humming: HummingKit?
     
 
@@ -82,25 +83,6 @@ class DataModelTests: XCTestCase {
         XCTAssertEqual(librarySong?.attributes.name, "7 Minuets, K. 61b: No. 1 in G", "Unexpected Library Song name")
         XCTAssertEqual(librarySong?.attributes.trackNumber, 1, "Unexpected Library Song trackNumber")
         
-    }
-    
-    func testFetchACatalogAlbum() {
-        
-        let catalogAlbumFetchingExpectation = self.expectation(description: "Fetch a catalog album.")
-        
-        humming?.fetchACatalogAlbum(storefront: "us", albumID: "310730204") { result in
-            switch result {
-            case .success(let album):
-                print(album)
-                catalogAlbumFetchingExpectation.fulfill()
-            case .failure(let err):
-                print(err)
-            }
-            
-        }
-        
-        waitForExpectations(timeout: 8, handler: nil)
-
     }
 
 //    func testPerformanceExample() throws {

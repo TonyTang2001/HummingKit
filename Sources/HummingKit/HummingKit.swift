@@ -696,7 +696,7 @@ public class HummingKit {
     /// Fetch all library songs at once
     /// - Parameters:
     ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchAllLibrarySongs(storefront: String, songID: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    public func fetchAllLibrarySongs(storefront: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         
         var urlRequest: URLRequest
         
