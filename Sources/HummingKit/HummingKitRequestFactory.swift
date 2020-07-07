@@ -287,7 +287,12 @@ public class HummingKitRequestFactory {
     
     // MARK: Get All Library Albums
     /// Generates "Fetch all the library albums in alphabetical order" URL request
-    public func createGetAllLibraryAlbumsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
+    /// - Parameters:
+    ///   - limit: The maximum limit count of albums to be expected in response, default to 25, maximum at 100.
+    ///   - offset: The offset for resources of current request (Pagination),  default to 0.
+    /// - Throws: HummingKitRequestGenerationError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
+    /// - Returns: The "fetch all the library albums in alphabetical order" URL request.
+    public func createGetAllLibraryAlbumsRequest(limit: String = "25", offset: String = "0") throws -> URLRequest {
         
         // check if arguments are valid
         if !(limit.isInt && offset.isInt) {

@@ -153,12 +153,32 @@ public class HummingKit {
     }
     
     /// Fetch all storefronts available at the same time
-    /// - Parameter completion: .success(JSON) or .failure(Error)
-    public func fetchAllStorefronts(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    /// - Parameter completion: .success([Storefront]]) or .failure(Error)
+    public func fetchAllStorefronts(completion: @escaping (Swift.Result<[Storefront], Error>) -> Void) {
         let urlRequest = requestGenerator.createGetAllStorefrontsRequest()
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+            var storefrontsResult: Swift.Result<[Storefront], Error>
+            
+            switch result {
+            case .success(let responseJson):    // successfully get response from server
+                
+                var storefrontsArray: [Storefront] = []
+                let storefrontsDataArray: [JSON] = responseJson["data"].array!
+                
+                storefrontsDataArray.forEach { storefrontData in
+                    let storefront = Storefront(storefrontData: storefrontData)
+                    storefrontsArray.append(storefront!)
+                }
+                
+                // set result to be returned
+                storefrontsResult = .success(storefrontsArray)
+                
+            case .failure(let err): // failed to get response
+                storefrontsResult = .failure(err)
+            }
+            
+            completion(storefrontsResult)
         }
     }
     
@@ -349,7 +369,7 @@ public class HummingKit {
         var urlRequest: URLRequest
         
         do {
-            urlRequest = try requestGenerator.createGetAllLibraryAlbumsRequest()
+            urlRequest = try requestGenerator.createGetAllLibraryAlbumsRequest(limit: "100", offset: "0")
         } catch {
             completion(.failure(error))
             return
