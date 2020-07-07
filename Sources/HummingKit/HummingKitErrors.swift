@@ -9,15 +9,15 @@
 import Foundation
 
 enum HummingKitRequestGenerationError: Error {
-    
     case exceedMaxFetchLimit(maxLimit: Int)
     case invalidArgument
     case unknownInternalError
-    
 }
 
 enum HummingKitEnvironmentError: Error {
-    
     case systemVersionOutdated
-    
+}
+
+enum HummingKitResponseError: Error {
+    case responseCorrupted
 }

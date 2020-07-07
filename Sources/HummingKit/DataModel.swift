@@ -18,6 +18,12 @@ public typealias Relationship = String
 public typealias StorefrontID = String
 public typealias AlbumID = String
 
+public enum FetchingStatus {
+    case preparingForStart
+    case continuing
+    case finished
+    case finishedWithError
+}
 
 // MARK: - Storefronts
 public struct Storefront: Hashable, Codable, Identifiable {

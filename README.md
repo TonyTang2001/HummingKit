@@ -1,6 +1,4 @@
 # HummingKit
-Ease the Use of Apple Music API in Swift
+Ease the Harness of Apple Music API in Swift 5.
 
-Currently in development.
-
-Documentation coming soon.
+Development of the first major release version is approaching completion, documentation coming soon.

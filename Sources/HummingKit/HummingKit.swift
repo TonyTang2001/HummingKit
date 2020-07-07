@@ -366,20 +366,70 @@ public class HummingKit {
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchAllLibraryAlbums(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
         
-        var urlRequest: URLRequest
+        let limit:  String = "100"  // default to maximum for efficiency
+        var offset: String = "0"
+        var fetchingStatus: FetchingStatus = .preparingForStart
+        var allLibraryAlbumsResult: Swift.Result<[LibraryAlbum], Error>
         
-        do {
-            urlRequest = try requestGenerator.createGetAllLibraryAlbumsRequest(limit: "100", offset: "0")
-        } catch {
-            completion(.failure(error))
-            return
+        
+        
+        func fetchSegmentalLibraryAlbums(limit: String, offset: String, completion: @escaping (Swift.Result<([LibraryAlbum], newOffset: String, segmentStatus: FetchingStatus), Error>) -> Void) {
+            
+            var newOffset: String = offset
+            var segmentStatus: FetchingStatus = .preparingForStart
+            
+            let urlRequest = try! requestGenerator.createGetAllLibraryAlbumsRequest(limit: limit, offset: offset)
+            
+            requestByAlamofireJSON(urlRequest: urlRequest) { result in
+                var segmentalLibraryAlbumsResult: Swift.Result<[LibraryAlbum], Error>
+                
+                switch result {
+                case .success(let responseJson):    // successfully got response from server
+                    // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
+                    let segmentalLibraryAlbumsDataArray: [JSON] = responseJson["data"].array!
+                    var segmentalLibraryAlbumsArray: [LibraryAlbum] = []
+                    
+                    // parse each catalogAlbum from each JSON
+                    segmentalLibraryAlbumsDataArray.forEach { libraryAlbumData in
+                        let libraryAlbum = LibraryAlbum(albumData: libraryAlbumData)
+                        segmentalLibraryAlbumsArray.append(libraryAlbum!)
+                    }
+                    
+                    // Prepare [LibraryAlbum] array for completion afterward
+                    segmentalLibraryAlbumsResult = .success(segmentalLibraryAlbumsArray)
+                    
+                    // Detect existence of field "next"
+                    if responseJson["next"].exists() {
+                        // Try to parse offset from field "next"
+                        let offsetParsingResult = Self.offsetMatches(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
+                        
+                        switch offsetParsingResult {
+                        case .success(let offsetParsed):
+                            // Update offset variablefrom outer func
+                            newOffset = offsetParsed
+                        case .failure(let err):
+                            // Field "next" exists but failed to parse offset value
+                            // Complete with error
+                            completion(.failure(err))
+                        }
+                        segmentStatus = .continuing
+                        
+                        completion(.success((segmentalLibraryAlbumsArray, newOffset: newOffset, segmentStatus: segmentStatus)))
+                        
+                    } else {    // Field "next" does not exist, current segment is expected to be ultimate
+                        segmentStatus = .finished
+                        completion(.success((segmentalLibraryAlbumsArray, newOffset: newOffset, segmentStatus: segmentStatus)))
+                    }
+                    
+                case .failure(let err): // failed to get response
+                    completion(.failure(err))
+                }
+                
+            }
+            
         }
         
-        // TODO: - Handling progressive calls for pagination
         
-        requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
-        }
     }
     
     // MARK: - Artists
@@ -1143,7 +1193,7 @@ public class HummingKit {
                     if currentJson["next"].exists() {
                         // extract offsetIndexString from "next"
                         guard let next = currentJson["next"].string else { return }
-                        offsetIndexString = Self.offsetMatches(for: "(\\d{2,})", in: next)
+//                        offsetIndexString = Self.offsetMatches(for: "(\\d{2,})", in: next)
                         
                         isFinished = false
                     } else {
@@ -1215,7 +1265,7 @@ public class HummingKit {
                     if currentJson["next"].exists() {
                         // extract offsetIndexString from "next"
                         guard let next = currentJson["next"].string else { return }
-                        offsetIndexString = Self.offsetMatches(for: "(\\d{2,})", in: next)
+//                        offsetIndexString = Self.offsetMatches(for: "(\\d{2,})", in: next)
                         
                         isFinished = false
                     } else {
@@ -1261,7 +1311,10 @@ public class HummingKit {
     ///   - regex: regular expression feature
     ///   - text: string value from ["next"]
     /// - Returns: offset index in String
-    private static func offsetMatches(for regex: String, in text: String) -> String {
+    private static func offsetMatches(for regex: String, in text: String) -> Swift.Result<String, Error> {
+        
+        let result: Swift.Result<String, Error>
+        
         do {
             let regex = try NSRegularExpression(pattern: regex)
             let results = regex.matches(in: text,
@@ -1269,10 +1322,20 @@ public class HummingKit {
             let finalResult = results.map {
                 String(text[Range($0.range, in: text)!])
             }
-            return finalResult.last ?? ""
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-            return ""
+            
+            if let digits = finalResult.last {
+                // matching succeeded
+                result = .success(digits)
+            } else {
+                // matching failed, response likely corrupted
+                result = .failure(HummingKitResponseError.responseCorrupted)
+            }
+            return result
+            
+        } catch {
+            // regex initialization failed, return with error
+            result = .failure(error)
+            return result
         }
     }
     
