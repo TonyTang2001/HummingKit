@@ -18,13 +18,14 @@ public typealias Relationship = String
 public typealias StorefrontID = String
 public typealias AlbumID = String
 
+/// FetchingStatus indicates current status of both resource-expensive requests (usually a combination of multiple requests) and segmented requests.
 public enum FetchingStatus {
-    case preparingForStart
-    case inProgress
-    case retryingWithError(error: Error)
-    case ending
-    case completed
-    case completedWithError
+    case preparingForStart  // Possible in both segmented request and resource-expensive request scopee
+    case inProgress         // Possible in both segmented request and resource-expensive request scopee
+    case retryingWithError(error: Error)    // Possible only in resource-expensive request scopee
+    case ending             // Possible only in segmented request scopee
+    case completed          // Possible in both segmented request and resource-expensive request scopee
+    case completedWithError // Possible only in resource-expensive request scopee
 }
 
 // MARK: - Storefronts
