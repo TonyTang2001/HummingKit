@@ -8,16 +8,21 @@
 
 import Foundation
 
-enum HummingKitRequestGenerationError: Error {
+public enum HummingKitRequestGenerationError: Error {
     case exceedMaxFetchLimit(maxLimit: Int)
     case invalidArgument
     case unknownInternalError
 }
 
-enum HummingKitEnvironmentError: Error {
+public enum HummingKitEnvironmentError: Error {
     case systemVersionOutdated
 }
 
-enum HummingKitResponseError: Error {
+public enum HummingKitResponseError: Error {
     case responseCorrupted
+}
+
+/// HummingKitInternalError indicates unexpected fatal HummingKit errors, potentially caused by internal bugs. If this type of error is encountered, please file an issue on the HummingKit repo at Issues page. Thank you!
+public enum HummingKitInternalError: Error {
+    case impossibleCase
 }

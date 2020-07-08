@@ -20,9 +20,11 @@ public typealias AlbumID = String
 
 public enum FetchingStatus {
     case preparingForStart
-    case continuing
-    case finished
-    case finishedWithError
+    case inProgress
+    case retryingWithError(error: Error)
+    case ending
+    case completed
+    case completedWithError
 }
 
 // MARK: - Storefronts

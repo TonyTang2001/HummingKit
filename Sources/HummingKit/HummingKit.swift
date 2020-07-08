@@ -16,12 +16,17 @@ public class HummingKit {
     private var userToken: String
     private let requestGenerator: HummingKitRequestFactory
     
+    private var retryCountMax: Int = 3
+    
     public init(developerToken: String, userToken: String) {
         self.developerToken = developerToken
         self.userToken = userToken
         requestGenerator = HummingKitRequestFactory(developerToken: developerToken, userToken: userToken)
     }
     
+    public func setMaximumRequestRetryTime(_ retryCount: Int) {
+        retryCountMax = retryCount
+    }
     
     /// Private function that modularize Alamofire url requesting and responses
     /// - Parameters:
@@ -363,16 +368,110 @@ public class HummingKit {
     
     /// Fetch all library albums at once
     /// - Parameters:
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchAllLibraryAlbums(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success([LibraryAlbum]) or .failure(Error)
+    public func fetchAllLibraryAlbums(completion: @escaping (Swift.Result<([LibraryAlbum], FetchingStatus), Error>) -> Void) {
         
         let limit:  String = "100"  // default to maximum for efficiency
         var offset: String = "0"
+        var retryCount: Int = 0
         var fetchingStatus: FetchingStatus = .preparingForStart
-        var allLibraryAlbumsResult: Swift.Result<[LibraryAlbum], Error>
+        var allLibraryAlbums: [LibraryAlbum] = []
         
+        /// Function that recursively fetches paged LibraryAlbum resource until no available resource left or error occurs
+        func continueFetching() {
+            switch fetchingStatus {
+                
+            // Requests of fetchAllLibraryAlbums continuing or preparing to start
+            case .preparingForStart, .inProgress:
+                
+                // Clear retry count and update fetching status
+                retryCount = 0
+                fetchingStatus = .inProgress
+                
+                fetchSegmentalLibraryAlbums(limit: limit, offset: offset) { result in
+                    switch result {
+                        
+                    // Segmental fetching succeeded
+                    case .success((let segmentalLibraryAlbumsArray, let newOffset, let segmentStatus)):
+                        
+                        // Append parsed segment of LibraryAlbum
+                        allLibraryAlbums.append(contentsOf: segmentalLibraryAlbumsArray)
+                        
+                        // Decide next action in accordance to segment fetching status
+                        switch segmentStatus {
+                            
+                        // Segmental fetching completed
+                        case .completed:    // Fetching is not yet completed, following requests needed
+                            
+                            // Update offset and fetching status for next request
+                            offset = newOffset
+                            fetchingStatus = .inProgress
+                            
+                            // Continue next segmental fetch
+                            continueFetching()
+                            
+                        // Current segment is the ending of all available resources
+                        case .ending:
+                            
+                            // Update fetching status and complete fetchAllLibraryAlbums function
+                            fetchingStatus = .completed
+                            completion(.success((allLibraryAlbums, fetchingStatus)))
+                        
+                        // Case falling out-of-logic
+                        default:    // Other cases are logically impossible to occur
+                            print("Current case is unexpected.")
+                            
+                            // Complete with error
+                            completion(.failure(HummingKitInternalError.impossibleCase))
+                        }
+                        
+                    // Segmental fetching failed due to error
+                    case .failure(let err):
+                        // Update fetching status
+                        fetchingStatus = .retryingWithError(error: err)
+                        
+                        // Retry(as offset kept unchanged) fetching of current segment
+                        continueFetching()
+                    }
+                }
+                
+            // Current segment failed, retry recursively until retryCount hits maximum
+            case .retryingWithError(let err): // Current segment fetching has failed on last try
+                
+                if retryCount >= retryCountMax {    // Has retried same request for 3 times
+                    
+                    if allLibraryAlbums.count > 0 {
+                        // As long as allLibraryAlbums array contains objects, function completes with its content while flagged as .completedWithError
+                        // Update fetching status and complete fetchAllLibraryAlbums function
+                        fetchingStatus = .completedWithError
+                        completion(.success((allLibraryAlbums, fetchingStatus)))
+                    } else {
+                        // When no LibraryAlbum has been fetched, function completes with total failure
+                        completion(.failure(err))
+                    }
+                    
+                } else {                            // Retry again
+                    
+                    // Update fetching status with error
+                    fetchingStatus = .retryingWithError(error: err)
+                    // Increment retry count
+                    retryCount += 1
+                    // Retry(as offset kept unchanged) fetching of current segment
+                    continueFetching()
+                }
+                
+            // Fetch has been marked completed
+            default:
+                break
+                
+            }
+        }
         
-        
+        /// Function that fetches a segment of all library albums
+        /// - Parameters:
+        ///   - limit: Maximum count of resources to be expected in response.
+        ///   - offset: The offset of starting resource to be expected in response.
+        ///   - completion: .success(([LibraryAlbum], newOffset: String, segmentStatus: FetchingStatus)) or .failure(Error)
         func fetchSegmentalLibraryAlbums(limit: String, offset: String, completion: @escaping (Swift.Result<([LibraryAlbum], newOffset: String, segmentStatus: FetchingStatus), Error>) -> Void) {
             
             var newOffset: String = offset
@@ -380,23 +479,23 @@ public class HummingKit {
             
             let urlRequest = try! requestGenerator.createGetAllLibraryAlbumsRequest(limit: limit, offset: offset)
             
+            // Update request status
+            segmentStatus = .inProgress
+            
             requestByAlamofireJSON(urlRequest: urlRequest) { result in
-                var segmentalLibraryAlbumsResult: Swift.Result<[LibraryAlbum], Error>
+                var segmentalLibraryAlbumsArray: [LibraryAlbum] = []
                 
                 switch result {
                 case .success(let responseJson):    // successfully got response from server
                     // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
                     let segmentalLibraryAlbumsDataArray: [JSON] = responseJson["data"].array!
-                    var segmentalLibraryAlbumsArray: [LibraryAlbum] = []
                     
-                    // parse each catalogAlbum from each JSON
+                    // Parse each catalogAlbum from each JSON in segmentalLibraryAlbumsDataArray
                     segmentalLibraryAlbumsDataArray.forEach { libraryAlbumData in
                         let libraryAlbum = LibraryAlbum(albumData: libraryAlbumData)
+                        // Append newly parsed libraryAlbum to [LibraryAlbum] array
                         segmentalLibraryAlbumsArray.append(libraryAlbum!)
                     }
-                    
-                    // Prepare [LibraryAlbum] array for completion afterward
-                    segmentalLibraryAlbumsResult = .success(segmentalLibraryAlbumsArray)
                     
                     // Detect existence of field "next"
                     if responseJson["next"].exists() {
@@ -412,12 +511,14 @@ public class HummingKit {
                             // Complete with error
                             completion(.failure(err))
                         }
-                        segmentStatus = .continuing
                         
+                        // Update status, indicating current segment has been fetched and parsed
+                        segmentStatus = .completed
                         completion(.success((segmentalLibraryAlbumsArray, newOffset: newOffset, segmentStatus: segmentStatus)))
                         
                     } else {    // Field "next" does not exist, current segment is expected to be ultimate
-                        segmentStatus = .finished
+                        // Update status, indicating last segment has been fetched
+                        segmentStatus = .ending
                         completion(.success((segmentalLibraryAlbumsArray, newOffset: newOffset, segmentStatus: segmentStatus)))
                     }
                     
@@ -429,7 +530,7 @@ public class HummingKit {
             
         }
         
-        
+        continueFetching()
     }
     
     // MARK: - Artists
