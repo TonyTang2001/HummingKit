@@ -288,10 +288,10 @@ public class HummingKitRequestFactory {
     // MARK: Get All Library Albums
     /// Generates "Fetch all the library albums in alphabetical order" URL request
     /// - Parameters:
-    ///   - limit: The maximum limit count of albums to be expected in response, default to 25, maximum at 100.
+    ///   - limit: The maximum limit count of library albums to be expected in response, default to 25, maximum at 100.
     ///   - offset: The offset for resources of current request (Pagination),  default to 0.
     /// - Throws: HummingKitRequestGenerationError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
-    /// - Returns: The "fetch all the library albums in alphabetical order" URL request.
+    /// - Returns: The "Fetch all the library albums in alphabetical order" URL request.
     public func createGetAllLibraryAlbumsRequest(limit: String = "25", offset: String = "0") throws -> URLRequest {
         
         // check if arguments are valid
@@ -402,7 +402,12 @@ public class HummingKitRequestFactory {
     
     // MARK: Get All Library Artists
     /// Generates "Fetch all the library artists in alphabetical order" URL request
-    public func createGetAllLibraryArtistsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
+    /// - Parameters:
+    ///   - limit: The maximum limit count of library artists to be expected in response, default to 25, maximum at 100.
+    ///   - offset: The offset for resources of current request (Pagination),  default to 0.
+    /// - Throws: HummingKitRequestGenerationError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
+    /// - Returns: The "Fetch all the library artists in alphabetical order" URL request
+    public func createGetAllLibraryArtistsRequest(limit: String = "25", offset: String = "0") throws -> URLRequest {
         
         // check if arguments are valid
         if !(limit.isInt && offset.isInt) {
@@ -420,8 +425,8 @@ public class HummingKitRequestFactory {
             }
             
             // check if exceeds max fetch limit
-            if limitInt > 25 {
-                throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 25)
+            if limitInt > 100 {
+                throw HummingKitRequestGenerationError.exceedMaxFetchLimit(maxLimit: 100)
             }
             
         }
@@ -555,9 +560,12 @@ public class HummingKitRequestFactory {
     
     // MARK: Get All Library Songs
     /// Generates "Fetch all the library songs in alphabetical order" URL request.
-    /// - Parameter offset: the next page or group of objects to fetch (for progressive function calling)
-    /// - Returns: the URL request for fetching all the library songs in alphabetical order
-    public func createGetAllLibrarySongsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
+    /// - Parameters:
+    ///   - limit: The maximum limit count of library songs to be expected in response, default to 25, maximum at 100.
+    ///   - offset: The offset for resources of current request (Pagination),  default to 0.
+    /// - Throws: HummingKitRequestGenerationError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
+    /// - Returns: The "Fetch all the library songs in alphabetical order" URL request.
+    public func createGetAllLibrarySongsRequest(limit: String = "25", offset: String = "0") throws -> URLRequest {
         // check if arguments are valid
         if !(limit.isInt && offset.isInt) {
             throw HummingKitRequestGenerationError.invalidArgument
@@ -744,8 +752,13 @@ public class HummingKitRequestFactory {
     }
     
     // MARK: Get All Library MVs
-    /// Generates "Fetch all the library music videos in alphabetical order" URL request, maximum limit is 100
-    public func createGetAllLibraryMVsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
+    /// Generates "Fetch all the library music videos in alphabetical order" URL request.
+    /// - Parameters:
+    ///   - limit: The maximum limit count of library music videos to be expected in response, default to 25, maximum at 100.
+    ///   - offset: The offset for resources of current request (Pagination),  default to 0.
+    /// - Throws: HummingKitRequestGenerationError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
+    /// - Returns: The "Fetch all the library music videos in alphabetical order" URL request.
+    public func createGetAllLibraryMVsRequest(limit: String = "25", offset: String = "0") throws -> URLRequest {
         
         // check if arguments are valid
         if !(limit.isInt && offset.isInt) {
@@ -892,9 +905,13 @@ public class HummingKitRequestFactory {
     }
     
     // MARK: Get All Library Playlists
-    /// Generates "Fetch all the library music videos in alphabetical order" URL request. However, if playlists.count > 100, this function needs to be called several times to completely fetch the whole library.
-    /// - Parameter offset: the next page or group of objects to fetch
-    public func createGetAllLibraryPlaylistsRequest(limit: String = "0", offset: String = "0") throws -> URLRequest {
+    /// Generates "Fetch all the library playlists in alphabetical order" URL request.
+    /// - Parameters:
+    ///   - limit: The maximum limit count of library playlists to be expected in response, default to 25, maximum at 100.
+    ///   - offset: The offset for resources of current request (Pagination),  default to 0.
+    /// - Throws: HummingKitRequestGenerationError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
+    /// - Returns: The "Fetch all the library playlists in alphabetical order" URL request.
+    public func createGetAllLibraryPlaylistsRequest(limit: String = "25", offset: String = "0") throws -> URLRequest {
         
         // check if arguments are valid
         if !(limit.isInt && offset.isInt) {

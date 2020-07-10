@@ -368,7 +368,7 @@ public class HummingKit {
     
     /// Fetch all library albums at once
     /// - Parameters:
-    ///   - completion: .success([LibraryAlbum]) or .failure(Error)
+    ///   - completion: .success(([LibraryAlbum], FetchingStatus)) or .failure(Error)
     public func fetchAllLibraryAlbums(completion: @escaping (Swift.Result<([LibraryAlbum], FetchingStatus), Error>) -> Void) {
         
         let limit:  String = "100"  // default to maximum for efficiency
@@ -487,10 +487,9 @@ public class HummingKit {
                 
                 switch result {
                 case .success(let responseJson):    // successfully got response from server
-                    // JSON array of catalogAlbums, each element is of JSON type containing one catalogAlbum data
                     let segmentalLibraryAlbumsDataArray: [JSON] = responseJson["data"].array!
                     
-                    // Parse each catalogAlbum from each JSON in segmentalLibraryAlbumsDataArray
+                    // Parse each libraryAlbum from each JSON in segmentalLibraryAlbumsDataArray
                     segmentalLibraryAlbumsDataArray.forEach { libraryAlbumData in
                         let libraryAlbum = LibraryAlbum(albumData: libraryAlbumData)
                         // Append newly parsed libraryAlbum to [LibraryAlbum] array
@@ -530,6 +529,7 @@ public class HummingKit {
             
         }
         
+        // Start sequential(progressive) calling
         continueFetching()
     }
     
@@ -640,21 +640,169 @@ public class HummingKit {
     
     /// Fetch all library artists at once
     /// - Parameters:
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchAllLibraryArtists(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success(([LibraryArtist], FetchingStatus)) or .failure(Error)
+    public func fetchAllLibraryArtists(completion: @escaping (Swift.Result<([LibraryArtist], FetchingStatus), Error>) -> Void) {
         
-        var urlRequest: URLRequest
+        let limit:  String = "100"  // default to maximum for efficiency
+        var offset: String = "0"
+        var retryCount: Int = 0
+        var fetchingStatus: FetchingStatus = .preparingForStart
+        var allLibraryArtists: [LibraryArtist] = []
         
-        do {
-            urlRequest = try requestGenerator.createGetAllLibraryArtistsRequest()
-        } catch {
-            completion(.failure(error))
-            return
+        /// Function that recursively fetches paged LibraryArtist resource until no available resource left or error occurs
+        func continueFetching() {
+            switch fetchingStatus {
+                
+            // Requests of fetchAllLibraryArtists continuing or preparing to start
+            case .preparingForStart, .inProgress:
+                
+                // Clear retry count and update fetching status
+                retryCount = 0
+                fetchingStatus = .inProgress
+                
+                fetchSegmentalLibraryArtists(limit: limit, offset: offset) { result in
+                    switch result {
+                        
+                    // Segmental fetching succeeded
+                    case .success((let segmentalLibraryArtistsArray, let newOffset, let segmentStatus)):
+                        
+                        // Append parsed segment of LibraryArtist
+                        allLibraryArtists.append(contentsOf: segmentalLibraryArtistsArray)
+                        
+                        // Decide next action in accordance to segment fetching status
+                        switch segmentStatus {
+                            
+                        // Segmental fetching completed
+                        case .completed:    // Fetching is not yet completed, following requests needed
+                            
+                            // Update offset and fetching status for next request
+                            offset = newOffset
+                            fetchingStatus = .inProgress
+                            
+                            // Continue next segmental fetch
+                            continueFetching()
+                            
+                        // Current segment is the ending of all available resources
+                        case .ending:
+                            
+                            // Update fetching status and complete fetchAllLibraryArtists function
+                            fetchingStatus = .completed
+                            completion(.success((allLibraryArtists, fetchingStatus)))
+                        
+                        // Case falling out-of-logic
+                        default:    // Other cases are logically impossible to occur
+                            print("Current case is unexpected.")
+                            
+                            // Complete with error
+                            completion(.failure(HummingKitInternalError.impossibleCase))
+                        }
+                        
+                    // Segmental fetching failed due to error
+                    case .failure(let err):
+                        // Update fetching status
+                        fetchingStatus = .retryingWithError(error: err)
+                        
+                        // Retry(as offset kept unchanged) fetching of current segment
+                        continueFetching()
+                    }
+                }
+                
+            // Current segment failed, retry recursively until retryCount hits maximum
+            case .retryingWithError(let err): // Current segment fetching has failed on last try
+                
+                if retryCount >= retryCountMax {    // Has retried same request for 3 times
+                    
+                    if allLibraryArtists.count > 0 {
+                        // As long as allLibraryArtists array contains objects, function completes with its content while flagged as .completedWithError
+                        // Update fetching status and complete fetchAllLibraryArtists function
+                        fetchingStatus = .completedWithError
+                        completion(.success((allLibraryArtists, fetchingStatus)))
+                    } else {
+                        // When no LibraryArtist has been fetched, function completes with total failure
+                        completion(.failure(err))
+                    }
+                    
+                } else {                            // Retry again
+                    
+                    // Update fetching status with error
+                    fetchingStatus = .retryingWithError(error: err)
+                    // Increment retry count
+                    retryCount += 1
+                    // Retry(as offset kept unchanged) fetching of current segment
+                    continueFetching()
+                }
+                
+            // Fetch has been marked completed
+            default:
+                break
+                
+            }
         }
         
-        requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+        /// Function that fetches a segment of all library artists
+        /// - Parameters:
+        ///   - limit: Maximum count of resources to be expected in response.
+        ///   - offset: The offset of starting resource to be expected in response.
+        ///   - completion: .success(([LibraryArtist], newOffset: String, segmentStatus: FetchingStatus)) or .failure(Error)
+        func fetchSegmentalLibraryArtists(limit: String, offset: String, completion: @escaping (Swift.Result<([LibraryArtist], newOffset: String, segmentStatus: FetchingStatus), Error>) -> Void) {
+            
+            var newOffset: String = offset
+            var segmentStatus: FetchingStatus = .preparingForStart
+            
+            let urlRequest = try! requestGenerator.createGetAllLibraryArtistsRequest(limit: limit, offset: offset)
+            
+            // Update request status
+            segmentStatus = .inProgress
+            
+            requestByAlamofireJSON(urlRequest: urlRequest) { result in
+                var segmentalLibraryArtistsArray: [LibraryArtist] = []
+                
+                switch result {
+                case .success(let responseJson):    // successfully got response from server
+                    let segmentalLibraryArtistsDataArray: [JSON] = responseJson["data"].array!
+                    
+                    // Parse each libraryArtist from each JSON in segmentalLibraryArtistsDataArray
+                    segmentalLibraryArtistsDataArray.forEach { libraryArtistData in
+                        let libraryArtist = LibraryArtist(artistData: libraryArtistData)
+                        // Append newly parsed libraryArtist to [LibraryArtist] array
+                        segmentalLibraryArtistsArray.append(libraryArtist!)
+                    }
+                    
+                    // Detect existence of field "next"
+                    if responseJson["next"].exists() {
+                        // Try to parse offset from field "next"
+                        let offsetParsingResult = Self.offsetMatches(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
+                        
+                        switch offsetParsingResult {
+                        case .success(let offsetParsed):
+                            // Update offset variablefrom outer func
+                            newOffset = offsetParsed
+                        case .failure(let err):
+                            // Field "next" exists but failed to parse offset value
+                            // Complete with error
+                            completion(.failure(err))
+                        }
+                        
+                        // Update status, indicating current segment has been fetched and parsed
+                        segmentStatus = .completed
+                        completion(.success((segmentalLibraryArtistsArray, newOffset: newOffset, segmentStatus: segmentStatus)))
+                        
+                    } else {    // Field "next" does not exist, current segment is expected to be ultimate
+                        // Update status, indicating last segment has been fetched
+                        segmentStatus = .ending
+                        completion(.success((segmentalLibraryArtistsArray, newOffset: newOffset, segmentStatus: segmentStatus)))
+                    }
+                    
+                case .failure(let err): // failed to get response
+                    completion(.failure(err))
+                }
+                
+            }
+            
         }
+        
+        // Start sequential(progressive) calling
+        continueFetching()
     }
     
     /// Fetch multiple library artists using their identifiers
