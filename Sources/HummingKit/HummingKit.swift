@@ -1014,21 +1014,170 @@ public class HummingKit {
     
     /// Fetch all library songs at once
     /// - Parameters:
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchAllLibrarySongs(storefront: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success([LibrarySong], FetchingStatus) or .failure(Error)
+    public func fetchAllLibrarySongs(storefront: String, completion: @escaping (Swift.Result<([LibrarySong], FetchingStatus), Error>) -> Void) {
         
-        var urlRequest: URLRequest
-        
-        do {
-            urlRequest = try requestGenerator.createGetAllLibrarySongsRequest()
-        } catch {
-            completion(.failure(error))
-            return
+        let limit:  String = "100"  // default to maximum for efficiency
+        var offset: String = "0"
+        var retryCount: Int = 0
+        var fetchingStatus: FetchingStatus = .preparingForStart
+        var allLibrarySongs: [LibrarySong] = []
+
+        /// Function that recursively fetches paged LibrarySong resource until no available resource left or error occurs
+        func continueFetching() {
+            switch fetchingStatus {
+                
+            // Requests of fetchAllLibrarySongs continuing or preparing to start
+            case .preparingForStart, .inProgress:
+                
+                // Clear retry count and update fetching status
+                retryCount = 0
+                fetchingStatus = .inProgress
+                
+                fetchSegmentalLibrarySongs(limit: limit, offset: offset) { result in
+                    switch result {
+                        
+                    // Segmental fetching succeeded
+                    case .success((let segmentalLibrarySongsArray, let newOffset, let segmentStatus)):
+                        
+                        // Append parsed segment of LibrarySong
+                        allLibrarySongs.append(contentsOf: segmentalLibrarySongsArray)
+                        
+                        // Decide next action in accordance to segment fetching status
+                        switch segmentStatus {
+                            
+                        // Segmental fetching completed
+                        case .completed:    // Fetching is not yet completed, following requests needed
+                            
+                            // Update offset and fetching status for next request
+                            offset = newOffset
+                            fetchingStatus = .inProgress
+                            
+                            // Continue next segmental fetch
+                            continueFetching()
+                            
+                        // Current segment is the ending of all available resources
+                        case .ending:
+                            
+                            // Update fetching status and complete fetchAllLibrarySongs function
+                            fetchingStatus = .completed
+                            completion(.success((allLibrarySongs, fetchingStatus)))
+                        
+                        // Case falling out-of-logic
+                        default:    // Other cases are logically impossible to occur
+                            print("Current case is unexpected.")
+                            
+                            // Complete with error
+                            completion(.failure(HummingKitInternalError.impossibleCase))
+                        }
+                        
+                    // Segmental fetching failed due to error
+                    case .failure(let err):
+                        // Update fetching status
+                        fetchingStatus = .retryingWithError(error: err)
+                        
+                        // Retry(as offset kept unchanged) fetching of current segment
+                        continueFetching()
+                    }
+                }
+                
+            // Current segment failed, retry recursively until retryCount hits maximum
+            case .retryingWithError(let err): // Current segment fetching has failed on last try
+                
+                if retryCount >= retryCountMax {    // Has retried same request for 3 times
+                    
+                    if allLibrarySongs.count > 0 {
+                        // As long as allLibrarySongs array contains objects, function completes with its content while flagged as .completedWithError
+                        // Update fetching status and complete fetchAllLibrarySongs function
+                        fetchingStatus = .completedWithError
+                        completion(.success((allLibrarySongs, fetchingStatus)))
+                    } else {
+                        // When no LibrarySong has been fetched, function completes with total failure
+                        completion(.failure(err))
+                    }
+                    
+                } else {                            // Retry again
+                    
+                    // Update fetching status with error
+                    fetchingStatus = .retryingWithError(error: err)
+                    // Increment retry count
+                    retryCount += 1
+                    // Retry(as offset kept unchanged) fetching of current segment
+                    continueFetching()
+                }
+                
+            // Fetch has been marked completed
+            default:
+                break
+                
+            }
         }
-        
-        requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+
+        /// Function that fetches a segment of all library songs
+        /// - Parameters:
+        ///   - limit: Maximum count of resources to be expected in response.
+        ///   - offset: The offset of starting resource to be expected in response.
+        ///   - completion: .success(([LibrarySong], newOffset: String, segmentStatus: FetchingStatus)) or .failure(Error)
+        func fetchSegmentalLibrarySongs(limit: String, offset: String, completion: @escaping (Swift.Result<([LibrarySong], newOffset: String, segmentStatus: FetchingStatus), Error>) -> Void) {
+            
+            var newOffset: String = offset
+            var segmentStatus: FetchingStatus = .preparingForStart
+            
+            let urlRequest = try! requestGenerator.createGetAllLibrarySongsRequest(limit: limit, offset: offset)
+            
+            // Update request status
+            segmentStatus = .inProgress
+            
+            requestByAlamofireJSON(urlRequest: urlRequest) { result in
+                var segmentalLibrarySongsArray: [LibrarySong] = []
+                
+                switch result {
+                case .success(let responseJson):    // successfully got response from server
+                    let segmentalLibrarySongsDataArray: [JSON] = responseJson["data"].array!
+                    
+                    // Parse each librarySong from each JSON in segmentalLibrarySongsDataArray
+                    segmentalLibrarySongsDataArray.forEach { librarySongData in
+                        let librarySong = LibrarySong(songData: librarySongData)
+                        // Append newly parsed librarySong to [LibrarySong] array
+                        segmentalLibrarySongsArray.append(librarySong!)
+                    }
+                    
+                    // Detect existence of field "next"
+                    if responseJson["next"].exists() {
+                        // Try to parse offset from field "next"
+                        let offsetParsingResult = Self.offsetMatches(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
+                        
+                        switch offsetParsingResult {
+                        case .success(let offsetParsed):
+                            // Update offset variablefrom outer func
+                            newOffset = offsetParsed
+                        case .failure(let err):
+                            // Field "next" exists but failed to parse offset value
+                            // Complete with error
+                            completion(.failure(err))
+                        }
+                        
+                        // Update status, indicating current segment has been fetched and parsed
+                        segmentStatus = .completed
+                        completion(.success((segmentalLibrarySongsArray, newOffset: newOffset, segmentStatus: segmentStatus)))
+                        
+                    } else {    // Field "next" does not exist, current segment is expected to be ultimate
+                        // Update status, indicating last segment has been fetched
+                        segmentStatus = .ending
+                        completion(.success((segmentalLibrarySongsArray, newOffset: newOffset, segmentStatus: segmentStatus)))
+                    }
+                    
+                case .failure(let err): // failed to get response
+                    completion(.failure(err))
+                }
+                
+            }
+            
         }
+
+        // Start sequential(progressive) calling
+        continueFetching()
+
     }
     
     /// Fetch relationship of a library song using its identifier and relationship name
@@ -1209,21 +1358,170 @@ public class HummingKit {
     
     /// Fetch all library music videos at once, 100 at max at a time
     /// - Parameters:
-    ///   - completion: .success(JSON) or .failure(Error)
-    public func fetchAllLibraryMVs(completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: .success([LibraryMV], FetchingStatus) or .failure(Error)
+    public func fetchAllLibraryMVs(completion: @escaping (Swift.Result<([LibraryMV], FetchingStatus), Error>) -> Void) {
         
-        var urlRequest: URLRequest
-        
-        do {
-            urlRequest = try requestGenerator.createGetAllLibraryMVsRequest()
-        } catch {
-            completion(.failure(error))
-            return
+        let limit:  String = "100"  // default to maximum for efficiency
+        var offset: String = "0"
+        var retryCount: Int = 0
+        var fetchingStatus: FetchingStatus = .preparingForStart
+        var allLibraryMVs: [LibraryMV] = []
+
+        /// Function that recursively fetches paged LibraryMV resource until no available resource left or error occurs
+        func continueFetching() {
+            switch fetchingStatus {
+                
+            // Requests of fetchAllLibraryMVs continuing or preparing to start
+            case .preparingForStart, .inProgress:
+                
+                // Clear retry count and update fetching status
+                retryCount = 0
+                fetchingStatus = .inProgress
+                
+                fetchSegmentalLibraryMVs(limit: limit, offset: offset) { result in
+                    switch result {
+                        
+                    // Segmental fetching succeeded
+                    case .success((let segmentalLibraryMVsArray, let newOffset, let segmentStatus)):
+                        
+                        // Append parsed segment of LibraryMV
+                        allLibraryMVs.append(contentsOf: segmentalLibraryMVsArray)
+                        
+                        // Decide next action in accordance to segment fetching status
+                        switch segmentStatus {
+                            
+                        // Segmental fetching completed
+                        case .completed:    // Fetching is not yet completed, following requests needed
+                            
+                            // Update offset and fetching status for next request
+                            offset = newOffset
+                            fetchingStatus = .inProgress
+                            
+                            // Continue next segmental fetch
+                            continueFetching()
+                            
+                        // Current segment is the ending of all available resources
+                        case .ending:
+                            
+                            // Update fetching status and complete fetchAllLibraryMVs function
+                            fetchingStatus = .completed
+                            completion(.success((allLibraryMVs, fetchingStatus)))
+                        
+                        // Case falling out-of-logic
+                        default:    // Other cases are logically impossible to occur
+                            print("Current case is unexpected.")
+                            
+                            // Complete with error
+                            completion(.failure(HummingKitInternalError.impossibleCase))
+                        }
+                        
+                    // Segmental fetching failed due to error
+                    case .failure(let err):
+                        // Update fetching status
+                        fetchingStatus = .retryingWithError(error: err)
+                        
+                        // Retry(as offset kept unchanged) fetching of current segment
+                        continueFetching()
+                    }
+                }
+                
+            // Current segment failed, retry recursively until retryCount hits maximum
+            case .retryingWithError(let err): // Current segment fetching has failed on last try
+                
+                if retryCount >= retryCountMax {    // Has retried same request for 3 times
+                    
+                    if allLibraryMVs.count > 0 {
+                        // As long as allLibraryMVs array contains objects, function completes with its content while flagged as .completedWithError
+                        // Update fetching status and complete fetchAllLibraryMVs function
+                        fetchingStatus = .completedWithError
+                        completion(.success((allLibraryMVs, fetchingStatus)))
+                    } else {
+                        // When no LibraryMV has been fetched, function completes with total failure
+                        completion(.failure(err))
+                    }
+                    
+                } else {                            // Retry again
+                    
+                    // Update fetching status with error
+                    fetchingStatus = .retryingWithError(error: err)
+                    // Increment retry count
+                    retryCount += 1
+                    // Retry(as offset kept unchanged) fetching of current segment
+                    continueFetching()
+                }
+                
+            // Fetch has been marked completed
+            default:
+                break
+                
+            }
         }
-        
-        requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            completion(result)
+
+        /// Function that fetches a segment of all library music videos
+        /// - Parameters:
+        ///   - limit: Maximum count of resources to be expected in response.
+        ///   - offset: The offset of starting resource to be expected in response.
+        ///   - completion: .success(([LibraryMV], newOffset: String, segmentStatus: FetchingStatus)) or .failure(Error)
+        func fetchSegmentalLibraryMVs(limit: String, offset: String, completion: @escaping (Swift.Result<([LibraryMV], newOffset: String, segmentStatus: FetchingStatus), Error>) -> Void) {
+            
+            var newOffset: String = offset
+            var segmentStatus: FetchingStatus = .preparingForStart
+            
+            let urlRequest = try! requestGenerator.createGetAllLibraryMVsRequest(limit: limit, offset: offset)
+            
+            // Update request status
+            segmentStatus = .inProgress
+            
+            requestByAlamofireJSON(urlRequest: urlRequest) { result in
+                var segmentalLibraryMVsArray: [LibraryMV] = []
+                
+                switch result {
+                case .success(let responseJson):    // successfully got response from server
+                    let segmentalLibraryMVsDataArray: [JSON] = responseJson["data"].array!
+                    
+                    // Parse each libraryMV from each JSON in segmentalLibraryMVsDataArray
+                    segmentalLibraryMVsDataArray.forEach { libraryMVData in
+                        let libraryMV = LibraryMV(mvData: libraryMVData)
+                        // Append newly parsed libraryMV to [LibraryMV] array
+                        segmentalLibraryMVsArray.append(libraryMV!)
+                    }
+                    
+                    // Detect existence of field "next"
+                    if responseJson["next"].exists() {
+                        // Try to parse offset from field "next"
+                        let offsetParsingResult = Self.offsetMatches(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
+                        
+                        switch offsetParsingResult {
+                        case .success(let offsetParsed):
+                            // Update offset variablefrom outer func
+                            newOffset = offsetParsed
+                        case .failure(let err):
+                            // Field "next" exists but failed to parse offset value
+                            // Complete with error
+                            completion(.failure(err))
+                        }
+                        
+                        // Update status, indicating current segment has been fetched and parsed
+                        segmentStatus = .completed
+                        completion(.success((segmentalLibraryMVsArray, newOffset: newOffset, segmentStatus: segmentStatus)))
+                        
+                    } else {    // Field "next" does not exist, current segment is expected to be ultimate
+                        // Update status, indicating last segment has been fetched
+                        segmentStatus = .ending
+                        completion(.success((segmentalLibraryMVsArray, newOffset: newOffset, segmentStatus: segmentStatus)))
+                    }
+                    
+                case .failure(let err): // failed to get response
+                    completion(.failure(err))
+                }
+                
+            }
+            
         }
+
+        // Start sequential(progressive) calling
+        continueFetching()
+
     }
     
     // MARK: - Playlist
