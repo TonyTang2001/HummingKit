@@ -201,11 +201,14 @@ public struct LibrarySong: Hashable, Codable, Identifiable {
 
 public extension LibrarySong {
     struct Attributes: Hashable, Codable {
-        public let albumName:   String
-        public let artistName:  String
-        public let artwork:     Artwork
-        public let name:        String
-        public let trackNumber: Int
+        public let albumName:        String
+        public let artistName:       String
+        public let artwork:          Artwork
+        public let name:             String
+        public let trackNumber:      Int
+        public var hasLyrics:        Bool?
+        public var durationInMillis: Int?
+        public var genreNames:      [String]?
         
         public init?(_ attributesData: JSON) {
             guard let albumName = attributesData["albumName"].string,
@@ -220,6 +223,21 @@ public extension LibrarySong {
             self.artwork = artwork
             self.name = name
             self.trackNumber = trackNumber
+            
+            if let hasLyrics = attributesData["hasLyrics"].bool, let durationInMillis = attributesData["durationInMillis"].int, let genreNamesJSONArray = attributesData["genreNames"].array {
+                
+                // convert genreNamesJSON array to genreNames array containing String
+                var genreNames: [String] = []
+                genreNamesJSONArray.forEach { genreNameJSON in
+                    if let genreName = genreNameJSON.string {
+                        genreNames.append(genreName)
+                    }
+                }
+                
+                self.hasLyrics = hasLyrics
+                self.durationInMillis = durationInMillis
+                self.genreNames = genreNames
+            }
         }
     }
     
@@ -519,18 +537,28 @@ public struct LibraryPlaylist: Hashable, Codable, Identifiable {
 public extension LibraryPlaylist {
     struct Attributes: Hashable, Codable {
         public let canEdit:     Bool
-        public let description: EditorialNotes
+        public var description: EditorialNotes?
         public let name:        String
+        public var dateAdded:   String?
+        public var hasCatalog:  Bool?
         
         public init?(_ attributesData: JSON) {
             guard let canEdit = attributesData["canEdit"].bool,
-                  let description = EditorialNotes(attributesData["description"]),
                   let name = attributesData["name"].string
             else { return nil }
             
             self.canEdit = canEdit
-            self.description = description
             self.name = name
+            
+            if let description = EditorialNotes(attributesData["description"]),
+               let dateAdded = attributesData["dateAdded"].string,
+               let hasCatalog = attributesData["hasCatalog"].bool {
+                
+                self.description = description
+                self.dateAdded = dateAdded
+                self.hasCatalog = hasCatalog
+            }
+            
         }
     }
     
@@ -752,10 +780,11 @@ public struct Resource: Hashable, Codable, Identifiable {
 }
 
 public struct Artwork: Hashable, Codable {
-    public let height: Int     // The maximum height available for the image.
-    public let width:  Int     // The maximum width available for the image.
     public let url:    String  // The URL to request the image asset. The image filename must be preceded by {w}x{h}, as placeholders for the width and height values as described above (for example, {w}x{h}bb.jpeg).
     
+    public var height: Int?     // The maximum height available for the image. Library resources may not have this property.
+    public var width:  Int?     // The maximum width available for the image. Library resources may not have this property.
+        
     public var bgColor:    String? // The average background color of the image.
     public var textColor1: String? // The primary text color that may be used if the background color is displayed.
     public var textColor2: String? // The secondary text color that may be used if the background color is displayed.
@@ -763,21 +792,21 @@ public struct Artwork: Hashable, Codable {
     public var textColor4: String? // The final post-tertiary text color that may be used if the background color is displayed.
     
     public init?(_ artworkData: JSON) {
-        guard let height = artworkData["height"].int, let width = artworkData["width"].int, let url = artworkData["url"].string
+        guard let url = artworkData["url"].string
             else { return nil }
         
-        if let bgColor = artworkData["bgColor"].string, let textColor1 = artworkData["textColor1"].string, let textColor2 = artworkData["textColor2"].string, let textColor3 = artworkData["textColor3"].string, let textColor4 = artworkData["textColor4"].string {
+        self.url = url
+        
+        if let width = artworkData["width"].int, let height = artworkData["height"].int, let bgColor = artworkData["bgColor"].string, let textColor1 = artworkData["textColor1"].string, let textColor2 = artworkData["textColor2"].string, let textColor3 = artworkData["textColor3"].string, let textColor4 = artworkData["textColor4"].string {
             
+            self.height = height
+            self.width = width
             self.bgColor = bgColor
             self.textColor1 = textColor1
             self.textColor2 = textColor2
             self.textColor3 = textColor3
             self.textColor4 = textColor4
         }
-        
-        self.height = height
-        self.width = width
-        self.url = url
         
     }
 }

@@ -1137,9 +1137,13 @@ public class HummingKit {
                     
                     // Parse each librarySong from each JSON in segmentalLibrarySongsDataArray
                     segmentalLibrarySongsDataArray.forEach { librarySongData in
-                        let librarySong = LibrarySong(songData: librarySongData)
-                        // Append newly parsed librarySong to [LibrarySong] array
-                        segmentalLibrarySongsArray.append(librarySong!)
+                        if let librarySong = LibrarySong(songData: librarySongData) {
+                            // Append newly parsed librarySong to [LibrarySong] array
+                            segmentalLibrarySongsArray.append(librarySong)
+                        } else {
+                            // Individual LibrarySong parsing failed, prompt JSON data in console
+                            print(librarySongData)
+                        }
                     }
                     
                     // Detect existence of field "next"
@@ -1809,9 +1813,14 @@ public class HummingKit {
                     
                     // Parse each libraryPlaylist from each JSON in segmentalLibraryPlaylistsDataArray
                     segmentalLibraryPlaylistsDataArray.forEach { libraryPlaylistData in
-                        let libraryPlaylist = LibraryPlaylist(playlistData: libraryPlaylistData)
-                        // Append newly parsed libraryPlaylist to [LibraryPlaylist] array
-                        segmentalLibraryPlaylistsArray.append(libraryPlaylist!)
+                        if let libraryPlaylist = LibraryPlaylist(playlistData: libraryPlaylistData) {
+                            // Append newly parsed libraryPlaylist to [LibraryPlaylist] array
+                            segmentalLibraryPlaylistsArray.append(libraryPlaylist)
+                        } else {
+                            // Individual LibraryPlaylist parsing failed, prompt JSON data in console
+                            print(libraryPlaylistData)
+                        }
+                        
                     }
                     
                     // Detect existence of field "next"
@@ -1953,153 +1962,6 @@ public class HummingKit {
     
     
     // TODO: - More
-    
-    
-    
-    public typealias completionStringChunk = (_ success: Bool, _ error: Error?, _ result: String?) -> Void
-    public typealias completionJSONChunk = (_ success: Bool, _ error: Error?, _ result: JSON?) -> Void
-    
-    /// Function for fetching all playlists from user's library
-    ///
-    /// - Parameters:
-    ///   - completion: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
-    public func fetchAllUserLibraryPlaylists(completion: @escaping completionJSONChunk) {
-        
-        var allFullInfo: JSON = []
-        var offset: String = "0"
-        var finished: Bool = false
-        
-        func fetchPartialUserLibraryPlaylists(Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool, _ statusCheck: Bool, _ error: Error?) -> Void ) {
-            
-            guard let urlRequest =
-                try? requestGenerator.createGetAllLibraryPlaylistsRequest(offset: Offset)
-                else {
-                    return
-            }
-            
-            var offsetIndexString: String = ""
-            
-            Alamofire.request(urlRequest)
-                .responseJSON { response in
-                    
-                    let currentJson = JSON(response.result.value ?? "NA")
-                    let playlistsInfoJson = currentJson["data"]
-                    var isFinished = false
-                    
-                    if currentJson["next"].exists() {
-                        // extract offsetIndexString from "next"
-                        guard let next = currentJson["next"].string else { return }
-//                        offsetIndexString = Self.offsetMatches(for: "(\\d{2,})", in: next)
-                        
-                        isFinished = false
-                    } else {
-                        isFinished = true
-                    }
-                    
-                    let result = Self.decodeResponseStatus(response)
-                    completion(playlistsInfoJson, offsetIndexString, isFinished, result.success, result.error)
-            }
-        }
-        
-        func goto() {
-            switch finished {
-            case false:
-                print("Fetching Continuing")
-                fetchPartialUserLibraryPlaylists(Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished, statusOK, error)  in
-                    if !statusOK {
-                        print("Fetching FAILED")
-                        // One fetch among whole process failed, currently collected info will still be returned
-                        completion(false, error, allFullInfo)
-                    }
-                    do {
-                        try allFullInfo = allFullInfo.merged(with: songsInfoJson)
-                    } catch {
-                        print(error)
-                    }
-                    offset = nextOffset
-                    finished = isFinished
-                    goto()
-                })
-            case true:
-                print("Fetching SUCCEEDED")
-                completion(true, nil, allFullInfo)
-            }
-        }
-        
-        goto()
-        
-    }
-    
-    // FIXME: -  Error Handling part of this function has NOT been tested yet, possible to malfuntion or fail to work
-    /// Function for fetching all songs from user's library
-    ///
-    /// - Parameters:
-    ///   - completion: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
-    public func fetchAllUserLibrarySongs(completion: @escaping completionJSONChunk) {
-        
-        var allFullInfo: JSON = []
-        var offset: String = "0"
-        var finished: Bool = false
-        
-        func fetchPartialUserLibrarySongs(Offset: String, completion: @escaping (_ partialInfo: JSON, _ nextOffset: String, _ finished: Bool, _ statusCheck: Bool, _ error: Error?) -> Void ) {
-            
-            guard let urlRequest =
-                try? requestGenerator.createGetAllLibrarySongsRequest(offset: Offset)
-                else {
-                    return 
-            }
-            
-            var offsetIndexString: String = ""
-            
-            Alamofire.request(urlRequest)
-                .responseJSON { response in
-                    
-                    let currentJson = JSON(response.result.value ?? "NA")
-                    let songsInfoJson = currentJson["data"]
-                    var isFinished = false
-                    
-                    if currentJson["next"].exists() {
-                        // extract offsetIndexString from "next"
-                        guard let next = currentJson["next"].string else { return }
-//                        offsetIndexString = Self.offsetMatches(for: "(\\d{2,})", in: next)
-                        
-                        isFinished = false
-                    } else {
-                        isFinished = true
-                    }
-                    
-                    let result = Self.decodeResponseStatus(response)
-                    completion(songsInfoJson, offsetIndexString, isFinished, result.success, result.error)
-            }
-        }
-        
-        func goto() {
-            switch finished {
-            case false:
-                print("Fetching Continuing")
-                fetchPartialUserLibrarySongs(Offset: offset, completion: { (songsInfoJson, nextOffset, isFinished, statusOK, error) in
-                    if !statusOK {
-                        print("Fetching FAILED")
-                        // One fetch among whole process failed, currently collected info will still be returned
-                        completion(false, error, allFullInfo)
-                    }
-                    do {
-                        try allFullInfo = allFullInfo.merged(with: songsInfoJson)
-                    } catch {
-                        print(error)
-                    }
-                    offset = nextOffset
-                    finished = isFinished
-                    goto()
-                })
-            case true:
-                print("Fetching SUCCEEDED")
-                completion(true, nil, allFullInfo)
-            }
-        }
-        goto()
-        
-    }
     
     /// Private function for searching offest index from response ["next"]
     ///
