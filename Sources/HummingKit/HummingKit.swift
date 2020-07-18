@@ -499,7 +499,7 @@ public class HummingKit {
                     // Detect existence of field "next"
                     if responseJson["next"].exists() {
                         // Try to parse offset from field "next"
-                        let offsetParsingResult = Self.offsetMatches(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
+                        let offsetParsingResult = Self.regexSearch(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
                         
                         switch offsetParsingResult {
                         case .success(let offsetParsed):
@@ -771,7 +771,7 @@ public class HummingKit {
                     // Detect existence of field "next"
                     if responseJson["next"].exists() {
                         // Try to parse offset from field "next"
-                        let offsetParsingResult = Self.offsetMatches(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
+                        let offsetParsingResult = Self.regexSearch(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
                         
                         switch offsetParsingResult {
                         case .success(let offsetParsed):
@@ -1149,7 +1149,7 @@ public class HummingKit {
                     // Detect existence of field "next"
                     if responseJson["next"].exists() {
                         // Try to parse offset from field "next"
-                        let offsetParsingResult = Self.offsetMatches(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
+                        let offsetParsingResult = Self.regexSearch(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
                         
                         switch offsetParsingResult {
                         case .success(let offsetParsed):
@@ -1493,7 +1493,7 @@ public class HummingKit {
                     // Detect existence of field "next"
                     if responseJson["next"].exists() {
                         // Try to parse offset from field "next"
-                        let offsetParsingResult = Self.offsetMatches(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
+                        let offsetParsingResult = Self.regexSearch(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
                         
                         switch offsetParsingResult {
                         case .success(let offsetParsed):
@@ -1826,7 +1826,7 @@ public class HummingKit {
                     // Detect existence of field "next"
                     if responseJson["next"].exists() {
                         // Try to parse offset from field "next"
-                        let offsetParsingResult = Self.offsetMatches(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
+                        let offsetParsingResult = Self.regexSearch(for: "(\\d{2,})", in: responseJson["next"].string ?? "")
                         
                         switch offsetParsingResult {
                         case .success(let offsetParsed):
@@ -1963,13 +1963,13 @@ public class HummingKit {
     
     // TODO: - More
     
-    /// Private function for searching offest index from response ["next"]
+    /// Private function for searching regex pattern in text passed in, currently used to find offest index from response field "next".
     ///
     /// - Parameters:
-    ///   - regex: regular expression feature
-    ///   - text: string value from ["next"]
-    /// - Returns: offset index in String
-    private static func offsetMatches(for regex: String, in text: String) -> Swift.Result<String, Error> {
+    ///   - regex: regular expression pattern
+    ///   - text: string to search regex pattern from
+    /// - Returns: Last string segment matching regex pattern
+    private static func regexSearch(for regex: String, in text: String) -> Swift.Result<String, Error> {
         
         let result: Swift.Result<String, Error>
         
