@@ -491,9 +491,14 @@ public class HummingKit {
                     
                     // Parse each libraryAlbum from each JSON in segmentalLibraryAlbumsDataArray
                     segmentalLibraryAlbumsDataArray.forEach { libraryAlbumData in
-                        let libraryAlbum = LibraryAlbum(albumData: libraryAlbumData)
-                        // Append newly parsed libraryAlbum to [LibraryAlbum] array
-                        segmentalLibraryAlbumsArray.append(libraryAlbum!)
+                        if let libraryAlbum = LibraryAlbum(albumData: libraryAlbumData) {
+                            // Append newly parsed libraryAlbum to [LibraryAlbum] array
+                            segmentalLibraryAlbumsArray.append(libraryAlbum)
+                        } else {
+                            // Individual LibraryAlbum parsing failed, prompt JSON data in console
+                            print(libraryAlbumData)
+                        }
+                        
                     }
                     
                     // Detect existence of field "next"
@@ -763,9 +768,14 @@ public class HummingKit {
                     
                     // Parse each libraryArtist from each JSON in segmentalLibraryArtistsDataArray
                     segmentalLibraryArtistsDataArray.forEach { libraryArtistData in
-                        let libraryArtist = LibraryArtist(artistData: libraryArtistData)
-                        // Append newly parsed libraryArtist to [LibraryArtist] array
-                        segmentalLibraryArtistsArray.append(libraryArtist!)
+                        if let libraryArtist = LibraryArtist(artistData: libraryArtistData) {
+                            // Append newly parsed libraryArtist to [LibraryArtist] array
+                            segmentalLibraryArtistsArray.append(libraryArtist)
+                        } else {
+                            // Individual libraryArtist parsing failed, prompt JSON data in console
+                            print(libraryArtistData)
+                        }
+                        
                     }
                     
                     // Detect existence of field "next"
@@ -1485,9 +1495,14 @@ public class HummingKit {
                     
                     // Parse each libraryMV from each JSON in segmentalLibraryMVsDataArray
                     segmentalLibraryMVsDataArray.forEach { libraryMVData in
-                        let libraryMV = LibraryMV(mvData: libraryMVData)
-                        // Append newly parsed libraryMV to [LibraryMV] array
-                        segmentalLibraryMVsArray.append(libraryMV!)
+                        if let libraryMV = LibraryMV(mvData: libraryMVData) {
+                            // Append newly parsed libraryMV to [LibraryMV] array
+                            segmentalLibraryMVsArray.append(libraryMV)
+                        } else {
+                            // Individual LibraryMV parsing failed, prompt JSON data in console
+                            print(libraryMVData)
+                        }
+                        
                     }
                     
                     // Detect existence of field "next"

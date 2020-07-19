@@ -349,10 +349,13 @@ public struct LibraryAlbum: Hashable, Codable, Identifiable {
 
 public extension LibraryAlbum {
     struct Attributes: Hashable, Codable {
-        public let artistName: String
-        public let artwork:    Artwork
-        public let name:       String
-        public let trackCount: Int
+        public let artistName:  String
+        public let artwork:     Artwork
+        public let name:        String
+        public let trackCount:  Int
+        public var releaseDate: String?
+        public var dateAdded:   String?
+        public var genreNames: [String]?
         
         public init?(_ attributesData: JSON) {
             guard let artistName = attributesData["artistName"].string,
@@ -360,6 +363,24 @@ public extension LibraryAlbum {
                   let name = attributesData["name"].string,
                   let trackCount = attributesData["trackCount"].int
             else { return nil }
+            
+            if let releaseDate = attributesData["releaseDate"].string,
+               let dateAdded = attributesData["dateAdded"].string,
+               let genreNamesJSONArray = attributesData["genreNames"].array {
+                
+                // convert genreNamesJSON array to genreNames array containing String
+                var genreNames: [String] = []
+                genreNamesJSONArray.forEach { genreNameJSON in
+                    if let genreName = genreNameJSON.string {
+                        genreNames.append(genreName)
+                    }
+                }
+                
+                self.releaseDate = releaseDate
+                self.dateAdded = dateAdded
+                self.genreNames = genreNames
+                
+            }
             
             self.artistName = artistName
             self.artwork = artwork
@@ -674,28 +695,49 @@ public struct LibraryMV: Hashable, Codable, Identifiable {
 
 public extension LibraryMV {
     struct Attributes: Hashable, Codable {
-        public let albumName:     String
-        public let artistName:    String
-        public let artwork:       Artwork
-        public let contentRating: String
-        public let name:          String
-        public let trackNumber:   Int
+        public let name:             String
+        public let artistName:       String
+        public var artwork:          Artwork?
+        public var albumName:        String?
+        public var contentRating:    String?
+        public var trackNumber:      Int?
+        public var durationInMillis: Int?
+        public var releaseDate:      String?
+        public var genreNames:      [String]?
         
         public init?(_ attributesData: JSON) {
-            guard let albumName = attributesData["albumName"].string,
-                  let artistName = attributesData["artistName"].string,
-                  let artwork = Artwork(attributesData["artwork"]),
-                  let name = attributesData["name"].string,
-                  let contentRating = attributesData["contentRating"].string,
-                  let trackNumber = attributesData["trackNumber"].int
+            guard let name = attributesData["name"].string,
+                  let artistName = attributesData["artistName"].string
             else { return nil }
             
-            self.albumName = albumName
-            self.artistName = artistName
-            self.artwork = artwork
-            self.contentRating = contentRating
             self.name = name
-            self.trackNumber = trackNumber
+            self.artistName = artistName
+            
+            if let artwork = Artwork(attributesData["artwork"]),
+               let albumName = attributesData["albumName"].string,
+               let contentRating = attributesData["contentRating"].string,
+               let trackNumber = attributesData["trackNumber"].int,
+               let durationInMillis = attributesData["durationInMillis"].int,
+               let releaseDate = attributesData["releaseDate"].string,
+               let genreNamesJSONArray = attributesData["genreNames"].array {
+                
+                // convert genreNamesJSON array to genreNames array containing String
+                var genreNames: [String] = []
+                genreNamesJSONArray.forEach { genreNameJSON in
+                    if let genreName = genreNameJSON.string {
+                        genreNames.append(genreName)
+                    }
+                }
+                
+                self.artwork = artwork
+                self.albumName = albumName
+                self.contentRating = contentRating
+                self.trackNumber = trackNumber
+                self.durationInMillis = durationInMillis
+                self.releaseDate = releaseDate
+                self.genreNames = genreNames
+            }
+            
         }
     }
     
