@@ -64,9 +64,19 @@ class HummingKitTests: XCTestCase {
     }
     
     func testFetchAllLibrarySongs() {
+        let catalogAlbumFetchingExpectation = self.expectation(description: "Fetch a catalog album.")
+        
         humming?.fetchAllLibrarySongs(storefront: "us") { result in
-            print(result)
+            switch result {
+            case .success((let songs, let status)):
+                XCTAssertEqual(songs.count > 100, true)
+                catalogAlbumFetchingExpectation.fulfill()
+            case .failure(let err):
+                print(err)
+            }
         }
+        
+        waitForExpectations(timeout: 18, handler: nil)
     }
 
 //    func testPerformanceExample() throws {
