@@ -10,66 +10,78 @@ import StoreKit
 import Alamofire
 import SwiftyJSON
 
+/// Main entry class of HummingKit framework
 public class HummingKit {
     
     private var developerToken: String
     private var userToken: String
     private let requestGenerator: HummingKitRequestFactory
     
+    /// Maximum time of retrying an segmental fetching request within an expensive request
     private var retryCountMax: Int = 3
     
+    /// Initializer of HummingKit()
+    /// - Parameters:
+    ///   - developerToken: Apple Music Developer Token fetched beforehand using developer key issued by developer.apple.com
+    ///   - userToken: Apple Music User Token fetched on user-end device using Apple Music Developer Token
     public init(developerToken: String, userToken: String) {
         self.developerToken = developerToken
         self.userToken = userToken
         requestGenerator = HummingKitRequestFactory(developerToken: developerToken, userToken: userToken)
     }
     
-    public func setMaximumRequestRetryTime(_ retryCount: Int) {
-        retryCountMax = retryCount
+    /// Function to customize maximum time of retrying an segmental fetching request within an expensive request.
+    /// - Parameter retryCount: The upper limit of time of retrying.
+    public func setMaximumRequestRetryCount(_ retryCount: Int) {
+        // Minimum legal valur of retryCountMax is 0.
+        retryCountMax = (retryCount < 0) ? 0 : retryCount
     }
     
-    /// Private function that modularize Alamofire url requesting and responses
+    /// Private function that modularize Alamofire url requesting and responses.
     /// - Parameters:
     ///   - urlRequest: URL request that needs to be conducted by Alamofire
-    ///   - completion: Swift.Result type handles json response, .success(JSON) or .failure(Error)
-    private func requestByAlamofireJSON(urlRequest: URLRequest, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
+    ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
+    ///   - result: Result of request, .success(JSON) or .failure(Error)
+    private func requestByAlamofireJSON(urlRequest: URLRequest, completion: @escaping (_ result: Swift.Result<JSON, Error>) -> Void) {
         Alamofire.request(urlRequest)
             .responseJSON { response in
+                var result: Swift.Result<JSON, Error>   // result to be modified and returned in completion handler
                 let data = Self.decodeResponseStatus(response)
-                var result: Swift.Result<JSON, Error>
+                
                 if data.success {
                     result = .success(data.responseJSON ?? "")
                 } else {
                     guard let err = data.error else { return }
                     result = .failure(err)
                 }
+                
                 completion(result)
         }
     }
     
-    /// Overloads requestByAlamofire() for requests without response body, such that only status code is returned for clearance of whether the action is approved by the server or not
+    /// Private function that modularize Alamofire url requesting, specifically for those without response body.
     /// - Parameters:
     ///   - urlRequest: URL request that needs to be conducted by Alamofire
-    ///   - completion: Swift.Result type handles json response, .success("") or .failure(Error)
-    private func requestByAlamofireString(urlRequest: URLRequest, completion: @escaping (Swift.Result<String, Error>) -> Void) {
+    ///   - completion: Completion handler of request result of type Swift.Result<String, Error>
+    ///   - result: Result of request, .success(status) or .failure(Error)
+    private func requestByAlamofireString(urlRequest: URLRequest, completion: @escaping (_ result: Swift.Result<String, Error>) -> Void) {
         Alamofire.request(urlRequest)
             .responseJSON { response in
-                var result: Swift.Result<String, Error>
+                var result: Swift.Result<String, Error>   // result to be modified and returned in completion handler
                 
                 if let statusCode = response.response?.statusCode {
                     print("Request Status Code: \(statusCode)")
                     let decodedStatus = HummingKit.handleResponseStatusCode(statusCode: statusCode)
                     
                     if decodedStatus.success {
-                        result = .success("")
+                        result = .success(decodedStatus.codeName)
                     } else {
-                        let data = Self.decodeResponseStatus(response)
+                        // Status code indicates an error has occured
+                        let data = HummingKit.decodeResponseStatus(response)
                         guard let err = data.error else { return }
                         result = .failure(err)
                     }
-                    
-                } else {
-                    // No HTTP Status Code, report in console & error returned is nil
+                } else {    // Status code unavailable
                     print("NO HTTP Status Code, Check Internet Availability and Retry Request")
                     let data = Self.decodeResponseStatus(response)
                     guard let err = data.error else { return }
@@ -81,19 +93,27 @@ public class HummingKit {
     }
     
     // MARK: - Storefonts
-    /// Fetch user's Apple Music account storefront information
-    /// - Parameter completion: .success(Storefront) or .failure(Error)
-    public func fetchUserStorefront(completion: @escaping (Swift.Result<Storefront, Error>) -> Void) {
+    /// Fetch user's Apple Music account default storefront information.
+    /// - Parameters:
+    ///   - completion: Completion handler of request result of type Swift.Result<Storefront, Error>
+    ///   - result: Result of request, .success(Storefront) or .failure(Error)
+    public func fetchUserStorefront(completion: @escaping (_ result: Swift.Result<Storefront, Error>) -> Void) {
+        // Create URL Request using requestGenerator
         let urlRequest = requestGenerator.createGetUserStorefrontRequest()
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            var storefrontResult: Swift.Result<Storefront, Error>
+            var storefrontResult: Swift.Result<Storefront, Error>   // result to be modified and returned in completion handler
             
             switch result {
             case .success(let responseJson):
                 let storefrontData: JSON = responseJson["data"].array![0]
-                let storefront = Storefront(storefrontData: storefrontData)
-                storefrontResult = .success(storefront!)
+                // Parse resource object from JSON response
+                if let storefront = Storefront(storefrontData: storefrontData) {
+                    storefrontResult = .success(storefront)
+                } else {
+                    // Parsing failed, complete with error
+                    storefrontResult = .failure(HummingKitResponseError.responseCorrupted)
+                }
             case .failure(let err):
                 storefrontResult = .failure(err)
             }
@@ -102,21 +122,28 @@ public class HummingKit {
         }
     }
     
-    /// Fetch a storefront from Apple Music server using its identifier
+    /// Fetch a storefront from Apple Music server using its identifier.
     /// - Parameters:
-    ///   - storefrontID: The identifier (an ISO 3166 alpha-2 country code) for the storefront you want to fetch.
-    ///   - completion: .success(Storefront) or .failure(Error)
-    public func fetchAStorefront(storefrontID: String, completion: @escaping (Swift.Result<Storefront, Error>) -> Void) {
+    ///   - storefrontID: The identifier (an ISO 3166 alpha-2 country code) for the storefront to be fetched.
+    ///   - completion: Completion handler of request result of type Swift.Result<Storefront, Error>
+    ///   - result: Result of request, .success(Storefront) or .failure(Error)
+    public func fetchAStorefront(storefrontID: String, completion: @escaping (_ result: Swift.Result<Storefront, Error>) -> Void) {
+        // Create URL Request using requestGenerator
         let urlRequest = requestGenerator.createGetAStorefrontRequest(storefrontID: storefrontID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            var storefrontResult: Swift.Result<Storefront, Error>
+            var storefrontResult: Swift.Result<Storefront, Error>   // result to be modified and returned in completion handler
             
             switch result {
             case .success(let responseJson):
                 let storefrontData: JSON = responseJson["data"].array![0]
-                let storefront = Storefront(storefrontData: storefrontData)
-                storefrontResult = .success(storefront!)
+                // Parse resource object from JSON response
+                if let storefront = Storefront(storefrontData: storefrontData) {
+                    storefrontResult = .success(storefront)
+                } else {
+                    // Parsing failed, complete with error
+                    storefrontResult = .failure(HummingKitResponseError.responseCorrupted)
+                }
             case .failure(let err):
                 storefrontResult = .failure(err)
             }
@@ -125,15 +152,17 @@ public class HummingKit {
         }
     }
     
-    /// Fetch a number of storefronts by their identifiers at the same time
+    /// Fetch an array of storefronts from Apple Music server using their identifiers.
     /// - Parameters:
-    ///   - storefrontIDs: An array of the identifiers (ISO 3166 alpha-2 country codes) for the storefronts you want to fetch.
-    ///   - completion: .success([Storefront]) or .failure(Error)
-    public func fetchMultipleStorefronts(storefrontIDs: [String], completion: @escaping (Swift.Result<[Storefront], Error>) -> Void) {
+    ///   - storefrontIDs: An array of the identifiers (ISO 3166 alpha-2 country codes) for the storefronts to be fetched.
+    ///   - completion: Completion handler of request result of type Swift.Result<[Storefront], Error>
+    ///   - result: Result of request, .success([Storefront]) or .failure(Error)
+    public func fetchMultipleStorefronts(storefrontIDs: [String], completion: @escaping (_ result: Swift.Result<[Storefront], Error>) -> Void) {
+        // Create URL Request using requestGenerator
         let urlRequest = requestGenerator.createGetMultipleStorefrontsRequest(storefrontIDs: storefrontIDs)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            var storefrontsResult: Swift.Result<[Storefront], Error>
+            var storefrontsResult: Swift.Result<[Storefront], Error>    // result to be modified and returned in completion handler
             
             switch result {
             case .success(let responseJson):    // successfully get response from server
@@ -142,8 +171,13 @@ public class HummingKit {
                 let storefrontsDataArray: [JSON] = responseJson["data"].array!
                 
                 storefrontsDataArray.forEach { storefrontData in
-                    let storefront = Storefront(storefrontData: storefrontData)
-                    storefrontsArray.append(storefront!)
+                    // Parse resource object from JSON response
+                    if let storefront = Storefront(storefrontData: storefrontData) {
+                        storefrontsArray.append(storefront)
+                    } else {
+                        // Parsing failed, complete with error
+                        completion(.failure(HummingKitResponseError.responseCorrupted))
+                    }
                 }
                 
                 // set result to be returned
@@ -157,13 +191,16 @@ public class HummingKit {
         }
     }
     
-    /// Fetch all storefronts available at the same time
-    /// - Parameter completion: .success([Storefront]]) or .failure(Error)
-    public func fetchAllStorefronts(completion: @escaping (Swift.Result<[Storefront], Error>) -> Void) {
+    /// Fetch all storefronts available from Apple Music server all at once.
+    /// - Parameters:
+    ///   - completion: Completion handler of request result of type Swift.Result<[Storefront], Error>
+    ///   - result: Result of request, .success([Storefront]) or .failure(Error)
+    public func fetchAllStorefronts(completion: @escaping (_ result: Swift.Result<[Storefront], Error>) -> Void) {
+        // Create URL Request using requestGenerator
         let urlRequest = requestGenerator.createGetAllStorefrontsRequest()
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            var storefrontsResult: Swift.Result<[Storefront], Error>
+            var storefrontsResult: Swift.Result<[Storefront], Error>    // result to be modified and returned in completion handler
             
             switch result {
             case .success(let responseJson):    // successfully get response from server
@@ -172,8 +209,13 @@ public class HummingKit {
                 let storefrontsDataArray: [JSON] = responseJson["data"].array!
                 
                 storefrontsDataArray.forEach { storefrontData in
-                    let storefront = Storefront(storefrontData: storefrontData)
-                    storefrontsArray.append(storefront!)
+                    // Parse resource object from JSON response
+                    if let storefront = Storefront(storefrontData: storefrontData) {
+                        storefrontsArray.append(storefront)
+                    } else {
+                        // Parsing failed, complete with error
+                        completion(.failure(HummingKitResponseError.responseCorrupted))
+                    }
                 }
                 
                 // set result to be returned
@@ -187,15 +229,17 @@ public class HummingKit {
         }
     }
     
-    // MARK: - Add Resources
-    /// Add reources (playlists, albums, songs, MVs) to user library
+    // MARK: - Add Resources to Library
+    /// Add resources (playlists, albums, songs, MVs) to user library.
     /// - Parameters:
-    ///   - playlistsIDs: an array of unique catalog identifiers for targeted playlists
-    ///   - albumsIDs: an array of unique catalog identifiers for targeted albums
-    ///   - songsIDs: an array of unique catalog identifiers for targeted songs
-    ///   - musicVideosIDs: an array of unique catalog identifiers for targeted music videos
-    ///   - completion: .success(StatusCode) or .failure(Error)
-    public func addResourcesToLibrary(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String], completion: @escaping (Swift.Result<String, Error>) -> Void) {
+    ///   - playlistsIDs: An array of unique catalog identifiers for playlists to be added to user library
+    ///   - albumsIDs: An array of unique catalog identifiers for albums to be added to user library
+    ///   - songsIDs: An array of unique catalog identifiers for songs to be added to user library
+    ///   - musicVideosIDs: An array of unique catalog identifiers for music videos to be added to user library
+    ///   - completion: Completion handler of request result of type Swift.Result<String, Error>
+    ///   - result: Result of request, .success(status) or .failure(Error)
+    public func addResourcesToLibrary(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String], completion: @escaping (_ result: Swift.Result<String, Error>) -> Void) {
+        // Create URL Request using requestGenerator
         let urlRequest = requestGenerator.createAddResourcesToLibraryRequest(playlistsIDs: playlistsIDs, albumsIDs: albumsIDs, songsIDs: songsIDs, musicVideosIDs: musicVideosIDs)
         
         requestByAlamofireString(urlRequest: urlRequest) { result in
@@ -204,23 +248,29 @@ public class HummingKit {
     }
     
     // MARK: - Albums
-    /// Fetch a catalog album using its identifier
+    /// Fetch a catalog album using its identifier.
     /// - Parameters:
-    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
-    ///   - albumID: The unique identifier for the album.
-    ///   - completion: .success(CatalogAlbum) or .failure(Error)
-    public func fetchACatalogAlbum(storefront: String, albumID: String, completion: @escaping (Swift.Result<CatalogAlbum, Error>) -> Void) {
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in
+    ///   - albumID: The unique identifier of the album
+    ///   - completion: Completion handler of request result of type Swift.Result<CatalogAlbum, Error>
+    ///   - result: Result of request, .success(CatalogAlbum) or .failure(Error)
+    public func fetchACatalogAlbum(storefront: String, albumID: String, completion: @escaping (_ result: Swift.Result<CatalogAlbum, Error>) -> Void) {
+        // Create URL Request using requestGenerator
         let urlRequest = requestGenerator.createGetACatalogAlbumRequest(storefront: storefront, albumID: albumID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
-            
-            var catalogAlbumResult: Swift.Result<CatalogAlbum, Error>
+            var catalogAlbumResult: Swift.Result<CatalogAlbum, Error>   // result to be modified and returned in completion handler
             
             switch result {
             case .success(let responseJson):
                 let catalogAlbumData: JSON = responseJson["data"].array![0]
-                let catalogAlbum = CatalogAlbum(albumData: catalogAlbumData)
-                catalogAlbumResult = .success(catalogAlbum!)
+                // Parse resource object from JSON response
+                if let catalogAlbum = CatalogAlbum(albumData: catalogAlbumData) {
+                    catalogAlbumResult = .success(catalogAlbum)
+                } else {
+                    // Parsing failed, complete with error
+                    catalogAlbumResult = .failure(HummingKitResponseError.responseCorrupted)
+                }
             case .failure(let err):
                 catalogAlbumResult = .failure(err)
             }
@@ -229,9 +279,9 @@ public class HummingKit {
         }
     }
     
-    /// Fetch multiple catalog albums using their identifiers
+    /// Fetch multiple catalog albums using their identifiers.
     /// - Parameters:
-    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.
+    ///   - storefront: An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in.
     ///   - albumIDs: The unique identifiers for the albums. The maximum fetch limit is 100.
     ///   - completion: .success(JSON) or .failure(Error)
     public func fetchMultipleCatalogAlbums(storefront: String, albumIDs: [String], completion: @escaping (Swift.Result<[CatalogAlbum], Error>) -> Void) {

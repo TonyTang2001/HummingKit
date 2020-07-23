@@ -19,7 +19,7 @@ public enum HummingKitEnvironmentError: Error {
 }
 
 public enum HummingKitResponseError: Error {
-    case responseCorrupted
+    case responseCorrupted  // response content not matching format expected, causing parsing failure
 }
 
 /// HummingKitInternalError indicates unexpected fatal HummingKit errors, potentially caused by internal bugs. If this type of error is encountered, please file an issue on the HummingKit repo at Issues page. Thank you!
