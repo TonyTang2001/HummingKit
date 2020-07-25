@@ -9,7 +9,7 @@ import StoreKit
 import Alamofire
 import SwiftyJSON
 
-/// Private function for searching regex pattern in text passed in, currently used to find offest index from response field "next".
+/// Search regex pattern in text passed in, currently used to find offest index from response field "next".
 ///
 /// - Parameters:
 ///   - regex: regular expression pattern
@@ -43,7 +43,7 @@ func regexSearch(for regex: String, in text: String) -> Swift.Result<String, Err
     }
 }
 
-/// Private function for decoding response status returned from server
+/// Decode response status returned from server.
 ///
 /// - Parameter response: response from server
 /// - Returns: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
@@ -85,7 +85,7 @@ func decodeResponseStatus(_ response: DataResponse<Any>) -> (success: Bool, erro
     }
 }
 
-/// Private function for handling status code from request
+/// Handle status code from request.
 ///
 /// - Parameter statusCode: HTTP status code
 /// - Returns: status(true if succeeded), error(contains Error if failed), result(JSON response from server)
@@ -142,7 +142,7 @@ func handleResponseStatusCode(statusCode: Int) -> (success: Bool, codeName: Stri
     }
 }
 
-/// Private function for handling Alamofire Error from request
+/// Handle Alamofire Error from request.
 ///
 /// - Parameters:
 ///   - statusCode: status code from response
