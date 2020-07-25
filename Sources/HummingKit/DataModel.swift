@@ -20,12 +20,35 @@ public typealias AlbumID = String
 
 /// FetchingStatus indicates current status of both resource-expensive requests (usually a combination of multiple requests) and segmented requests.
 public enum FetchingStatus {
+    
     case preparingForStart  // Possible in both segmented request and resource-expensive request scopee
     case inProgress         // Possible in both segmented request and resource-expensive request scopee
     case retryingWithError(error: Error)    // Possible only in resource-expensive request scopee
     case ending             // Possible only in segmented request scopee
     case completed          // Possible in both segmented request and resource-expensive request scopee
     case completedWithError // Possible only in resource-expensive request scopee
+    
+}
+
+extension FetchingStatus: Equatable {
+    public static func == (lhs: FetchingStatus, rhs: FetchingStatus) -> Bool {
+        switch (lhs, rhs) {
+        case (.preparingForStart, .preparingForStart):
+            return true
+        case (.inProgress, .inProgress):
+            return true
+        case (let .retryingWithError(lErr), let .retryingWithError(rErr)):
+            return lErr.localizedDescription == rErr.localizedDescription
+        case (.ending, .ending):
+            return true
+        case (.completed, .completed):
+            return true
+        case (.completedWithError, .completedWithError):
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 // MARK: - Storefronts
