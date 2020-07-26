@@ -21,7 +21,7 @@ public struct HummingKitAuthentication {
         var result: Result<String, Error> = .success("") // initialzation required before closure
         
         if #available(iOS 11.0, macOS 11.0, *) {
-            // SKCloudServiceController() is specifically disabled by macOS
+            // SKCloudServiceController() is unavailable in macOS
             #if iOS
             let controller = SKCloudServiceController()
             controller.requestUserToken(forDeveloperToken: developerToken) { (userToken: String?, error: Error?) in
