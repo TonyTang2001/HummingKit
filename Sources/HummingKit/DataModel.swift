@@ -52,6 +52,7 @@ extension FetchingStatus: Equatable {
 }
 
 // MARK: - Storefronts
+/// Apple Music Storefront struct, representing store fronts for different countries and regions of Apple Music.
 public struct Storefront: Hashable, Codable, Identifiable {
     public static func == (lhs: Storefront, rhs: Storefront) -> Bool {
         if lhs.id == rhs.id {
@@ -108,6 +109,7 @@ public extension Storefront {
 
 // MARK: - Song
 // MARK: CatalogSong
+/// Apple Music Catalog Song struct, representing songs that are available in Apple Music Server.
 public struct CatalogSong: Hashable, Codable, Identifiable {
     public static func == (lhs: CatalogSong, rhs: CatalogSong) -> Bool {
         if lhs.id == rhs.id {
@@ -206,6 +208,7 @@ public extension CatalogSong {
 }
 
 // MARK: LibrarySong
+/// Apple Music Library Song struct, representing songs that have been added to user library.
 public struct LibrarySong: Hashable, Codable, Identifiable {
     public static func == (lhs: LibrarySong, rhs: LibrarySong) -> Bool {
         if lhs.id == rhs.id {
@@ -280,6 +283,7 @@ public extension LibrarySong {
 
 // MARK: - Album
 // MARK: CatalogAlbum
+/// Apple Music Catalog Album struct, representing albums that are available in Apple Music Server.
 public struct CatalogAlbum: Hashable, Codable, Identifiable {
     public let id:   String
     public let href: String
@@ -361,6 +365,7 @@ public extension CatalogAlbum {
 }
 
 // MARK: LibraryAlbum
+/// Apple Music Library Album struct, representing albums that have been added to user library.
 public struct LibraryAlbum: Hashable, Codable, Identifiable {
     public let id:   String
     public let href: String
@@ -430,6 +435,7 @@ public extension LibraryAlbum {
 
 // MARK: - Artist
 // MARK: CatalogArtist
+/// Apple Music Catalog Artist struct, representing artists that have contents available in Apple Music Server.
 public struct CatalogArtist: Hashable, Codable, Identifiable {
     public let id:   String
     public let href: String
@@ -481,6 +487,7 @@ public extension CatalogArtist {
 }
 
 // MARK: LibraryArtist
+/// Apple Music Library Artist struct, representing artists that have their contents added to user library.
 public struct LibraryArtist: Hashable, Codable, Identifiable {
     public let id:   String
     public let href: String
@@ -515,6 +522,7 @@ public extension LibraryArtist {
 
 // MARK: - Playlist
 // MARK: CatalogPlaylist
+/// Apple Music Catalog Playlist struct, representing playlists that are available(either set as public, or created by Apple) in Apple Music Server.
 public struct CatalogPlaylist: Hashable, Codable, Identifiable {
     public let id:   String
     public let href: String
@@ -570,6 +578,7 @@ public extension CatalogPlaylist {
 }
 
 // MARK: LibraryPlaylist
+/// Apple Music Library Playlist struct, representing playlists that have either been added to user library or created by the user.
 public struct LibraryPlaylist: Hashable, Codable, Identifiable {
     public let id:   String
     public let href: String
@@ -622,6 +631,7 @@ public extension LibraryPlaylist {
 
 // MARK: - Music Videos
 // MARK: Catalog Music Videos
+/// Apple Music Catalog Music Video struct, representing music videos that are available in Apple Music Server.
 public struct CatalogMV: Hashable, Codable, Identifiable {
     public let id:   String
     public let href: String
@@ -708,6 +718,7 @@ public extension CatalogMV {
 }
 
 // MARK: Library Music Videos
+/// Apple Music Library Music Video struct, representing music videos that have been added to user library.
 public struct LibraryMV: Hashable, Codable, Identifiable {
     public let id:   String
     public let href: String
@@ -779,6 +790,7 @@ public extension LibraryMV {
 
 
 // MARK: - Catalog Station
+/// Apple Music Catalog Stations struct, representing music stations that are available in Apple Music Server.
 public struct CatalogStation: Hashable, Codable, Identifiable {
     public let id:   String
     public let href: String
