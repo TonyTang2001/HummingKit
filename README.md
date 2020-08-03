@@ -14,7 +14,7 @@ HummingKit provides a friendly way to deal with the Apple Music API by handling 
 - [x] Apple Music API Request Asynchronous Status Handling
 - [x] Apple Music API Response Decoding
 - [x] Apple Music API Resource Relationships Fetching
-- [ ] Complete Documentation (In Progress)
+- [ ] Complete Documentation (*In Progress*)
 
 ## Requirements
 
@@ -51,6 +51,20 @@ dependencies: [
     .package(url: "https://github.com/TonyTang2001/HummingKit.git", .upToNextMajor(from: "0.9.0"))
 ]
 ```
+
+## Community
+
+HummingKit embraces developer community as an indispensable factor for creations and improvements. Everyone is welcome to collaborate on this project and providing feedbacks and suggestions. 
+
+**Feel free to ask questions if you have one!**
+
+### Collaboration
+
+All scales of collaboration are welcome. From introducing a grand feature to fixing a typo among in-line comments, you are improving this project and contributing to the whole open-source community.
+
+### Q&A
+
+There might be questions regarding certain functionality or blocks of codes, or you may have found a serious bug in this project. Please file an issue in this repository. **Your words are important!**
 
 ## Dependencies
 
