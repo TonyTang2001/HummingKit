@@ -51,7 +51,6 @@ class HummingKitTests: XCTestCase {
         humming?.fetchACatalogAlbum(storefront: "us", albumID: "310730204") { result in
             switch result {
             case .success(let album):
-                print(album)
                 catalogAlbumFetchingExpectation.fulfill()
             case .failure(let err):
                 print(err)
@@ -77,7 +76,7 @@ class HummingKitTests: XCTestCase {
             }
         }
         
-        waitForExpectations(timeout: 18, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
     }
 
 //    func testPerformanceExample() throws {
