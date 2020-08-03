@@ -40,7 +40,7 @@ Once a Swift Package is added to an Xcode project, the package's dependency repo
 
 #### In Your Xcode Project
 
-When your project is opened in Xcode, select ``` File > Swift Packages > Add Package Dependency``` from the menu bar. Enter ```https://github.com/TonyTang2001/HummingKit.git``` once prompted to do so. After specifying ```Rules``` in accordance to your need, HummingKit is successfully added to your project as a Swift Package.
+When your project is opened in Xcode, select ``` File > Swift Packages > Add Package Dependency``` from the menu bar. Enter ```https://github.com/TonyTang2001/HummingKit.git``` once prompted to do so. After specifying ```Rules``` in accordance to your need and select Target to add to, HummingKit is successfully added to your project as a Swift Package.
 
 #### In Your Framework
 
