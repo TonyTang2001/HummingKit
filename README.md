@@ -25,7 +25,7 @@ HummingKit provides a friendly way to deal with the Apple Music API by handling 
 
 ## Integration
 
-HummingKit comes with flexibility in terms of integration. From [importing it as a dependency of your projects](In-Your-Xcode-Project), to [building frameworks upon it](In-Your-Framework), HummingKit provides an optimal integration solution.
+HummingKit comes with flexibility in terms of integration. From [importing it as a dependency of your projects](#In-Your-Xcode-Project), to [building frameworks upon it](#In-Your-Framework), HummingKit provides an optimal integration solution.
 
 ### Swift Package Manager
 
