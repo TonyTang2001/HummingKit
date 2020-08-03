@@ -15,7 +15,7 @@ public class HummingKit {
     
     private var developerToken: String
     private var userToken: String
-    private let requestGenerator: HummingKitRequestFactory
+    private let requestComposer: HummingKitRequestFactory
     
     /// Maximum time of retrying an segmental fetching request within an expensive request
     private var retryCountMax: Int = 3
@@ -27,7 +27,7 @@ public class HummingKit {
     public init(developerToken: String, userToken: String) {
         self.developerToken = developerToken
         self.userToken = userToken
-        requestGenerator = HummingKitRequestFactory(developerToken: developerToken, userToken: userToken)
+        requestComposer = HummingKitRequestFactory(developerToken: developerToken, userToken: userToken)
     }
     
     /// Function to customize maximum time of retrying an segmental fetching request within an expensive request.
@@ -98,8 +98,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<Storefront, Error>
     ///   - result: Result of request, .success(Storefront) or .failure(Error)
     public func fetchUserStorefront(completion: @escaping (_ result: Swift.Result<Storefront, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetUserStorefrontRequest()
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetUserStorefrontRequest()
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var storefrontResult: Swift.Result<Storefront, Error>   // result to be modified and returned in completion handler
@@ -128,8 +128,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<Storefront, Error>
     ///   - result: Result of request, .success(Storefront) or .failure(Error)
     public func fetchAStorefront(storefrontID: String, completion: @escaping (_ result: Swift.Result<Storefront, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetAStorefrontRequest(storefrontID: storefrontID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetAStorefrontRequest(storefrontID: storefrontID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var storefrontResult: Swift.Result<Storefront, Error>   // result to be modified and returned in completion handler
@@ -158,8 +158,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<[Storefront], Error>
     ///   - result: Result of request, .success([Storefront]) or .failure(Error)
     public func fetchMultipleStorefronts(storefrontIDs: [String], completion: @escaping (_ result: Swift.Result<[Storefront], Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetMultipleStorefrontsRequest(storefrontIDs: storefrontIDs)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetMultipleStorefrontsRequest(storefrontIDs: storefrontIDs)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var storefrontsResult: Swift.Result<[Storefront], Error>    // result to be modified and returned in completion handler
@@ -197,8 +197,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<[Storefront], Error>
     ///   - result: Result of request, .success([Storefront]) or .failure(Error)
     public func fetchAllStorefronts(completion: @escaping (_ result: Swift.Result<[Storefront], Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetAllStorefrontsRequest()
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetAllStorefrontsRequest()
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var storefrontsResult: Swift.Result<[Storefront], Error>    // result to be modified and returned in completion handler
@@ -241,8 +241,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<String, Error>
     ///   - result: Result of request, .success(status) or .failure(Error)
     public func addResourcesToLibrary(playlistsIDs: [String], albumsIDs: [String], songsIDs: [String], musicVideosIDs: [String], completion: @escaping (_ result: Swift.Result<String, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createAddResourcesToLibraryRequest(playlistsIDs: playlistsIDs, albumsIDs: albumsIDs, songsIDs: songsIDs, musicVideosIDs: musicVideosIDs)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createAddResourcesToLibraryRequest(playlistsIDs: playlistsIDs, albumsIDs: albumsIDs, songsIDs: songsIDs, musicVideosIDs: musicVideosIDs)
         
         requestByAlamofireString(urlRequest: urlRequest) { result in
             completion(result)
@@ -257,8 +257,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<CatalogAlbum, Error>
     ///   - result: Result of request, .success(CatalogAlbum) or .failure(Error)
     public func fetchACatalogAlbum(storefront: String, albumID: String, completion: @escaping (_ result: Swift.Result<CatalogAlbum, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogAlbumRequest(storefront: storefront, albumID: albumID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogAlbumRequest(storefront: storefront, albumID: albumID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var catalogAlbumResult: Swift.Result<CatalogAlbum, Error>   // result to be modified and returned in completion handler
@@ -292,7 +292,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleCatalogAlbumsRequest(storefront: storefront, albumIDs: albumIDs)
+            urlRequest = try requestComposer.createGetMultipleCatalogAlbumsRequest(storefront: storefront, albumIDs: albumIDs)
         } catch {
             completion(.failure(error))
             return
@@ -339,8 +339,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
     ///   - result: Result of request, .success(JSON) or .failure(Error)
     public func fetchACatalogAlbumRelationship(storefront: String, albumID: String, relationship: String, completion: @escaping (_ result: Swift.Result<JSON, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogAlbumRelationshipRequest(storefront: storefront, albumID: albumID, relationship: relationship)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogAlbumRelationshipRequest(storefront: storefront, albumID: albumID, relationship: relationship)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
@@ -353,8 +353,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<LibraryAlbum, Error>
     ///   - result: Result of request, .success(LibraryAlbum) or .failure(Error)
     public func fetchALibraryAlbum(albumID: String, completion: @escaping (_ result: Swift.Result<LibraryAlbum, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetALibraryAlbumRequest(albumID: albumID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetALibraryAlbumRequest(albumID: albumID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var libraryAlbumResult: Swift.Result<LibraryAlbum, Error>   // result to be modified and returned in completion handler
@@ -384,8 +384,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
     ///   - result: Result of request, .success(JSON) or .failure(Error)
     public func fetchALibraryAlbumRelationship(albumID: String, relationship: String, completion: @escaping (_ result: Swift.Result<JSON, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetALibraryAlbumRelationshipRequest(albumID: albumID, relationship: relationship)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetALibraryAlbumRelationshipRequest(albumID: albumID, relationship: relationship)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
@@ -402,7 +402,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleLibraryAlbumsRequest(albumIDs: albumIDs)
+            urlRequest = try requestComposer.createGetMultipleLibraryAlbumsRequest(albumIDs: albumIDs)
         } catch {
             completion(.failure(error))
             return
@@ -551,7 +551,7 @@ public class HummingKit {
             var newOffset: String = offset
             var segmentStatus: FetchingStatus = .preparingForStart
             
-            let urlRequest = try! requestGenerator.createGetAllLibraryAlbumsRequest(limit: limit, offset: offset)
+            let urlRequest = try! requestComposer.createGetAllLibraryAlbumsRequest(limit: limit, offset: offset)
             
             // Update request status
             segmentStatus = .inProgress
@@ -620,8 +620,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<CatalogArtist, Error>
     ///   - result: Result of request, .success(CatalogArtist) or .failure(Error)
     public func fetchACatalogArtist(storefront: String, artistID: String, completion: @escaping (_ result: Swift.Result<CatalogArtist, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogArtistRequest(storefront: storefront, artistID: artistID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogArtistRequest(storefront: storefront, artistID: artistID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var catalogArtistResult: Swift.Result<CatalogArtist, Error>
@@ -654,7 +654,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleCatalogArtistsRequest(storefront: storefront, artistIDs: artistIDs)
+            urlRequest = try requestComposer.createGetMultipleCatalogArtistsRequest(storefront: storefront, artistIDs: artistIDs)
         } catch {
             completion(.failure(error))
             return
@@ -700,8 +700,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
     ///   - result: Result of request, .success(JSON) or .failure(Error)
     public func fetchACatalogArtistRelationship(storefront: String, artistID: String, relationship: String, completion: @escaping (_ result: Swift.Result<JSON, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogArtistRelationshipRequest(storefront: storefront, artistID: artistID, relationship: relationship)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogArtistRelationshipRequest(storefront: storefront, artistID: artistID, relationship: relationship)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
@@ -714,8 +714,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<LibraryArtist, Error>
     ///   - result: Result of request, .success(LibraryArtist) or .failure(Error)
     public func fetchALibraryArtist(artistID: String, completion: @escaping (_ result: Swift.Result<LibraryArtist, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetALibraryArtistRequest(artistID: artistID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetALibraryArtistRequest(artistID: artistID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var libraryArtistResult: Swift.Result<LibraryArtist, Error>
@@ -745,8 +745,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
     ///   - result: Result of request, .success(JSON) or .failure(Error)
     public func fetchALibraryArtistRelationship(artistID: String, relationship: String, completion: @escaping (Swift.Result<JSON, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetALibraryArtistRelationshipRequest(artistID: artistID, relationship: relationship)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetALibraryArtistRelationshipRequest(artistID: artistID, relationship: relationship)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
@@ -763,7 +763,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleLibraryArtistsRequest(artistIDs: artistIDs)
+            urlRequest = try requestComposer.createGetMultipleLibraryArtistsRequest(artistIDs: artistIDs)
         } catch {
             completion(.failure(error))
             return
@@ -915,7 +915,7 @@ public class HummingKit {
             var newOffset: String = offset
             var segmentStatus: FetchingStatus = .preparingForStart
             
-            let urlRequest = try! requestGenerator.createGetAllLibraryArtistsRequest(limit: limit, offset: offset)
+            let urlRequest = try! requestComposer.createGetAllLibraryArtistsRequest(limit: limit, offset: offset)
             
             // Update request status
             segmentStatus = .inProgress
@@ -983,8 +983,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<CatalogSong, Error>
     ///   - result: Result of request, .success(CatalogSong) or .failure(Error)
     public func fetchACatalogSong(storefront: String, songID: String, completion: @escaping (_ result: Swift.Result<CatalogSong, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogSongRequest(storefront: storefront, songID: songID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogSongRequest(storefront: storefront, songID: songID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var catalogSongResult: Swift.Result<CatalogSong, Error> // result to be modified and returned in completion handler
@@ -1018,7 +1018,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleCatalogSongsRequest(storefront: storefront, songIDs: songIDs)
+            urlRequest = try requestComposer.createGetMultipleCatalogSongsRequest(storefront: storefront, songIDs: songIDs)
         } catch {
             completion(.failure(error))
             return
@@ -1069,8 +1069,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
     ///   - result: Result of request, .success(JSON) or .failure(Error)
     public func fetchACatalogSongRelationship(storefront: String, songID: String, relationship: String, completion: @escaping (_ result: Swift.Result<JSON, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogSongRelationshipRequest(storefront: storefront, songID: songID, relationship: relationship)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogSongRelationshipRequest(storefront: storefront, songID: songID, relationship: relationship)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
@@ -1083,8 +1083,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<LibrarySong, Error>
     ///   - result: Result of request, .success(LibrarySong) or .failure(Error)
     public func fetchALibrarySong(songID: String, completion: @escaping (_ result: Swift.Result<LibrarySong, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetALibrarySongRequest(songID: songID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetALibrarySongRequest(songID: songID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var librarySongResult: Swift.Result<LibrarySong, Error> // result to be modified and returned in completion handler
@@ -1114,8 +1114,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
     ///   - result: Result of request, .success(JSON) or .failure(Error)
     public func fetchALibrarySongRelationship(songID: String, relationship: String, completion: @escaping (_ result: Swift.Result<JSON, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetALibrarySongRelationshipRequest(songID: songID, relationship: relationship)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetALibrarySongRelationshipRequest(songID: songID, relationship: relationship)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
@@ -1132,7 +1132,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleLibrarySongsRequest(songIDs: songIDs)
+            urlRequest = try requestComposer.createGetMultipleLibrarySongsRequest(songIDs: songIDs)
         } catch {
             completion(.failure(error))
             return
@@ -1281,7 +1281,7 @@ public class HummingKit {
             var newOffset: String = offset
             var segmentStatus: FetchingStatus = .preparingForStart
             
-            let urlRequest = try! requestGenerator.createGetAllLibrarySongsRequest(limit: limit, offset: offset)
+            let urlRequest = try! requestComposer.createGetAllLibrarySongsRequest(limit: limit, offset: offset)
             
             // Update request status
             segmentStatus = .inProgress
@@ -1350,8 +1350,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<CatalogMV, Error>
     ///   - result: Result of request, .success(CatalogMV) or .failure(Error)
     public func fetchACatalogMV(storefront: String, mvID: String, completion: @escaping (_ result: Swift.Result<CatalogMV, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogMVRequest(storefront: storefront, mvID: mvID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogMVRequest(storefront: storefront, mvID: mvID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var catalogMVResult: Swift.Result<CatalogMV, Error> // result to be modified and returned in completion handler
@@ -1381,8 +1381,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
     ///   - result: Result of request, .success(JSON) or .failure(Error)
     public func fetchACatalogMVRelationship(storefront: String, mvID: String, relationship: String, completion: @escaping (_ result: Swift.Result<JSON, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogMVRelationshipRequest(storefront: storefront, mvID: mvID, relationship: relationship)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogMVRelationshipRequest(storefront: storefront, mvID: mvID, relationship: relationship)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
@@ -1400,7 +1400,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleCatalogMVsRequest(storefront: storefront, mvIDs: mvIDs)
+            urlRequest = try requestComposer.createGetMultipleCatalogMVsRequest(storefront: storefront, mvIDs: mvIDs)
         } catch {
             completion(.failure(error))
             return
@@ -1448,8 +1448,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<LibraryMV, Error>
     ///   - result: Result of request, .success(LibraryMV) or .failure(Error)
     public func fetchALibraryMV(mvID: String, completion: @escaping (_ result: Swift.Result<LibraryMV, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetALibraryMVRequest(mvID: mvID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetALibraryMVRequest(mvID: mvID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var libraryMVResult: Swift.Result<LibraryMV, Error> // result to be modified and returned in completion handler
@@ -1479,8 +1479,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
     ///   - result: Result of request, .success(JSON) or .failure(Error)
     public func fetchALibraryMVRelationship(mvID: String, relationship: String, completion: @escaping (_ result: Swift.Result<JSON, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetALibraryMVRelationshipRequest(mvID: mvID, relationship: relationship)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetALibraryMVRelationshipRequest(mvID: mvID, relationship: relationship)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
@@ -1497,7 +1497,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleLibraryMVsRequest(mvIDs: mvIDs)
+            urlRequest = try requestComposer.createGetMultipleLibraryMVsRequest(mvIDs: mvIDs)
         } catch {
             completion(.failure(error))
             return
@@ -1645,7 +1645,7 @@ public class HummingKit {
             var newOffset: String = offset
             var segmentStatus: FetchingStatus = .preparingForStart
             
-            let urlRequest = try! requestGenerator.createGetAllLibraryMVsRequest(limit: limit, offset: offset)
+            let urlRequest = try! requestComposer.createGetAllLibraryMVsRequest(limit: limit, offset: offset)
             
             // Update request status
             segmentStatus = .inProgress
@@ -1715,8 +1715,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<CatalogPlaylist, Error>
     ///   - result: Result of request, .success(CatalogPlaylist) or .failure(Error)
     public func fetchACatalogPlaylist(storefront: String, playlistID: String, completion: @escaping (_ result: Swift.Result<CatalogPlaylist, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogPlaylistRequest(storefront: storefront, playlistID: playlistID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogPlaylistRequest(storefront: storefront, playlistID: playlistID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var catalogPlaylistResult: Swift.Result<CatalogPlaylist, Error> // result to be modified and returned in completion handler
@@ -1747,8 +1747,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
     ///   - result: Result of request, .success(JSON) or .failure(Error)
     public func fetchACatalogPlaylistRelationship(storefront: String, playlistID: String, relationship: String, completion: @escaping (_ result: Swift.Result<JSON, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogPlaylistRelationshipRequest(storefront: storefront, playlistID: playlistID, relationship: relationship)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogPlaylistRelationshipRequest(storefront: storefront, playlistID: playlistID, relationship: relationship)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
@@ -1766,7 +1766,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleCatalogPlaylistsRequest(storefront: storefront, playlistIDs: playlistIDs)
+            urlRequest = try requestComposer.createGetMultipleCatalogPlaylistsRequest(storefront: storefront, playlistIDs: playlistIDs)
         } catch {
             completion(.failure(error))
             return
@@ -1811,8 +1811,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<LibraryPlaylist, Error>
     ///   - result: Result of request, .success(LibraryPlaylist) or .failure(Error)
     public func fetchALibraryPlaylist(playlistID: String, completion: @escaping (_ result: Swift.Result<LibraryPlaylist, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetALibraryPlaylistRequest(playlistID: playlistID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetALibraryPlaylistRequest(playlistID: playlistID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var libraryPlaylistResult: Swift.Result<LibraryPlaylist, Error> // result to be modified and returned in completion handler
@@ -1842,8 +1842,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<JSON, Error>
     ///   - result: Result of request, .success(JSON) or .failure(Error)
     public func fetchALibraryPlaylistRelationship(playlistID: String, relationship: String, completion: @escaping (_ result: Swift.Result<JSON, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetALibraryPlaylistRelationshipRequest(playlistID: playlistID, relationship: relationship)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetALibraryPlaylistRelationshipRequest(playlistID: playlistID, relationship: relationship)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             completion(result)
@@ -1860,7 +1860,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleLibraryPlaylistsRequest(playlistIDs: playlistIDs)
+            urlRequest = try requestComposer.createGetMultipleLibraryPlaylistsRequest(playlistIDs: playlistIDs)
         } catch {
             completion(.failure(error))
             return
@@ -2008,7 +2008,7 @@ public class HummingKit {
             var newOffset: String = offset
             var segmentStatus: FetchingStatus = .preparingForStart
             
-            let urlRequest = try! requestGenerator.createGetAllLibraryPlaylistsRequest(limit: limit, offset: offset)
+            let urlRequest = try! requestComposer.createGetAllLibraryPlaylistsRequest(limit: limit, offset: offset)
             
             // Update request status
             segmentStatus = .inProgress
@@ -2078,8 +2078,8 @@ public class HummingKit {
     public func createAPlaylist(name: String, description: String?, songsIDs: [String], completion: @escaping (_ result: Swift.Result<String, Error>) -> Void) {
         // Handles optional description field
         let plDescription = description ?? ""
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createCreateANewLibraryPlaylistRequest(name: name, description: plDescription, songsIDs: songsIDs)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createCreateANewLibraryPlaylistRequest(name: name, description: plDescription, songsIDs: songsIDs)
         
         requestByAlamofireString(urlRequest: urlRequest) { result in
             completion(result)
@@ -2093,8 +2093,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<String, Error>
     ///   - result: Result of request, .success(status) or .failure(Error)
     public func addTracksToAPlaylist(playlistID: String, songsIDs: [String], completion: @escaping (_ result: Swift.Result<String, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createAddTracksToAPlaylistRequest(playlistID: playlistID, songsIDs: songsIDs)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createAddTracksToAPlaylistRequest(playlistID: playlistID, songsIDs: songsIDs)
         
         requestByAlamofireString(urlRequest: urlRequest) { result in
             completion(result)
@@ -2109,8 +2109,8 @@ public class HummingKit {
     ///   - completion: Completion handler of request result of type Swift.Result<CatalogStation, Error>
     ///   - result: Result of request, .success(CatalogStation) or .failure(Error)
     public func fetchACatalogStation(storefront: String, stationID: String, completion: @escaping (_ result: Swift.Result<CatalogStation, Error>) -> Void) {
-        // Create URL Request using requestGenerator
-        let urlRequest = requestGenerator.createGetACatalogStationRequest(storefront: storefront, stationID: stationID)
+        // Create URL Request using requestComposer
+        let urlRequest = requestComposer.createGetACatalogStationRequest(storefront: storefront, stationID: stationID)
         
         requestByAlamofireJSON(urlRequest: urlRequest) { result in
             var catalogStationResult: Swift.Result<CatalogStation, Error>   // result to be modified and returned in completion handler
@@ -2144,7 +2144,7 @@ public class HummingKit {
         // Declare and then initialize URL Request as initialization is failable due to array lengths
         var urlRequest: URLRequest
         do {
-            urlRequest = try requestGenerator.createGetMultipleCatalogStationsRequest(storefront: storefront, stationIDs: stationIDs)
+            urlRequest = try requestComposer.createGetMultipleCatalogStationsRequest(storefront: storefront, stationIDs: stationIDs)
         } catch {
             completion(.failure(error))
             return
