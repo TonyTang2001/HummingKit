@@ -12,7 +12,8 @@ import SwiftyJSON
 
 class HummingKitTests: XCTestCase {
     
-    
+    let devToken: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IkxUR0cyUFJXSEYifQ.eyJpc3MiOiIzSzRQVDlSSjk4IiwiaWF0IjoxNTk1NzIzMjA4LjA5NDczNTEsImV4cCI6MTYxMTUwMDIwOC4wOTQ3MzUxfQ._PWogz958344A0hhIls7JZ5pDPJjxW0E8q236XPg-PSWOs0yJxyheifEJlRs-Ybu6nuW1Dymq-Z-CGs56_uO6g"
+    var usrToken: String = "ArnXjMTZ8nKNPOocmqmKvi2jTKa/afaH81XZ3lj7ajQWbIUQgb5tp7YqPdKBM/UcHIITWxaIAw17fJf5mOFcDm4Ixba9LTem6QDYM2Ztk4ikqFn0W0HeBJDqY0YrI7IOsr9cPSsuhgs5FnulbFPQV/XcolsjUogf6ExbikY4k6p8CxH2yYQPHFNR49aHlI+3vQZGJIwCdp4m+BH2o0rlXpvwwfnnSJwTRrov01Vt9zicOchdjA=="
     var humming: HummingKit?
     
 
@@ -51,6 +52,7 @@ class HummingKitTests: XCTestCase {
         humming?.fetchACatalogAlbum(storefront: "us", albumID: "310730204") { result in
             switch result {
             case .success(let album):
+                print(album.attributes.name)
                 catalogAlbumFetchingExpectation.fulfill()
             case .failure(let err):
                 print(err)
