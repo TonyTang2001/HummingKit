@@ -1295,7 +1295,7 @@ public class HummingKit {
                     let segmentalLibrarySongsDataArray: [JSON] = responseJson["data"].array!
                     
                     segmentalLibrarySongsDataArray.forEach { librarySongData in
-                        print(librarySongData)
+//                        print(librarySongData)
                         // Parse resource object from JSON response
                         if let librarySong = LibrarySong(songData: librarySongData) {
                             segmentalLibrarySongsArray.append(librarySong)

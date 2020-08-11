@@ -236,15 +236,14 @@ public extension LibrarySong {
         public var durationInMillis: Int?
         public var releaseDate:      String?
         public var genreNames:      [String]?
-        public var playParams:       PlayParams
+        public var playParams:       PlayParams?
         
         public init?(_ attributesData: JSON) {
             guard let albumName = attributesData["albumName"].string,
                   let artistName = attributesData["artistName"].string,
                   let artwork = Artwork(attributesData["artwork"]),
                   let name = attributesData["name"].string,
-                  let trackNumber = attributesData["trackNumber"].int,
-                  let playParams = PlayParams(attributesData["playParams"])
+                  let trackNumber = attributesData["trackNumber"].int
             else { return nil }
             
             self.albumName = albumName
@@ -252,9 +251,11 @@ public extension LibrarySong {
             self.artwork = artwork
             self.name = name
             self.trackNumber = trackNumber
-            self.playParams = playParams
             
-            if let hasLyrics = attributesData["hasLyrics"].bool, let durationInMillis = attributesData["durationInMillis"].int, let genreNamesJSONArray = attributesData["genreNames"].array {
+            if let hasLyrics = attributesData["hasLyrics"].bool,
+               let durationInMillis = attributesData["durationInMillis"].int,
+               let genreNamesJSONArray = attributesData["genreNames"].array,
+               let playParams = PlayParams(attributesData["playParams"]) {
                 
                 // convert genreNamesJSON array to genreNames array containing String
                 var genreNames: [String] = []
@@ -267,6 +268,8 @@ public extension LibrarySong {
                 self.hasLyrics = hasLyrics
                 self.durationInMillis = durationInMillis
                 self.genreNames = genreNames
+                self.playParams = playParams
+                
             }
         }
     }
