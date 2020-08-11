@@ -1092,6 +1092,7 @@ public class HummingKit {
             switch result {
             case .success(let responseJson):
                 let librarySongData: JSON = responseJson["data"].array![0]
+//                print(librarySongData)
                 // Parse resource object from JSON response
                 if let librarySong = LibrarySong(songData: librarySongData) {
                     librarySongResult = .success(librarySong)
@@ -1294,6 +1295,7 @@ public class HummingKit {
                     let segmentalLibrarySongsDataArray: [JSON] = responseJson["data"].array!
                     
                     segmentalLibrarySongsDataArray.forEach { librarySongData in
+                        print(librarySongData)
                         // Parse resource object from JSON response
                         if let librarySong = LibrarySong(songData: librarySongData) {
                             segmentalLibrarySongsArray.append(librarySong)

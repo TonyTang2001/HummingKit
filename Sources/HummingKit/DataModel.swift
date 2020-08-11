@@ -234,14 +234,17 @@ public extension LibrarySong {
         public let trackNumber:      Int
         public var hasLyrics:        Bool?
         public var durationInMillis: Int?
+        public var releaseDate:      String?
         public var genreNames:      [String]?
+        public var playParams:       PlayParams
         
         public init?(_ attributesData: JSON) {
             guard let albumName = attributesData["albumName"].string,
                   let artistName = attributesData["artistName"].string,
                   let artwork = Artwork(attributesData["artwork"]),
                   let name = attributesData["name"].string,
-                  let trackNumber = attributesData["trackNumber"].int
+                  let trackNumber = attributesData["trackNumber"].int,
+                  let playParams = PlayParams(attributesData["playParams"])
             else { return nil }
             
             self.albumName = albumName
@@ -249,6 +252,7 @@ public extension LibrarySong {
             self.artwork = artwork
             self.name = name
             self.trackNumber = trackNumber
+            self.playParams = playParams
             
             if let hasLyrics = attributesData["hasLyrics"].bool, let durationInMillis = attributesData["durationInMillis"].int, let genreNamesJSONArray = attributesData["genreNames"].array {
                 
@@ -897,6 +901,33 @@ public struct Preview: Hashable, Codable {
         self.url = url
         
         self.artwork = Artwork(previewData["artwork"])
+    }
+}
+
+public struct PlayParams: Hashable, Codable {
+    public let id:          String
+    public var kind:        String?
+    public var catalogId:   String?
+    public var isLibrary:   Bool?
+    public var reporting:   Bool?
+    
+    public init?(_ playParamsData: JSON) {
+        guard let id = playParamsData["id"].string else { return nil }
+        
+        self.id = id
+        
+        if let kind = playParamsData["kind"].string,
+           let catalogId = playParamsData["catalogId"].string,
+           let isLibrary = playParamsData["isLibrary"].bool,
+           let reporting = playParamsData["reporting"].bool  {
+            
+            self.kind = kind
+            self.catalogId = catalogId
+            self.isLibrary = isLibrary
+            self.reporting = reporting
+            
+        }
+        
     }
 }
 
