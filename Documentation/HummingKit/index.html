@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HummingKit - HummingKit</title>
+    <link rel="stylesheet" type="text/css" href="../all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="/">
+            <strong>
+                HummingKit
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#hummingkit.init(developertoken:usertoken:)">init(developer​Token:​user​Token:​)</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#hummingkit.setmaximumrequestretrycount(_:)">set​Maximum​Request​Retry​Count(_:​)</a></li><li class="function"><a href="#hummingkit.fetchuserstorefront(completion:)">fetch​User​Storefront(completion:​)</a></li><li class="function"><a href="#hummingkit.fetchastorefront(storefrontid:completion:)">fetch​AStorefront(storefront​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplestorefronts(storefrontids:completion:)">fetch​Multiple​Storefronts(storefront​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchallstorefronts(completion:)">fetch​All​Storefronts(completion:​)</a></li><li class="function"><a href="#hummingkit.addresourcestolibrary(playlistsids:albumsids:songsids:musicvideosids:completion:)">add​Resources​ToLibrary(playlists​IDs:​albums​IDs:​songs​IDs:​music​Videos​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogalbum(storefront:albumid:completion:)">fetch​ACatalog​Album(storefront:​album​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplecatalogalbums(storefront:albumids:completion:)">fetch​Multiple​Catalog​Albums(storefront:​album​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogalbumrelationship(storefront:albumid:relationship:completion:)">fetch​ACatalog​Album​Relationship(storefront:​album​ID:​relationship:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalibraryalbum(albumid:completion:)">fetch​ALibrary​Album(album​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalibraryalbumrelationship(albumid:relationship:completion:)">fetch​ALibrary​Album​Relationship(album​ID:​relationship:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplelibraryalbums(albumids:completion:)">fetch​Multiple​Library​Albums(album​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalllibraryalbums(completion:)">fetch​All​Library​Albums(completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogartist(storefront:artistid:completion:)">fetch​ACatalog​Artist(storefront:​artist​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplecatalogartists(storefront:artistids:completion:)">fetch​Multiple​Catalog​Artists(storefront:​artist​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogartistrelationship(storefront:artistid:relationship:completion:)">fetch​ACatalog​Artist​Relationship(storefront:​artist​ID:​relationship:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalibraryartist(artistid:completion:)">fetch​ALibrary​Artist(artist​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalibraryartistrelationship(artistid:relationship:completion:)">fetch​ALibrary​Artist​Relationship(artist​ID:​relationship:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplelibraryartists(artistids:completion:)">fetch​Multiple​Library​Artists(artist​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalllibraryartists(completion:)">fetch​All​Library​Artists(completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogsong(storefront:songid:completion:)">fetch​ACatalog​Song(storefront:​song​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplecatalogsongs(storefront:songids:completion:)">fetch​Multiple​Catalog​Songs(storefront:​song​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogsongrelationship(storefront:songid:relationship:completion:)">fetch​ACatalog​Song​Relationship(storefront:​song​ID:​relationship:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalibrarysong(songid:completion:)">fetch​ALibrary​Song(song​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalibrarysongrelationship(songid:relationship:completion:)">fetch​ALibrary​Song​Relationship(song​ID:​relationship:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplelibrarysongs(songids:completion:)">fetch​Multiple​Library​Songs(song​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalllibrarysongs(completion:)">fetch​All​Library​Songs(completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogmv(storefront:mvid:completion:)">fetch​ACatalog​MV(storefront:​mv​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogmvrelationship(storefront:mvid:relationship:completion:)">fetch​ACatalog​MVRelationship(storefront:​mv​ID:​relationship:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplecatalogmvs(storefront:mvids:completion:)">fetch​Multiple​Catalog​MVs(storefront:​mv​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalibrarymv(mvid:completion:)">fetch​ALibrary​MV(mv​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalibrarymvrelationship(mvid:relationship:completion:)">fetch​ALibrary​MVRelationship(mv​ID:​relationship:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplelibrarymvs(mvids:completion:)">fetch​Multiple​Library​MVs(mv​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalllibrarymvs(completion:)">fetch​All​Library​MVs(completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogplaylist(storefront:playlistid:completion:)">fetch​ACatalog​Playlist(storefront:​playlist​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogplaylistrelationship(storefront:playlistid:relationship:completion:)">fetch​ACatalog​Playlist​Relationship(storefront:​playlist​ID:​relationship:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplecatalogplaylists(storefront:playlistids:completion:)">fetch​Multiple​Catalog​Playlists(storefront:​playlist​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalibraryplaylist(playlistid:completion:)">fetch​ALibrary​Playlist(playlist​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalibraryplaylistrelationship(playlistid:relationship:completion:)">fetch​ALibrary​Playlist​Relationship(playlist​ID:​relationship:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplelibraryplaylists(storefront:playlistids:completion:)">fetch​Multiple​Library​Playlists(storefront:​playlist​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchalllibraryplaylists(completion:)">fetch​All​Library​Playlists(completion:​)</a></li><li class="function"><a href="#hummingkit.createaplaylist(name:description:songsids:completion:)">create​APlaylist(name:​description:​songs​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.addtrackstoaplaylist(playlistid:songsids:completion:)">add​Tracks​ToAPlaylist(playlist​ID:​songs​IDs:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchacatalogstation(storefront:stationid:completion:)">fetch​ACatalog​Station(storefront:​station​ID:​completion:​)</a></li><li class="function"><a href="#hummingkit.fetchmultiplecatalogstations(storefront:stationids:completion:)">fetch​Multiple​Catalog​Stations(storefront:​station​IDs:​completion:​)</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Class</small>
+    <code class="name">Humming​Kit</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="type">HummingKit</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Main entry class of HummingKit framework</p>
+
+</div>
+
+    <section id="initializers">
+        <h2>Initializers</h2>
+
+        <div role="article" class="initializer" id="hummingkit.init(developertoken:usertoken:)">
+    <h3>
+        <code>init(developer​Token:​user​Token:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">developerToken</span>: <span class="type">String</span>, <span class="variable">userToken</span>: <span class="type">String</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Initializer of HummingKit()</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>developer​Token</th>
+    <td><code class="type">String</code></td>
+    <td><p>Apple Music Developer Token fetched beforehand using developer key issued by developer.apple.com</p>
+</td>
+</tr>
+<tr>
+    <th>user​Token</th>
+    <td><code class="type">String</code></td>
+    <td><p>Apple Music User Token fetched on user-end device using Apple Music Developer Token</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+    </section>
+    <section id="methods">
+        <h2>Methods</h2>
+
+        <div role="article" class="function" id="hummingkit.setmaximumrequestretrycount(_:)">
+    <h3>
+        <code>set​Maximum​Request​Retry​Count(_:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">setMaximumRequestRetryCount</span>(<span class="keyword">_</span> <span class="variable">retryCount</span>: <span class="type">Int</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Function to customize maximum time of retrying an segmental fetching request within an expensive request.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>retry​Count</th>
+    <td><code class="type">Int</code></td>
+    <td><p>The upper limit of time of retrying.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchuserstorefront(completion:)">
+    <h3>
+        <code>fetch​User​Storefront(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchUserStorefront</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/Storefront"><span class="type">Storefront</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch user's Apple Music account default storefront information.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Storefront, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;Storefront, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(Storefront) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchastorefront(storefrontid:completion:)">
+    <h3>
+        <code>fetch​AStorefront(storefront​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchAStorefront</span>(<span class="variable">storefrontID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/Storefront"><span class="type">Storefront</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a storefront from Apple Music server using its identifier.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The identifier (an ISO 3166 alpha-2 country code) of the storefront to be fetched.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Storefront, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;Storefront, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(Storefront) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplestorefronts(storefrontids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Storefronts(storefront​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleStorefronts</span>(<span class="variable">storefrontIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/Storefront"><span class="type">Storefront</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch an array of storefronts from Apple Music server using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of the identifiers (ISO 3166 alpha-2 country codes) of the storefronts to be fetched.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Storefront], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[Storefront], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([Storefront]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchallstorefronts(completion:)">
+    <h3>
+        <code>fetch​All​Storefronts(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchAllStorefronts</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/Storefront"><span class="type">Storefront</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch all storefronts available from Apple Music server all at once.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Storefront], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[Storefront], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([Storefront]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.addresourcestolibrary(playlistsids:albumsids:songsids:musicvideosids:completion:)">
+    <h3>
+        <code>add​Resources​ToLibrary(playlists​IDs:​albums​IDs:​songs​IDs:​music​Videos​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">addResourcesToLibrary</span>(<span class="variable">playlistsIDs</span>: [<span class="type">String</span>], <span class="variable">albumsIDs</span>: [<span class="type">String</span>], <span class="variable">songsIDs</span>: [<span class="type">String</span>], <span class="variable">musicVideosIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">String</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Add resources (playlists, albums, songs, MVs) to user library.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>playlists​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of unique catalog identifiers of playlists to be added to user library</p>
+</td>
+</tr>
+<tr>
+    <th>albums​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of unique catalog identifiers of albums to be added to user library</p>
+</td>
+</tr>
+<tr>
+    <th>songs​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of unique catalog identifiers of songs to be added to user library</p>
+</td>
+</tr>
+<tr>
+    <th>music​Videos​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of unique catalog identifiers of music videos to be added to user library</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;String, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;String, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(status) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogalbum(storefront:albumid:completion:)">
+    <h3>
+        <code>fetch​ACatalog​Album(storefront:​album​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogAlbum</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">albumID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/CatalogAlbum"><span class="type">CatalogAlbum</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a catalog album using its identifier.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>album​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the album</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Catalog​Album, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;CatalogAlbum, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(CatalogAlbum) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplecatalogalbums(storefront:albumids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Catalog​Albums(storefront:​album​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleCatalogAlbums</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">albumIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/CatalogAlbum"><span class="type">CatalogAlbum</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple catalog albums using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>album​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of the identifiers of the albums. Maximum fetch limit is 100.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Catalog​Album], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[CatalogAlbum], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([CatalogAlbum]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogalbumrelationship(storefront:albumid:relationship:completion:)">
+    <h3>
+        <code>fetch​ACatalog​Album​Relationship(storefront:​album​ID:​relationship:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogAlbumRelationship</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">albumID</span>: <span class="type">String</span>, <span class="variable">relationship</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">JSON</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch the relationship of specified catalog album using its identifier and relationship tag.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>album​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the album</p>
+</td>
+</tr>
+<tr>
+    <th>relationship</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name tag of the relationship to fetch for this catalog album</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;JSON, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;JSON, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(JSON) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalibraryalbum(albumid:completion:)">
+    <h3>
+        <code>fetch​ALibrary​Album(album​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchALibraryAlbum</span>(<span class="variable">albumID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/LibraryAlbum"><span class="type">LibraryAlbum</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a library album using its identifier.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>album​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the album</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Library​Album, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;LibraryAlbum, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(LibraryAlbum) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalibraryalbumrelationship(albumid:relationship:completion:)">
+    <h3>
+        <code>fetch​ALibrary​Album​Relationship(album​ID:​relationship:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchALibraryAlbumRelationship</span>(<span class="variable">albumID</span>: <span class="type">String</span>, <span class="variable">relationship</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">JSON</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch the relationship of specified library album using its identifier and relationship tag.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>album​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the album</p>
+</td>
+</tr>
+<tr>
+    <th>relationship</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name tag of the relationship to fetch for this library album</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;JSON, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;JSON, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(JSON) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplelibraryalbums(albumids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Library​Albums(album​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleLibraryAlbums</span>(<span class="variable">albumIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/LibraryAlbum"><span class="type">LibraryAlbum</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple library albums using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>album​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of the identifiers of albums. Maximum fetch limit is 100.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Library​Album], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[LibraryAlbum], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([LibraryAlbum]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalllibraryalbums(completion:)">
+    <h3>
+        <code>fetch​All​Library​Albums(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchAllLibraryAlbums</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;([<a href="/LibraryAlbum"><span class="type">LibraryAlbum</span></a>], <a href="/FetchingStatus"><span class="type">FetchingStatus</span></a>), <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch all library albums by segments.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;([Library​Album], Fetching​Status), Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;([LibraryAlbum], FetchingStatus), Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([LibraryAlbum], FetchingStatus) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogartist(storefront:artistid:completion:)">
+    <h3>
+        <code>fetch​ACatalog​Artist(storefront:​artist​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogArtist</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">artistID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/CatalogArtist"><span class="type">CatalogArtist</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a catalog artist using their identifier.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>artist​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the artist</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Catalog​Artist, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;CatalogArtist, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(CatalogArtist) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplecatalogartists(storefront:artistids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Catalog​Artists(storefront:​artist​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleCatalogArtists</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">artistIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/CatalogArtist"><span class="type">CatalogArtist</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple catalog artists using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>artist​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>The unique identifiers of the artists. Maximum fetch limit is 25.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Catalog​Artist], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[CatalogArtist], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([CatalogArtist]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogartistrelationship(storefront:artistid:relationship:completion:)">
+    <h3>
+        <code>fetch​ACatalog​Artist​Relationship(storefront:​artist​ID:​relationship:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogArtistRelationship</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">artistID</span>: <span class="type">String</span>, <span class="variable">relationship</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">JSON</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch the relationship of specified catalog artist using its identifier and relationship tag.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>artist​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the artist</p>
+</td>
+</tr>
+<tr>
+    <th>relationship</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name tag of the relationship to fetch for this catalog artist</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;JSON, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;JSON, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(JSON) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalibraryartist(artistid:completion:)">
+    <h3>
+        <code>fetch​ALibrary​Artist(artist​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchALibraryArtist</span>(<span class="variable">artistID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/LibraryArtist"><span class="type">LibraryArtist</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a library artist using their identifier.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>artist​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the artist.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Library​Artist, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;LibraryArtist, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(LibraryArtist) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalibraryartistrelationship(artistid:relationship:completion:)">
+    <h3>
+        <code>fetch​ALibrary​Artist​Relationship(artist​ID:​relationship:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchALibraryArtistRelationship</span>(<span class="variable">artistID</span>: <span class="type">String</span>, <span class="variable">relationship</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">JSON</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch the relationship of specified library artist using its identifier and relationship tag.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>artist​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the artist.</p>
+</td>
+</tr>
+<tr>
+    <th>relationship</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name tag of the relationship to fetch for this library artist</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (Swift.​Result&lt;JSON, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;JSON, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(JSON) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplelibraryartists(artistids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Library​Artists(artist​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleLibraryArtists</span>(<span class="variable">artistIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/LibraryArtist"><span class="type">LibraryArtist</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple library artists using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>artist​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>The unique identifiers of the artists. Maximum fetch limit is 25.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (Swift.​Result&lt;[Library​Artist], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[LibraryArtist], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([LibraryArtist]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalllibraryartists(completion:)">
+    <h3>
+        <code>fetch​All​Library​Artists(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchAllLibraryArtists</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;([<a href="/LibraryArtist"><span class="type">LibraryArtist</span></a>], <a href="/FetchingStatus"><span class="type">FetchingStatus</span></a>), <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch all library artists by segments.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;([Library​Artist], Fetching​Status), Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;([LibraryArtist], FetchingStatus), Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([LibraryArtist], FetchingStatus) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogsong(storefront:songid:completion:)">
+    <h3>
+        <code>fetch​ACatalog​Song(storefront:​song​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogSong</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">songID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/CatalogSong"><span class="type">CatalogSong</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a catalog song using its identifier</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>song​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the song.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Catalog​Song, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;CatalogSong, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(CatalogSong) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplecatalogsongs(storefront:songids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Catalog​Songs(storefront:​song​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleCatalogSongs</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">songIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/CatalogSong"><span class="type">CatalogSong</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple catalog songs using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>song​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of the identifiers of the albums. Maximum fetch limit is 300.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Catalog​Song], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[CatalogSong], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([CatalogSong]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogsongrelationship(storefront:songid:relationship:completion:)">
+    <h3>
+        <code>fetch​ACatalog​Song​Relationship(storefront:​song​ID:​relationship:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogSongRelationship</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">songID</span>: <span class="type">String</span>, <span class="variable">relationship</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">JSON</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch the relationship of specified catalog song using its identifier and relationship tag.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>song​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the song</p>
+</td>
+</tr>
+<tr>
+    <th>relationship</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name tag of the relationship to fetch for this catalog song</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;JSON, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;JSON, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(JSON) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalibrarysong(songid:completion:)">
+    <h3>
+        <code>fetch​ALibrary​Song(song​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchALibrarySong</span>(<span class="variable">songID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/LibrarySong"><span class="type">LibrarySong</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a library song using its identifier.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>song​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the song</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Library​Song, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;LibrarySong, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(LibrarySong) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalibrarysongrelationship(songid:relationship:completion:)">
+    <h3>
+        <code>fetch​ALibrary​Song​Relationship(song​ID:​relationship:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchALibrarySongRelationship</span>(<span class="variable">songID</span>: <span class="type">String</span>, <span class="variable">relationship</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">JSON</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch the relationship of specified library song using its identifier and relationship tag.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>song​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the song</p>
+</td>
+</tr>
+<tr>
+    <th>relationship</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name tag of the relationship to fetch for this library song</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;JSON, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;JSON, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(JSON) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplelibrarysongs(songids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Library​Songs(song​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleLibrarySongs</span>(<span class="variable">songIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/LibrarySong"><span class="type">LibrarySong</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple library songs using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>song​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of the identifiers of library songs. Maximum fetch limit is 300.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Library​Song], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[LibrarySong], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([LibrarySong]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalllibrarysongs(completion:)">
+    <h3>
+        <code>fetch​All​Library​Songs(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchAllLibrarySongs</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;([<a href="/LibrarySong"><span class="type">LibrarySong</span></a>], <a href="/FetchingStatus"><span class="type">FetchingStatus</span></a>), <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch all library songs by segments.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;([Library​Song], Fetching​Status), Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;([LibrarySong], FetchingStatus), Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([LibrarySong], FetchingStatus) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogmv(storefront:mvid:completion:)">
+    <h3>
+        <code>fetch​ACatalog​MV(storefront:​mv​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogMV</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">mvID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/CatalogMV"><span class="type">CatalogMV</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a catalog music video using its identifier.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>mv​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the music video</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Catalog​MV, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;CatalogMV, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(CatalogMV) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogmvrelationship(storefront:mvid:relationship:completion:)">
+    <h3>
+        <code>fetch​ACatalog​MVRelationship(storefront:​mv​ID:​relationship:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogMVRelationship</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">mvID</span>: <span class="type">String</span>, <span class="variable">relationship</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">JSON</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch the relationship of specified catalog music video using its identifier and relationship tag.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefrontwhich to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>mv​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the music video</p>
+</td>
+</tr>
+<tr>
+    <th>relationship</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name tag of the relationship to fetch for this catalog music video</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;JSON, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;JSON, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(JSON) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplecatalogmvs(storefront:mvids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Catalog​MVs(storefront:​mv​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleCatalogMVs</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">mvIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/CatalogMV"><span class="type">CatalogMV</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple catalog music videos using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>mv​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of the identifiers of the music videos. Maximum fetch limit is 100.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Catalog​MV], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[CatalogMV], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([CatalogMV]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalibrarymv(mvid:completion:)">
+    <h3>
+        <code>fetch​ALibrary​MV(mv​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchALibraryMV</span>(<span class="variable">mvID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/LibraryMV"><span class="type">LibraryMV</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a library music video using its identifier.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>mv​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the music video</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Library​MV, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;LibraryMV, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(LibraryMV) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalibrarymvrelationship(mvid:relationship:completion:)">
+    <h3>
+        <code>fetch​ALibrary​MVRelationship(mv​ID:​relationship:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchALibraryMVRelationship</span>(<span class="variable">mvID</span>: <span class="type">String</span>, <span class="variable">relationship</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">JSON</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch the relationship of specified library music video using its identifier and relationship tag.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>mv​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the music video</p>
+</td>
+</tr>
+<tr>
+    <th>relationship</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name tag of the relationship to fetch for this library music video</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;JSON, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;JSON, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(JSON) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplelibrarymvs(mvids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Library​MVs(mv​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleLibraryMVs</span>(<span class="variable">mvIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/LibraryMV"><span class="type">LibraryMV</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple library music videos using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>mv​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of the identifiers of music videos. Maximum fetch limit is 100.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Library​MV], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[LibraryMV], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([LibraryMV]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalllibrarymvs(completion:)">
+    <h3>
+        <code>fetch​All​Library​MVs(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchAllLibraryMVs</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;([<a href="/LibraryMV"><span class="type">LibraryMV</span></a>], <a href="/FetchingStatus"><span class="type">FetchingStatus</span></a>), <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch all library music videos by segments.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;([Library​MV], Fetching​Status), Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;([LibraryMV], FetchingStatus), Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([LibraryMV], FetchingStatus) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogplaylist(storefront:playlistid:completion:)">
+    <h3>
+        <code>fetch​ACatalog​Playlist(storefront:​playlist​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogPlaylist</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">playlistID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/CatalogPlaylist"><span class="type">CatalogPlaylist</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a catalog playlist using its identifier</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>playlist​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the playlist</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Catalog​Playlist, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;CatalogPlaylist, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(CatalogPlaylist) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogplaylistrelationship(storefront:playlistid:relationship:completion:)">
+    <h3>
+        <code>fetch​ACatalog​Playlist​Relationship(storefront:​playlist​ID:​relationship:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogPlaylistRelationship</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">playlistID</span>: <span class="type">String</span>, <span class="variable">relationship</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">JSON</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch the relationship of specified catalog album using its identifier and relationship tag.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>playlist​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the playlist</p>
+</td>
+</tr>
+<tr>
+    <th>relationship</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name tag of the relationship to fetch for this catalog playlist</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;JSON, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;JSON, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(JSON) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplecatalogplaylists(storefront:playlistids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Catalog​Playlists(storefront:​playlist​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleCatalogPlaylists</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">playlistIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/CatalogPlaylist"><span class="type">CatalogPlaylist</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple catalog playlists using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>playlist​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of the identifiers of playlists. Maximum fetch limit is 25.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Catalog​Playlist], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[CatalogPlaylist], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([CatalogPlaylist]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalibraryplaylist(playlistid:completion:)">
+    <h3>
+        <code>fetch​ALibrary​Playlist(playlist​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchALibraryPlaylist</span>(<span class="variable">playlistID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/LibraryPlaylist"><span class="type">LibraryPlaylist</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a library playlist using its identifier</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>playlist​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the playlist.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Library​Playlist, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;LibraryPlaylist, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(LibraryPlaylist) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalibraryplaylistrelationship(playlistid:relationship:completion:)">
+    <h3>
+        <code>fetch​ALibrary​Playlist​Relationship(playlist​ID:​relationship:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchALibraryPlaylistRelationship</span>(<span class="variable">playlistID</span>: <span class="type">String</span>, <span class="variable">relationship</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">JSON</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch the relationship of specified library playlist using its identifier and relationship tag.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>playlist​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the playlist</p>
+</td>
+</tr>
+<tr>
+    <th>relationship</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name tag of the relationship to fetch for this library playlist</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;JSON, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;JSON, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(JSON) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplelibraryplaylists(storefront:playlistids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Library​Playlists(storefront:​playlist​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleLibraryPlaylists</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">playlistIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/LibraryPlaylist"><span class="type">LibraryPlaylist</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple library playlists using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>playlist​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of the identifiers of playlists. Maximum fetch limit is 25.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Library​Playlist], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[LibraryPlaylist], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([LibraryPlaylist]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchalllibraryplaylists(completion:)">
+    <h3>
+        <code>fetch​All​Library​Playlists(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchAllLibraryPlaylists</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;([<a href="/LibraryPlaylist"><span class="type">LibraryPlaylist</span></a>], <a href="/FetchingStatus"><span class="type">FetchingStatus</span></a>), <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch all library playlists by segments.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;([Library​Playlist], Fetching​Status), Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;([LibraryPlaylist], FetchingStatus), Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([LibraryPlaylist], FetchingStatus) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.createaplaylist(name:description:songsids:completion:)">
+    <h3>
+        <code>create​APlaylist(name:​description:​songs​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">createAPlaylist</span>(<span class="variable">name</span>: <span class="type">String</span>, <span class="variable">description</span>: <span class="type">String</span>?, <span class="variable">songsIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">String</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Create a new library playlist.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>name</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name of playlist to be created</p>
+</td>
+</tr>
+<tr>
+    <th>description</th>
+    <td><code class="type">String?</code></td>
+    <td><p>Optional. The description of the playlist to be created</p>
+</td>
+</tr>
+<tr>
+    <th>songs​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of identifiers of songs to be contained in the playlist</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;String, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;String, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(status) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.addtrackstoaplaylist(playlistid:songsids:completion:)">
+    <h3>
+        <code>add​Tracks​ToAPlaylist(playlist​ID:​songs​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">addTracksToAPlaylist</span>(<span class="variable">playlistID</span>: <span class="type">String</span>, <span class="variable">songsIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<span class="type">String</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Add songs to a library playlist owned by the user, using their identifiers</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>playlist​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the playlist</p>
+</td>
+</tr>
+<tr>
+    <th>songs​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of identifiers of songs to be added to the playlist</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;String, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;String, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(status) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchacatalogstation(storefront:stationid:completion:)">
+    <h3>
+        <code>fetch​ACatalog​Station(storefront:​station​ID:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchACatalogStation</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">stationID</span>: <span class="type">String</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;<a href="/CatalogStation"><span class="type">CatalogStation</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a catalog station using its identifier.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>station​ID</th>
+    <td><code class="type">String</code></td>
+    <td><p>The unique identifier of the station</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;Catalog​Station, Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;CatalogStation, Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success(CatalogStation) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="hummingkit.fetchmultiplecatalogstations(storefront:stationids:completion:)">
+    <h3>
+        <code>fetch​Multiple​Catalog​Stations(storefront:​station​IDs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchMultipleCatalogStations</span>(<span class="variable">storefront</span>: <span class="type">String</span>, <span class="variable">stationIDs</span>: [<span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Swift</span>.<span class="type">Result</span>&lt;[<a href="/CatalogStation"><span class="type">CatalogStation</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch multiple catalog stations using their identifiers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>storefront</th>
+    <td><code class="type">String</code></td>
+    <td><p>An identifier (ISO 3166 alpha-2 country codes) of the storefront which to perform request in</p>
+</td>
+</tr>
+<tr>
+    <th>station​IDs</th>
+    <td><code class="type">[String]</code></td>
+    <td><p>An array of the identifiers of the stations. Maximum fetch limit is 100.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Swift.​Result&lt;[Catalog​Station], Error&gt;) -&gt; Void</code></td>
+    <td><p>Completion handler of request result of type Swift.Result&lt;[CatalogStation], Error&gt;</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Result of request, .success([CatalogStation]) or .failure(Error)</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-29T18:13:01-0700">August 29, 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.4</span>.
+</p>
+    </footer>
+</body>
+</html>
