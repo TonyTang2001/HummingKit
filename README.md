@@ -14,7 +14,7 @@ HummingKit provides a friendly way to deal with the Apple Music API by handling 
 - [x] Apple Music API Request Asynchronous Status Handling
 - [x] Apple Music API Response Decoding
 - [x] Apple Music API Resource Relationships Fetching
-- [ ] Complete Documentation (*In Progress*)
+- [x] [Documentation](https://tonytang2001.github.io/HummingKit/)
 
 ## Requirements
 
