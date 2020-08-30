@@ -2,6 +2,13 @@
 
 HummingKit is an SDK (Software Development Kit) designed to ease the use of [Apple Music API](https://developer.apple.com/documentation/applemusicapi). Written in Swift 5.2, HummingKit takes advantage of Swift's outstanding performance and latest features, offering an approachable entry for developers dealing with the Apple Music API.
 
+---
+**NEWS**
+HummingKit 1.0.0 has been RELEASED!
+HummingKit 1.0.0, is considered to be the first released version that can be widely adopted as a swift package dependency in projects or other frameworks.
+
+---
+
 ## Features
 
 HummingKit provides a friendly way to deal with the Apple Music API by handling burdensome works, such as composing and conducting requests, handling status and errors, parsing responses and more.
@@ -48,7 +55,7 @@ Once your Swift package is set up, add HummingKit as a dependency by adding it t
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/TonyTang2001/HummingKit.git", .upToNextMajor(from: "0.9.0"))
+.package(url: "https://github.com/TonyTang2001/HummingKit.git", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
