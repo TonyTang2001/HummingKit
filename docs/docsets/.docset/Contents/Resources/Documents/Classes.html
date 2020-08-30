@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>  Reference</title>
+    <title>Classes  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,7 +13,8 @@
     <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a title="  Reference"></a>
+    <a name="//apple_ref/swift/Section/Classes" class="dashAnchor"></a>
+    <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html"> Docs</a> (40% documented)</p>
@@ -28,7 +29,7 @@
       <p id="breadcrumbs">
         <a href="index.html"> Reference</a>
         <img id="carat" src="img/carat.png" />
-          Reference
+        Classes  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -194,77 +195,71 @@
       <article class="main-content">
         <section>
           <section class="section">
-            
-            <h1 id='hummingkit' class='heading'>HummingKit</h1>
+            <h1>Classes</h1>
+            <p>The following classes are available globally.</p>
 
-<p>HummingKit is an SDK (Software Development Kit) designed to ease the use of <a href="https://developer.apple.com/documentation/applemusicapi">Apple Music API</a>. Written in Swift 5.2, HummingKit takes advantage of Swift&rsquo;s outstanding performance and latest features, offering an approachable entry for developers dealing with the Apple Music API.</p>
-<h2 id='features' class='heading'>Features</h2>
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKitAAC"></a>
+                    <a name="//apple_ref/swift/Class/HummingKit" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKitAAC">HummingKit</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Main entry class of HummingKit framework</p>
 
-<p>HummingKit provides a friendly way to deal with the Apple Music API by handling burdensome works, such as composing and conducting requests, handling status and errors, parsing responses and more.</p>
+                        <a href="Classes/HummingKit.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">HummingKit</span></code></pre>
 
-<ul>
-<li>[x] Apple Music API High Coverage</li>
-<li>[x] Apple Music API User Privacy Verification</li>
-<li>[x] Apple Music API Request Authentication</li>
-<li>[x] Apple Music API Request URL / JSON Parameter Encoding</li>
-<li>[x] Apple Music API Request Pagination</li>
-<li>[x] Apple Music API Request Asynchronous Status Handling</li>
-<li>[x] Apple Music API Response Decoding</li>
-<li>[x] Apple Music API Resource Relationships Fetching</li>
-<li>[x] <a href="https://tonytang2001.github.io/HummingKit/">Documentation</a></li>
-</ul>
-<h2 id='requirements' class='heading'>Requirements</h2>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC"></a>
+                    <a name="//apple_ref/swift/Class/HummingKitRequestFactory" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC">HummingKitRequestFactory</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
 
-<ul>
-<li>Swift 5.2+</li>
-<li>Xcode 11+</li>
-<li>iOS 11.0+ / macOS 10.13+ * / tvOS 11.0+ / watchOS 4.0+ *
-(*) For certain functionalities, macOS 11.0+ / watchOS 7.0+ are required.</li>
-</ul>
-<h2 id='integration' class='heading'>Integration</h2>
+                        <a href="Classes/HummingKitRequestFactory.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">HummingKitRequestFactory</span></code></pre>
 
-<p>HummingKit comes with flexibility in terms of integration. From <a href="#In-Your-Xcode-Project">importing it as a dependency of your projects</a>, to <a href="#In-Your-Framework">building frameworks upon it</a>, HummingKit provides an optimal integration solution.</p>
-<h3 id='swift-package-manager' class='heading'>Swift Package Manager</h3>
-
-<p><a href="https://swift.org/package-manager/">Swift Package Manager</a> is a tool for automating the distribution of Swift code specifically. HummingKit supports Swift Package from design.</p>
-
-<hr>
-
-<p><strong>NOTE</strong></p>
-
-<p>Once a Swift Package is added to an Xcode project, the package&rsquo;s dependency repositories are also added to the project automatically. HummingKit is of no exception of this rule.</p>
-
-<hr>
-<h4 id='in-your-xcode-project' class='heading'>In Your Xcode Project</h4>
-
-<p>When your project is opened in Xcode, select <code>File &gt; Swift Packages &gt; Add Package Dependency</code> from the menu bar. Enter <code>https://github.com/TonyTang2001/HummingKit.git</code> once prompted to do so. After specifying <code>Rules</code> in accordance to your need and select Target to add to, HummingKit is successfully added to your project as a Swift Package.</p>
-<h4 id='in-your-framework' class='heading'>In Your Framework</h4>
-
-<p>Once your Swift package is set up, add HummingKit as a dependency by adding it to the <code>dependencies</code> value of your <code>Package.swift</code>.</p>
-<pre class="highlight swift"><code><span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
-    <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/TonyTang2001/HummingKit.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.9.0"</span><span class="p">))</span>
-<span class="p">]</span>
-</code></pre>
-<h2 id='community' class='heading'>Community</h2>
-
-<p>HummingKit embraces developer community as an indispensable factor for creations and improvements. Everyone is welcome to collaborate on this project and providing feedbacks and suggestions. </p>
-
-<p><strong>Feel free to ask questions if you have one!</strong></p>
-<h3 id='collaboration' class='heading'>Collaboration</h3>
-
-<p>All scales of collaboration are welcome. From introducing a grand feature to fixing a typo among in-line comments, you are improving this project and contributing to the whole open-source community.</p>
-<h3 id='q-amp-a' class='heading'>Q&amp;A</h3>
-
-<p>There might be questions regarding certain functionality or blocks of codes, or you may have found a serious bug in this project. Please file an issue in this repository. <strong>Your words are important!</strong></p>
-<h2 id='dependencies' class='heading'>Dependencies</h2>
-
-<p>HummingKit is built upon widely-adopted frameworks for a portion of its functionality.</p>
-
-<ul>
-<li><a href="https://github.com/Alamofire/Alamofire">Alamofire</a></li>
-<li><a href="https://github.com/SwiftyJSON/SwiftyJSON">SwiftyJSON</a></li>
-</ul>
-
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">

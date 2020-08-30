@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Structures  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
+    <a title="Structures  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html"> Docs</a> (40% documented)</p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html"> Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Structures  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/HummingKit.html">HummingKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/HummingKitRequestFactory.html">HummingKitRequestFactory</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/FetchingStatus.html">FetchingStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/HummingKitEnvironmentError.html">HummingKitEnvironmentError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/HummingKitInternalError.html">HummingKitInternalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/HummingKitRequestComposingError.html">HummingKitRequestComposingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/HummingKitResponseError.html">HummingKitResponseError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/Artwork.html">Artwork</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogAlbum.html">CatalogAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogAlbum/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogArtist.html">CatalogArtist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogArtist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogMV.html">CatalogMV</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogMV/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogPlaylist.html">CatalogPlaylist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogPlaylist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogSong.html">CatalogSong</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogSong/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogStation.html">CatalogStation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CatalogStation/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/EditorialNotes.html">EditorialNotes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/HummingKitAuthentication.html">HummingKitAuthentication</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LibraryAlbum.html">LibraryAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LibraryAlbum/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LibraryArtist.html">LibraryArtist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LibraryArtist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LibraryMV.html">LibraryMV</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LibraryMV/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LibraryPlaylist.html">LibraryPlaylist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LibraryPlaylist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LibrarySong.html">LibrarySong</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LibrarySong/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlayParams.html">PlayParams</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Preview.html">Preview</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Resource.html">Resource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ResourceRelationship.html">ResourceRelationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Storefront.html">Storefront</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Storefront/Attributes.html">– Attributes</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10HummingKit7AlbumIDa">AlbumID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10HummingKit8ArtistIDa">ArtistID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10HummingKit14DeveloperTokena">DeveloperToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10HummingKit12Relationshipa">Relationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10HummingKit6SongIDa">SongID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10HummingKit12StorefrontIDa">StorefrontID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10HummingKit9UserTokena">UserToken</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Storefronts"></a>
+                <a name="//apple_ref/swift/Section/Storefronts" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Storefronts"></a>
+                  <h3 class="section-name"><p>Storefronts</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit10StorefrontV"></a>
+                    <a name="//apple_ref/swift/Struct/Storefront" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit10StorefrontV">Storefront</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Storefront struct, representing store fronts for different countries and regions of Apple Music.</p>
+
+                        <a href="Structs/Storefront.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Storefront</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/CatalogSong"></a>
+                <a name="//apple_ref/swift/Section/CatalogSong" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/CatalogSong"></a>
+                  <h3 class="section-name"><p>CatalogSong</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit11CatalogSongV"></a>
+                    <a name="//apple_ref/swift/Struct/CatalogSong" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit11CatalogSongV">CatalogSong</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Catalog Song struct, representing songs that are available in Apple Music Server.</p>
+
+                        <a href="Structs/CatalogSong.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CatalogSong</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LibrarySong"></a>
+                <a name="//apple_ref/swift/Section/LibrarySong" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/LibrarySong"></a>
+                  <h3 class="section-name"><p>LibrarySong</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit11LibrarySongV"></a>
+                    <a name="//apple_ref/swift/Struct/LibrarySong" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit11LibrarySongV">LibrarySong</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Library Song struct, representing songs that have been added to user library.</p>
+
+                        <a href="Structs/LibrarySong.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LibrarySong</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/CatalogAlbum"></a>
+                <a name="//apple_ref/swift/Section/CatalogAlbum" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/CatalogAlbum"></a>
+                  <h3 class="section-name"><p>CatalogAlbum</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit12CatalogAlbumV"></a>
+                    <a name="//apple_ref/swift/Struct/CatalogAlbum" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit12CatalogAlbumV">CatalogAlbum</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Catalog Album struct, representing albums that are available in Apple Music Server.</p>
+
+                        <a href="Structs/CatalogAlbum.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CatalogAlbum</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LibraryAlbum"></a>
+                <a name="//apple_ref/swift/Section/LibraryAlbum" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/LibraryAlbum"></a>
+                  <h3 class="section-name"><p>LibraryAlbum</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit12LibraryAlbumV"></a>
+                    <a name="//apple_ref/swift/Struct/LibraryAlbum" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit12LibraryAlbumV">LibraryAlbum</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Library Album struct, representing albums that have been added to user library.</p>
+
+                        <a href="Structs/LibraryAlbum.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LibraryAlbum</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/CatalogArtist"></a>
+                <a name="//apple_ref/swift/Section/CatalogArtist" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/CatalogArtist"></a>
+                  <h3 class="section-name"><p>CatalogArtist</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit13CatalogArtistV"></a>
+                    <a name="//apple_ref/swift/Struct/CatalogArtist" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit13CatalogArtistV">CatalogArtist</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Catalog Artist struct, representing artists that have contents available in Apple Music Server.</p>
+
+                        <a href="Structs/CatalogArtist.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CatalogArtist</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LibraryArtist"></a>
+                <a name="//apple_ref/swift/Section/LibraryArtist" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/LibraryArtist"></a>
+                  <h3 class="section-name"><p>LibraryArtist</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit13LibraryArtistV"></a>
+                    <a name="//apple_ref/swift/Struct/LibraryArtist" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit13LibraryArtistV">LibraryArtist</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Library Artist struct, representing artists that have their contents added to user library.</p>
+
+                        <a href="Structs/LibraryArtist.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LibraryArtist</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/CatalogPlaylist"></a>
+                <a name="//apple_ref/swift/Section/CatalogPlaylist" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/CatalogPlaylist"></a>
+                  <h3 class="section-name"><p>CatalogPlaylist</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit15CatalogPlaylistV"></a>
+                    <a name="//apple_ref/swift/Struct/CatalogPlaylist" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit15CatalogPlaylistV">CatalogPlaylist</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Catalog Playlist struct, representing playlists that are available(either set as public, or created by Apple) in Apple Music Server.</p>
+
+                        <a href="Structs/CatalogPlaylist.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CatalogPlaylist</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LibraryPlaylist"></a>
+                <a name="//apple_ref/swift/Section/LibraryPlaylist" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/LibraryPlaylist"></a>
+                  <h3 class="section-name"><p>LibraryPlaylist</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit15LibraryPlaylistV"></a>
+                    <a name="//apple_ref/swift/Struct/LibraryPlaylist" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit15LibraryPlaylistV">LibraryPlaylist</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Library Playlist struct, representing playlists that have either been added to user library or created by the user.</p>
+
+                        <a href="Structs/LibraryPlaylist.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LibraryPlaylist</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Catalog%20Music%20Videos"></a>
+                <a name="//apple_ref/swift/Section/Catalog Music Videos" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Catalog%20Music%20Videos"></a>
+                  <h3 class="section-name"><p>Catalog Music Videos</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit9CatalogMVV"></a>
+                    <a name="//apple_ref/swift/Struct/CatalogMV" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit9CatalogMVV">CatalogMV</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Catalog Music Video struct, representing music videos that are available in Apple Music Server.</p>
+
+                        <a href="Structs/CatalogMV.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CatalogMV</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Library%20Music%20Videos"></a>
+                <a name="//apple_ref/swift/Section/Library Music Videos" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Library%20Music%20Videos"></a>
+                  <h3 class="section-name"><p>Library Music Videos</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit9LibraryMVV"></a>
+                    <a name="//apple_ref/swift/Struct/LibraryMV" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit9LibraryMVV">LibraryMV</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Library Music Video struct, representing music videos that have been added to user library.</p>
+
+                        <a href="Structs/LibraryMV.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LibraryMV</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Catalog%20Station"></a>
+                <a name="//apple_ref/swift/Section/Catalog Station" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Catalog%20Station"></a>
+                  <h3 class="section-name"><p>Catalog Station</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit14CatalogStationV"></a>
+                    <a name="//apple_ref/swift/Struct/CatalogStation" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit14CatalogStationV">CatalogStation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple Music Catalog Stations struct, representing music stations that are available in Apple Music Server.</p>
+
+                        <a href="Structs/CatalogStation.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CatalogStation</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit20ResourceRelationshipV"></a>
+                    <a name="//apple_ref/swift/Struct/ResourceRelationship" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit20ResourceRelationshipV">ResourceRelationship</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/ResourceRelationship.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ResourceRelationship</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit8ResourceV"></a>
+                    <a name="//apple_ref/swift/Struct/Resource" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit8ResourceV">Resource</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/Resource.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Resource</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit7ArtworkV"></a>
+                    <a name="//apple_ref/swift/Struct/Artwork" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit7ArtworkV">Artwork</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/Artwork.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Artwork</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit7PreviewV"></a>
+                    <a name="//apple_ref/swift/Struct/Preview" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit7PreviewV">Preview</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/Preview.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Preview</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit10PlayParamsV"></a>
+                    <a name="//apple_ref/swift/Struct/PlayParams" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit10PlayParamsV">PlayParams</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/PlayParams.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PlayParams</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit14EditorialNotesV"></a>
+                    <a name="//apple_ref/swift/Struct/EditorialNotes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit14EditorialNotesV">EditorialNotes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An object that represents notes.</p>
+
+                        <a href="Structs/EditorialNotes.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">EditorialNotes</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14AuthenticationV"></a>
+                    <a name="//apple_ref/swift/Struct/HummingKitAuthentication" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14AuthenticationV">HummingKitAuthentication</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/HummingKitAuthentication.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">HummingKitAuthentication</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-29)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

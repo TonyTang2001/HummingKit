@@ -1,0 +1,3438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HummingKitRequestFactory Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/HummingKitRequestFactory" class="dashAnchor"></a>
+    <a title="HummingKitRequestFactory Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (40% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        HummingKitRequestFactory Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/HummingKit.html">HummingKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HummingKitRequestFactory.html">HummingKitRequestFactory</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/FetchingStatus.html">FetchingStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HummingKitEnvironmentError.html">HummingKitEnvironmentError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HummingKitInternalError.html">HummingKitInternalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HummingKitRequestComposingError.html">HummingKitRequestComposingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HummingKitResponseError.html">HummingKitResponseError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Artwork.html">Artwork</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogAlbum.html">CatalogAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogAlbum/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogArtist.html">CatalogArtist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogArtist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogMV.html">CatalogMV</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogMV/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogPlaylist.html">CatalogPlaylist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogPlaylist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogSong.html">CatalogSong</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogSong/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogStation.html">CatalogStation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogStation/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EditorialNotes.html">EditorialNotes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HummingKitAuthentication.html">HummingKitAuthentication</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryAlbum.html">LibraryAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryAlbum/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryArtist.html">LibraryArtist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryArtist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryMV.html">LibraryMV</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryMV/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryPlaylist.html">LibraryPlaylist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryPlaylist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibrarySong.html">LibrarySong</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibrarySong/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlayParams.html">PlayParams</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Preview.html">Preview</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Resource.html">Resource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ResourceRelationship.html">ResourceRelationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Storefront.html">Storefront</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Storefront/Attributes.html">– Attributes</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit7AlbumIDa">AlbumID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit8ArtistIDa">ArtistID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit14DeveloperTokena">DeveloperToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit12Relationshipa">Relationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit6SongIDa">SongID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit12StorefrontIDa">StorefrontID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit9UserTokena">UserToken</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>HummingKitRequestFactory</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">HummingKitRequestFactory</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC14developerToken04userF0ACSS_SStcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(developerToken:userToken:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC14developerToken04userF0ACSS_SStcfc">init(developerToken:<wbr>userToken:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initilazation of HummingKitRequestFactory object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">developerToken</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10HummingKit14DeveloperTokena">DeveloperToken</a></span><span class="p">,</span> <span class="nv">userToken</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10HummingKit9UserTokena">UserToken</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>developerToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Developer Token provided by the developer who use this package, required for authentication.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>User Token fetched by device when app runs for the first time, required for authentication</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20User%27s%20Storefront"></a>
+                <a name="//apple_ref/swift/Section/Get a User&#39;s Storefront" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20User%27s%20Storefront"></a>
+                  <h3 class="section-name"><p>Get a User&rsquo;s Storefront</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC023createGetUserStorefrontC010Foundation10URLRequestVyF"></a>
+                    <a name="//apple_ref/swift/Method/createGetUserStorefrontRequest()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC023createGetUserStorefrontC010Foundation10URLRequestVyF">createGetUserStorefrontRequest()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a User&rsquo;s Storefront&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetUserStorefrontRequest</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Storefront"></a>
+                <a name="//apple_ref/swift/Section/Get a Storefront" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Storefront"></a>
+                  <h3 class="section-name"><p>Get a Storefront</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC020createGetAStorefrontC012storefrontID10Foundation10URLRequestVSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/createGetAStorefrontRequest(storefrontID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC020createGetAStorefrontC012storefrontID10Foundation10URLRequestVSS_tF">createGetAStorefrontRequest(storefrontID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a single storefront by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetAStorefrontRequest</span><span class="p">(</span><span class="nv">storefrontID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefrontID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier (an ISO 3166 alpha-2 country code) for the storefront you want to fetch.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Storefronts"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Storefronts" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Storefronts"></a>
+                  <h3 class="section-name"><p>Get Multiple Storefronts</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC028createGetMultipleStorefrontsC013storefrontIDs10Foundation10URLRequestVSaySSG_tF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleStorefrontsRequest(storefrontIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC028createGetMultipleStorefrontsC013storefrontIDs10Foundation10URLRequestVSaySSG_tF">createGetMultipleStorefrontsRequest(storefrontIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more storefronts by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleStorefrontsRequest</span><span class="p">(</span><span class="nv">storefrontIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefrontIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of the identifiers (ISO 3166 alpha-2 country codes) for the storefronts you want to fetch.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20All%20Storefronts"></a>
+                <a name="//apple_ref/swift/Section/Get All Storefronts" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20All%20Storefronts"></a>
+                  <h3 class="section-name"><p>Get All Storefronts</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC023createGetAllStorefrontsC010Foundation10URLRequestVyF"></a>
+                    <a name="//apple_ref/swift/Method/createGetAllStorefrontsRequest()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC023createGetAllStorefrontsC010Foundation10URLRequestVyF">createGetAllStorefrontsRequest()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch all the storefronts in alphabetical order&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetAllStorefrontsRequest</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Add%20a%20Resource%20to%20a%20Library"></a>
+                <a name="//apple_ref/swift/Section/Add a Resource to a Library" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Add%20a%20Resource%20to%20a%20Library"></a>
+                  <h3 class="section-name"><p>Add a Resource to a Library</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC027createAddResourcesToLibraryC012playlistsIDs06albumsK005songsK0011musicVideosK010Foundation10URLRequestVSaySSG_A3LtF"></a>
+                    <a name="//apple_ref/swift/Method/createAddResourcesToLibraryRequest(playlistsIDs:albumsIDs:songsIDs:musicVideosIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC027createAddResourcesToLibraryC012playlistsIDs06albumsK005songsK0011musicVideosK010Foundation10URLRequestVSaySSG_A3LtF">createAddResourcesToLibraryRequest(playlistsIDs:<wbr>albumsIDs:<wbr>songsIDs:<wbr>musicVideosIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Add a catalog resource to a user’s iCloud Music Library&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createAddResourcesToLibraryRequest</span><span class="p">(</span><span class="nv">playlistsIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">albumsIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">songsIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">musicVideosIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>playlistsIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>an array of unique catalog identifiers for targeted playlists</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>albumsIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>an array of unique catalog identifiers for targeted albums</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>songsIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>an array of unique catalog identifiers for targeted songs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>musicVideosIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>an array of unique catalog identifiers for targeted music videos</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the URL request for adding catalog resources to a user’s iCloud Music Library</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20Album"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog Album" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20Album"></a>
+                  <h3 class="section-name"><p>Get a Catalog Album</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC022createGetACatalogAlbumC010storefront7albumID10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogAlbumRequest(storefront:albumID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC022createGetACatalogAlbumC010storefront7albumID10Foundation10URLRequestVSS_SStF">createGetACatalogAlbumRequest(storefront:<wbr>albumID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch an album by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogAlbumRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">albumID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>albumID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Catalog%20Albums"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Catalog Albums" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Catalog%20Albums"></a>
+                  <h3 class="section-name"><p>Get Multiple Catalog Albums</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC030createGetMultipleCatalogAlbumsC010storefront8albumIDs10Foundation10URLRequestVSS_SaySSGtKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleCatalogAlbumsRequest(storefront:albumIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC030createGetMultipleCatalogAlbumsC010storefront8albumIDs10Foundation10URLRequestVSS_SaySSGtKF">createGetMultipleCatalogAlbumsRequest(storefront:<wbr>albumIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more albums by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleCatalogAlbumsRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">albumIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>albumIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifiers for the albums. The maximum fetch limit is 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20Album%27s%20Relationship%20Directly%20by%20Name"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog Album&#39;s Relationship Directly by Name" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20Album%27s%20Relationship%20Directly%20by%20Name"></a>
+                  <h3 class="section-name"><p>Get a Catalog Album&rsquo;s Relationship Directly by Name</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC034createGetACatalogAlbumRelationshipC010storefront7albumID12relationship10Foundation10URLRequestVSS_S2StF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogAlbumRelationshipRequest(storefront:albumID:relationship:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC034createGetACatalogAlbumRelationshipC010storefront7albumID12relationship10Foundation10URLRequestVSS_S2StF">createGetACatalogAlbumRelationshipRequest(storefront:<wbr>albumID:<wbr>relationship:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch an album&rsquo;s relationship by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogAlbumRelationshipRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">albumID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>albumID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the relationship you want to fetch for this resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Library%20Album"></a>
+                <a name="//apple_ref/swift/Section/Get a Library Album" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Library%20Album"></a>
+                  <h3 class="section-name"><p>Get a Library Album</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC022createGetALibraryAlbumC07albumID10Foundation10URLRequestVSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/createGetALibraryAlbumRequest(albumID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC022createGetALibraryAlbumC07albumID10Foundation10URLRequestVSS_tF">createGetALibraryAlbumRequest(albumID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a library album by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetALibraryAlbumRequest</span><span class="p">(</span><span class="nv">albumID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>albumID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Library%20Album%27s%20Relationship%20Directly%20by%20Name"></a>
+                <a name="//apple_ref/swift/Section/Get a Library Album&#39;s Relationship Directly by Name" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Library%20Album%27s%20Relationship%20Directly%20by%20Name"></a>
+                  <h3 class="section-name"><p>Get a Library Album&rsquo;s Relationship Directly by Name</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC034createGetALibraryAlbumRelationshipC07albumID12relationship10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetALibraryAlbumRelationshipRequest(albumID:relationship:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC034createGetALibraryAlbumRelationshipC07albumID12relationship10Foundation10URLRequestVSS_SStF">createGetALibraryAlbumRelationshipRequest(albumID:<wbr>relationship:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch an album&rsquo;s relationship by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetALibraryAlbumRelationshipRequest</span><span class="p">(</span><span class="nv">albumID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>albumID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the relationship you want to fetch for this resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Library%20Albums"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Library Albums" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Library%20Albums"></a>
+                  <h3 class="section-name"><p>Get Multiple Library Albums</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC030createGetMultipleLibraryAlbumsC08albumIDs10Foundation10URLRequestVSaySSG_tKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleLibraryAlbumsRequest(albumIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC030createGetMultipleLibraryAlbumsC08albumIDs10Foundation10URLRequestVSaySSG_tKF">createGetMultipleLibraryAlbumsRequest(albumIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more library albums by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleLibraryAlbumsRequest</span><span class="p">(</span><span class="nv">albumIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>albumIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifiers for the albums. The maximum fetch limit is 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20All%20Library%20Albums"></a>
+                <a name="//apple_ref/swift/Section/Get All Library Albums" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20All%20Library%20Albums"></a>
+                  <h3 class="section-name"><p>Get All Library Albums</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC025createGetAllLibraryAlbumsC05limit6offset10Foundation10URLRequestVSS_SStKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetAllLibraryAlbumsRequest(limit:offset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC025createGetAllLibraryAlbumsC05limit6offset10Foundation10URLRequestVSS_SStKF">createGetAllLibraryAlbumsRequest(limit:<wbr>offset:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch all the library albums in alphabetical order&rdquo; URL request</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    HummingKitRequestComposingError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetAllLibraryAlbumsRequest</span><span class="p">(</span><span class="nv">limit</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"25"</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"0"</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum limit count of library albums to be expected in response, default to 25, maximum at 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The offset for resources of current request (Pagination),  default to 0.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The &ldquo;Fetch all the library albums in alphabetical order&rdquo; URL request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20Artist"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog Artist" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20Artist"></a>
+                  <h3 class="section-name"><p>Get a Catalog Artist</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC023createGetACatalogArtistC010storefront8artistID10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogArtistRequest(storefront:artistID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC023createGetACatalogArtistC010storefront8artistID10Foundation10URLRequestVSS_SStF">createGetACatalogArtistRequest(storefront:<wbr>artistID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch an artist by using the artist&rsquo;s identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogArtistRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">artistID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artistID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the artist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Catalog%20Artists"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Catalog Artists" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Catalog%20Artists"></a>
+                  <h3 class="section-name"><p>Get Multiple Catalog Artists</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC031createGetMultipleCatalogArtistsC010storefront9artistIDs10Foundation10URLRequestVSS_SaySSGtKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleCatalogArtistsRequest(storefront:artistIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC031createGetMultipleCatalogArtistsC010storefront9artistIDs10Foundation10URLRequestVSS_SaySSGtKF">createGetMultipleCatalogArtistsRequest(storefront:<wbr>artistIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more artists by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleCatalogArtistsRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">artistIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artistIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifiers for the artists. The maximum fetch limit is 25.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20Artist%27s%20Relationship%20Directly%20by%20Name"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog Artist&#39;s Relationship Directly by Name" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20Artist%27s%20Relationship%20Directly%20by%20Name"></a>
+                  <h3 class="section-name"><p>Get a Catalog Artist&rsquo;s Relationship Directly by Name</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC035createGetACatalogArtistRelationshipC010storefront8artistID12relationship10Foundation10URLRequestVSS_S2StF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogArtistRelationshipRequest(storefront:artistID:relationship:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC035createGetACatalogArtistRelationshipC010storefront8artistID12relationship10Foundation10URLRequestVSS_S2StF">createGetACatalogArtistRelationshipRequest(storefront:<wbr>artistID:<wbr>relationship:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch an artist&rsquo;s relationship by using the artist&rsquo;s identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogArtistRelationshipRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">artistID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artistID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the artist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the relationship you want to fetch for this resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Library%20Artist"></a>
+                <a name="//apple_ref/swift/Section/Get a Library Artist" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Library%20Artist"></a>
+                  <h3 class="section-name"><p>Get a Library Artist</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC023createGetALibraryArtistC08artistID10Foundation10URLRequestVSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/createGetALibraryArtistRequest(artistID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC023createGetALibraryArtistC08artistID10Foundation10URLRequestVSS_tF">createGetALibraryArtistRequest(artistID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a library artist by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetALibraryArtistRequest</span><span class="p">(</span><span class="nv">artistID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artistID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the artist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20All%20Library%20Artists"></a>
+                <a name="//apple_ref/swift/Section/Get All Library Artists" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20All%20Library%20Artists"></a>
+                  <h3 class="section-name"><p>Get All Library Artists</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC026createGetAllLibraryArtistsC05limit6offset10Foundation10URLRequestVSS_SStKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetAllLibraryArtistsRequest(limit:offset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC026createGetAllLibraryArtistsC05limit6offset10Foundation10URLRequestVSS_SStKF">createGetAllLibraryArtistsRequest(limit:<wbr>offset:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch all the library artists in alphabetical order&rdquo; URL request</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    HummingKitRequestComposingError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetAllLibraryArtistsRequest</span><span class="p">(</span><span class="nv">limit</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"25"</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"0"</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum limit count of library artists to be expected in response, default to 25, maximum at 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The offset for resources of current request (Pagination),  default to 0.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The &ldquo;Fetch all the library artists in alphabetical order&rdquo; URL request</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Library%20Artists"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Library Artists" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Library%20Artists"></a>
+                  <h3 class="section-name"><p>Get Multiple Library Artists</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC031createGetMultipleLibraryArtistsC09artistIDs10Foundation10URLRequestVSaySSG_tKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleLibraryArtistsRequest(artistIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC031createGetMultipleLibraryArtistsC09artistIDs10Foundation10URLRequestVSaySSG_tKF">createGetMultipleLibraryArtistsRequest(artistIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more library artists by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleLibraryArtistsRequest</span><span class="p">(</span><span class="nv">artistIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artistIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifiers for the albums. The maximum fetch limit is 25.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Library%20Artist%27s%20Relationship%20Directly%20by%20Name"></a>
+                <a name="//apple_ref/swift/Section/Get a Library Artist&#39;s Relationship Directly by Name" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Library%20Artist%27s%20Relationship%20Directly%20by%20Name"></a>
+                  <h3 class="section-name"><p>Get a Library Artist&rsquo;s Relationship Directly by Name</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC035createGetALibraryArtistRelationshipC08artistID12relationship10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetALibraryArtistRelationshipRequest(artistID:relationship:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC035createGetALibraryArtistRelationshipC08artistID12relationship10Foundation10URLRequestVSS_SStF">createGetALibraryArtistRelationshipRequest(artistID:<wbr>relationship:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a library artist&rsquo;s relationship by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetALibraryArtistRelationshipRequest</span><span class="p">(</span><span class="nv">artistID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artistID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the artist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the relationship you want to fetch for this resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20Song"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog Song" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20Song"></a>
+                  <h3 class="section-name"><p>Get a Catalog Song</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC021createGetACatalogSongC010storefront6songID10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogSongRequest(storefront:songID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC021createGetACatalogSongC010storefront6songID10Foundation10URLRequestVSS_SStF">createGetACatalogSongRequest(storefront:<wbr>songID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a song by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogSongRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">songID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>songID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the song.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Catalog%20Songs%20by%20ID"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Catalog Songs by ID" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Catalog%20Songs%20by%20ID"></a>
+                  <h3 class="section-name"><p>Get Multiple Catalog Songs by ID</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC029createGetMultipleCatalogSongsC010storefront7songIDs10Foundation10URLRequestVSS_SaySSGtKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleCatalogSongsRequest(storefront:songIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC029createGetMultipleCatalogSongsC010storefront7songIDs10Foundation10URLRequestVSS_SaySSGtKF">createGetMultipleCatalogSongsRequest(storefront:<wbr>songIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more songs by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleCatalogSongsRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">songIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>songIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20Song%27s%20Relationship%20Directly%20by%20Name"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog Song&#39;s Relationship Directly by Name" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20Song%27s%20Relationship%20Directly%20by%20Name"></a>
+                  <h3 class="section-name"><p>Get a Catalog Song&rsquo;s Relationship Directly by Name</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC033createGetACatalogSongRelationshipC010storefront6songID12relationship10Foundation10URLRequestVSS_S2StF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogSongRelationshipRequest(storefront:songID:relationship:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC033createGetACatalogSongRelationshipC010storefront6songID12relationship10Foundation10URLRequestVSS_S2StF">createGetACatalogSongRelationshipRequest(storefront:<wbr>songID:<wbr>relationship:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch an song&rsquo;s relationship by using the song&rsquo;s identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogSongRelationshipRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">songID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>songID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the song.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the relationship you want to fetch for this resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Library%20Song"></a>
+                <a name="//apple_ref/swift/Section/Get a Library Song" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Library%20Song"></a>
+                  <h3 class="section-name"><p>Get a Library Song</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC021createGetALibrarySongC06songID10Foundation10URLRequestVSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/createGetALibrarySongRequest(songID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC021createGetALibrarySongC06songID10Foundation10URLRequestVSS_tF">createGetALibrarySongRequest(songID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a library song by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetALibrarySongRequest</span><span class="p">(</span><span class="nv">songID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>songID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the song.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20All%20Library%20Songs"></a>
+                <a name="//apple_ref/swift/Section/Get All Library Songs" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20All%20Library%20Songs"></a>
+                  <h3 class="section-name"><p>Get All Library Songs</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC024createGetAllLibrarySongsC05limit6offset10Foundation10URLRequestVSS_SStKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetAllLibrarySongsRequest(limit:offset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC024createGetAllLibrarySongsC05limit6offset10Foundation10URLRequestVSS_SStKF">createGetAllLibrarySongsRequest(limit:<wbr>offset:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch all the library songs in alphabetical order&rdquo; URL request.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    HummingKitRequestComposingError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetAllLibrarySongsRequest</span><span class="p">(</span><span class="nv">limit</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"25"</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"0"</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum limit count of library songs to be expected in response, default to 25, maximum at 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The offset for resources of current request (Pagination),  default to 0.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The &ldquo;Fetch all the library songs in alphabetical order&rdquo; URL request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Library%20Songs"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Library Songs" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Library%20Songs"></a>
+                  <h3 class="section-name"><p>Get Multiple Library Songs</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC029createGetMultipleLibrarySongsC07songIDs10Foundation10URLRequestVSaySSG_tKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleLibrarySongsRequest(songIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC029createGetMultipleLibrarySongsC07songIDs10Foundation10URLRequestVSaySSG_tKF">createGetMultipleLibrarySongsRequest(songIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more library songs by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleLibrarySongsRequest</span><span class="p">(</span><span class="nv">songIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>songIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of catalogIDs for targeted catalog songs. The maximum fetch limit is 300.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Library%20Song%27s%20Relationship%20Directly%20by%20Name"></a>
+                <a name="//apple_ref/swift/Section/Get a Library Song&#39;s Relationship Directly by Name" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Library%20Song%27s%20Relationship%20Directly%20by%20Name"></a>
+                  <h3 class="section-name"><p>Get a Library Song&rsquo;s Relationship Directly by Name</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC033createGetALibrarySongRelationshipC06songID12relationship10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetALibrarySongRelationshipRequest(songID:relationship:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC033createGetALibrarySongRelationshipC06songID12relationship10Foundation10URLRequestVSS_SStF">createGetALibrarySongRelationshipRequest(songID:<wbr>relationship:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a library song&rsquo;s relationship by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetALibrarySongRelationshipRequest</span><span class="p">(</span><span class="nv">songID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>songID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the song.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the relationship you want to fetch for this resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20MV"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog MV" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20MV"></a>
+                  <h3 class="section-name"><p>Get a Catalog MV</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC26createGetACatalogMVRequest10storefront4mvID10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogMVRequest(storefront:mvID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC26createGetACatalogMVRequest10storefront4mvID10Foundation10URLRequestVSS_SStF">createGetACatalogMVRequest(storefront:<wbr>mvID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a music video by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogMVRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">mvID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mvID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the mv.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20MV%27s%20Relationship%20Directly%20by%20Name"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog MV&#39;s Relationship Directly by Name" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20MV%27s%20Relationship%20Directly%20by%20Name"></a>
+                  <h3 class="section-name"><p>Get a Catalog MV&rsquo;s Relationship Directly by Name</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC031createGetACatalogMVRelationshipC010storefront4mvID12relationship10Foundation10URLRequestVSS_S2StF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogMVRelationshipRequest(storefront:mvID:relationship:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC031createGetACatalogMVRelationshipC010storefront4mvID12relationship10Foundation10URLRequestVSS_S2StF">createGetACatalogMVRelationshipRequest(storefront:<wbr>mvID:<wbr>relationship:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a music video&rsquo;s relationship by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogMVRelationshipRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">mvID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mvID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the mv.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the relationship you want to fetch for this resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Catalog%20MVs%20by%20ID"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Catalog MVs by ID" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Catalog%20MVs%20by%20ID"></a>
+                  <h3 class="section-name"><p>Get Multiple Catalog MVs by ID</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC027createGetMultipleCatalogMVsC010storefront5mvIDs10Foundation10URLRequestVSS_SaySSGtKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleCatalogMVsRequest(storefront:mvIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC027createGetMultipleCatalogMVsC010storefront5mvIDs10Foundation10URLRequestVSS_SaySSGtKF">createGetMultipleCatalogMVsRequest(storefront:<wbr>mvIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more music videos by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleCatalogMVsRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">mvIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mvIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of catalogIDs for targeted catalog mvs. The maximum fetch limit is 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Library%20MV"></a>
+                <a name="//apple_ref/swift/Section/Get a Library MV" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Library%20MV"></a>
+                  <h3 class="section-name"><p>Get a Library MV</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC26createGetALibraryMVRequest4mvID10Foundation10URLRequestVSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/createGetALibraryMVRequest(mvID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC26createGetALibraryMVRequest4mvID10Foundation10URLRequestVSS_tF">createGetALibraryMVRequest(mvID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a library music video by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetALibraryMVRequest</span><span class="p">(</span><span class="nv">mvID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mvID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the mv.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Library%20MV%27s%20Relationship%20Directly%20by%20Name"></a>
+                <a name="//apple_ref/swift/Section/Get a Library MV&#39;s Relationship Directly by Name" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Library%20MV%27s%20Relationship%20Directly%20by%20Name"></a>
+                  <h3 class="section-name"><p>Get a Library MV&rsquo;s Relationship Directly by Name</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC031createGetALibraryMVRelationshipC04mvID12relationship10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetALibraryMVRelationshipRequest(mvID:relationship:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC031createGetALibraryMVRelationshipC04mvID12relationship10Foundation10URLRequestVSS_SStF">createGetALibraryMVRelationshipRequest(mvID:<wbr>relationship:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a library music video&rsquo;s relationship by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetALibraryMVRelationshipRequest</span><span class="p">(</span><span class="nv">mvID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mvID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the mv.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the relationship you want to fetch for this resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Library%20MVs"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Library MVs" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Library%20MVs"></a>
+                  <h3 class="section-name"><p>Get Multiple Library MVs</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC027createGetMultipleLibraryMVsC05mvIDs10Foundation10URLRequestVSaySSG_tKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleLibraryMVsRequest(mvIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC027createGetMultipleLibraryMVsC05mvIDs10Foundation10URLRequestVSaySSG_tKF">createGetMultipleLibraryMVsRequest(mvIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more library music videos by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleLibraryMVsRequest</span><span class="p">(</span><span class="nv">mvIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mvIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifiers for the mvs. The maximum fetch limit is 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20All%20Library%20MVs"></a>
+                <a name="//apple_ref/swift/Section/Get All Library MVs" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20All%20Library%20MVs"></a>
+                  <h3 class="section-name"><p>Get All Library MVs</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC022createGetAllLibraryMVsC05limit6offset10Foundation10URLRequestVSS_SStKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetAllLibraryMVsRequest(limit:offset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC022createGetAllLibraryMVsC05limit6offset10Foundation10URLRequestVSS_SStKF">createGetAllLibraryMVsRequest(limit:<wbr>offset:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch all the library music videos in alphabetical order&rdquo; URL request.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    HummingKitRequestComposingError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetAllLibraryMVsRequest</span><span class="p">(</span><span class="nv">limit</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"25"</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"0"</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum limit count of library music videos to be expected in response, default to 25, maximum at 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The offset for resources of current request (Pagination),  default to 0.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The &ldquo;Fetch all the library music videos in alphabetical order&rdquo; URL request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20Playlist"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog Playlist" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20Playlist"></a>
+                  <h3 class="section-name"><p>Get a Catalog Playlist</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC025createGetACatalogPlaylistC010storefront10playlistID10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogPlaylistRequest(storefront:playlistID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC025createGetACatalogPlaylistC010storefront10playlistID10Foundation10URLRequestVSS_SStF">createGetACatalogPlaylistRequest(storefront:<wbr>playlistID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a playlist by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogPlaylistRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">playlistID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>playlistID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20Playlist%27s%20Relationship%20Directly%20by%20Name"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog Playlist&#39;s Relationship Directly by Name" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20Playlist%27s%20Relationship%20Directly%20by%20Name"></a>
+                  <h3 class="section-name"><p>Get a Catalog Playlist&rsquo;s Relationship Directly by Name</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC037createGetACatalogPlaylistRelationshipC010storefront10playlistID12relationship10Foundation10URLRequestVSS_S2StF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogPlaylistRelationshipRequest(storefront:playlistID:relationship:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC037createGetACatalogPlaylistRelationshipC010storefront10playlistID12relationship10Foundation10URLRequestVSS_S2StF">createGetACatalogPlaylistRelationshipRequest(storefront:<wbr>playlistID:<wbr>relationship:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a playlist&rsquo;s relationship by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogPlaylistRelationshipRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">playlistID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>playlistID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the relationship you want to fetch for this resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Catalog%20Playlists"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Catalog Playlists" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Catalog%20Playlists"></a>
+                  <h3 class="section-name"><p>Get Multiple Catalog Playlists</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC033createGetMultipleCatalogPlaylistsC010storefront11playlistIDs10Foundation10URLRequestVSS_SaySSGtKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleCatalogPlaylistsRequest(storefront:playlistIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC033createGetMultipleCatalogPlaylistsC010storefront11playlistIDs10Foundation10URLRequestVSS_SaySSGtKF">createGetMultipleCatalogPlaylistsRequest(storefront:<wbr>playlistIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more playlists by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleCatalogPlaylistsRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">playlistIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>playlistIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of catalogIDs for targeted catalog playlists. The maximum fetch limit is 25.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Library%20Playlist"></a>
+                <a name="//apple_ref/swift/Section/Get a Library Playlist" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Library%20Playlist"></a>
+                  <h3 class="section-name"><p>Get a Library Playlist</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC025createGetALibraryPlaylistC010playlistID10Foundation10URLRequestVSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/createGetALibraryPlaylistRequest(playlistID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC025createGetALibraryPlaylistC010playlistID10Foundation10URLRequestVSS_tF">createGetALibraryPlaylistRequest(playlistID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a library playlist by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetALibraryPlaylistRequest</span><span class="p">(</span><span class="nv">playlistID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>playlistID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Library%20Playlist%27s%20Relationship%20Directly%20by%20Name"></a>
+                <a name="//apple_ref/swift/Section/Get a Library Playlist&#39;s Relationship Directly by Name" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Library%20Playlist%27s%20Relationship%20Directly%20by%20Name"></a>
+                  <h3 class="section-name"><p>Get a Library Playlist&rsquo;s Relationship Directly by Name</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC037createGetALibraryPlaylistRelationshipC010playlistID12relationship10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetALibraryPlaylistRelationshipRequest(playlistID:relationship:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC037createGetALibraryPlaylistRelationshipC010playlistID12relationship10Foundation10URLRequestVSS_SStF">createGetALibraryPlaylistRelationshipRequest(playlistID:<wbr>relationship:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a library playlist&rsquo;s relationship by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetALibraryPlaylistRelationshipRequest</span><span class="p">(</span><span class="nv">playlistID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>playlistID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the relationship you want to fetch for this resource.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Library%20Playlists"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Library Playlists" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Library%20Playlists"></a>
+                  <h3 class="section-name"><p>Get Multiple Library Playlists</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC033createGetMultipleLibraryPlaylistsC011playlistIDs10Foundation10URLRequestVSaySSG_tKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleLibraryPlaylistsRequest(playlistIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC033createGetMultipleLibraryPlaylistsC011playlistIDs10Foundation10URLRequestVSaySSG_tKF">createGetMultipleLibraryPlaylistsRequest(playlistIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more library music videos by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleLibraryPlaylistsRequest</span><span class="p">(</span><span class="nv">playlistIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>playlistIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of catalogIDs for targeted catalog playlists. The maximum fetch limit is 25.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20All%20Library%20Playlists"></a>
+                <a name="//apple_ref/swift/Section/Get All Library Playlists" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20All%20Library%20Playlists"></a>
+                  <h3 class="section-name"><p>Get All Library Playlists</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC028createGetAllLibraryPlaylistsC05limit6offset10Foundation10URLRequestVSS_SStKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetAllLibraryPlaylistsRequest(limit:offset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC028createGetAllLibraryPlaylistsC05limit6offset10Foundation10URLRequestVSS_SStKF">createGetAllLibraryPlaylistsRequest(limit:<wbr>offset:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch all the library playlists in alphabetical order&rdquo; URL request.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    HummingKitRequestComposingError.invalidArgument if arguments contain cahracters other than digits, or .exceedMaxFetchLimit if limit is set to above 100.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetAllLibraryPlaylistsRequest</span><span class="p">(</span><span class="nv">limit</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"25"</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"0"</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum limit count of library playlists to be expected in response, default to 25, maximum at 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The offset for resources of current request (Pagination),  default to 0.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The &ldquo;Fetch all the library playlists in alphabetical order&rdquo; URL request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Create%20a%20New%20Library%20Playlist"></a>
+                <a name="//apple_ref/swift/Section/Create a New Library Playlist" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Create%20a%20New%20Library%20Playlist"></a>
+                  <h3 class="section-name"><p>Create a New Library Playlist</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC031createCreateANewLibraryPlaylistC04name11description8songsIDs10Foundation10URLRequestVSS_SSSaySSGtF"></a>
+                    <a name="//apple_ref/swift/Method/createCreateANewLibraryPlaylistRequest(name:description:songsIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC031createCreateANewLibraryPlaylistC04name11description8songsIDs10Foundation10URLRequestVSS_SSSaySSGtF">createCreateANewLibraryPlaylistRequest(name:<wbr>description:<wbr>songsIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Create a new playlist in a user’s library&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createCreateANewLibraryPlaylistRequest</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">songsIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of playlist to be created.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The description of the playlist to be created.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>songsIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of identifiers of songs in the new playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC026createAddTracksToAPlaylistC010playlistID8songsIDs10Foundation10URLRequestVSS_SaySSGtF"></a>
+                    <a name="//apple_ref/swift/Method/createAddTracksToAPlaylistRequest(playlistID:songsIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC026createAddTracksToAPlaylistC010playlistID8songsIDs10Foundation10URLRequestVSS_SaySSGtF">createAddTracksToAPlaylistRequest(playlistID:<wbr>songsIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Add Tracks to a Library Playlist&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createAddTracksToAPlaylistRequest</span><span class="p">(</span><span class="nv">playlistID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">songsIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>playlistID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>songIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of identifiers of songs to be added to playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20a%20Catalog%20Station"></a>
+                <a name="//apple_ref/swift/Section/Get a Catalog Station" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20a%20Catalog%20Station"></a>
+                  <h3 class="section-name"><p>Get a Catalog Station</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC024createGetACatalogStationC010storefront9stationID10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createGetACatalogStationRequest(storefront:stationID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC024createGetACatalogStationC010storefront9stationID10Foundation10URLRequestVSS_SStF">createGetACatalogStationRequest(storefront:<wbr>stationID:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch a station by using its identifier&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetACatalogStationRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">stationID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stationID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the station.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Get%20Multiple%20Catalog%20Stations"></a>
+                <a name="//apple_ref/swift/Section/Get Multiple Catalog Stations" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Get%20Multiple%20Catalog%20Stations"></a>
+                  <h3 class="section-name"><p>Get Multiple Catalog Stations</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC032createGetMultipleCatalogStationsC010storefront10stationIDs10Foundation10URLRequestVSS_SaySSGtKF"></a>
+                    <a name="//apple_ref/swift/Method/createGetMultipleCatalogStationsRequest(storefront:stationIDs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC032createGetMultipleCatalogStationsC010storefront10stationIDs10Foundation10URLRequestVSS_SaySSGtKF">createGetMultipleCatalogStationsRequest(storefront:<wbr>stationIDs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates &ldquo;Fetch one or more stations by using their identifiers&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetMultipleCatalogStationsRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">stationIDs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier (ISO 3166 alpha-2 country codes) of the storefront you want to perform this request in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stationIDs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of catalogIDs for targeted catalog stations. The maximum fetch limit is 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Not%20Revised"></a>
+                <a name="//apple_ref/swift/Section/Not Revised" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Not%20Revised"></a>
+                  <h3 class="section-name"><p>Not Revised</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC012createSearchC010storefront4term10Foundation10URLRequestVSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/createSearchRequest(storefront:term:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC012createSearchC010storefront4term10Foundation10URLRequestVSS_SStF">createSearchRequest(storefront:<wbr>term:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Function for generating &ldquo;Search for Catalog Resources&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createSearchRequest</span><span class="p">(</span><span class="nv">storefront</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">term</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>storefront</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the expected Apple Music storefront for request to happen, usually the same as user&rsquo;s Apple Music account storefront</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>term</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the user entered text for search, &ldquo; &rdquo; -&gt; &ldquo;+&rdquo; character replacement is handled</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the URL request for searching catalog resources(by using a query) from Apple Music server</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit0aB14RequestFactoryC023createGetRecentlyPlayedC010Foundation10URLRequestVyF"></a>
+                    <a name="//apple_ref/swift/Method/createGetRecentlyPlayedRequest()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit0aB14RequestFactoryC023createGetRecentlyPlayedC010Foundation10URLRequestVyF">createGetRecentlyPlayedRequest()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Function for generating &ldquo;Get Recently Played Resources&rdquo; URL request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createGetRecentlyPlayedRequest</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the URL request for fetching the recently played resources for the user</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-29)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

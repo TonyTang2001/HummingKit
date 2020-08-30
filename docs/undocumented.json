@@ -1,0 +1,1510 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 12,
+      "symbol": "DeveloperToken",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 13,
+      "symbol": "UserToken",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 15,
+      "symbol": "SongID",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 16,
+      "symbol": "ArtistID",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 17,
+      "symbol": "Relationship",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 18,
+      "symbol": "StorefrontID",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 19,
+      "symbol": "AlbumID",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 24,
+      "symbol": "FetchingStatus.preparingForStart",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 25,
+      "symbol": "FetchingStatus.inProgress",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 26,
+      "symbol": "FetchingStatus.retryingWithError(error:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 27,
+      "symbol": "FetchingStatus.ending",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 28,
+      "symbol": "FetchingStatus.completed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 29,
+      "symbol": "FetchingStatus.completedWithError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 66,
+      "symbol": "Storefront.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 67,
+      "symbol": "Storefront.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 68,
+      "symbol": "Storefront.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 72,
+      "symbol": "Storefront.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 73,
+      "symbol": "Storefront.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 74,
+      "symbol": "Storefront.Attributes.defaultLanguageTag",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 75,
+      "symbol": "Storefront.Attributes.supportedLanguageTags",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 77,
+      "symbol": "Storefront.Attributes.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 96,
+      "symbol": "Storefront.init(storefrontData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 123,
+      "symbol": "CatalogSong.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 124,
+      "symbol": "CatalogSong.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 127,
+      "symbol": "CatalogSong.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 128,
+      "symbol": "CatalogSong.relationships",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 132,
+      "symbol": "CatalogSong.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 133,
+      "symbol": "CatalogSong.Attributes.albumName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 134,
+      "symbol": "CatalogSong.Attributes.artistName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 135,
+      "symbol": "CatalogSong.Attributes.artwork",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 136,
+      "symbol": "CatalogSong.Attributes.composerName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 137,
+      "symbol": "CatalogSong.Attributes.discNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 138,
+      "symbol": "CatalogSong.Attributes.durationInMillis",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 139,
+      "symbol": "CatalogSong.Attributes.genreNames",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 140,
+      "symbol": "CatalogSong.Attributes.isrc",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 141,
+      "symbol": "CatalogSong.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 142,
+      "symbol": "CatalogSong.Attributes.previews",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 143,
+      "symbol": "CatalogSong.Attributes.releaseDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 144,
+      "symbol": "CatalogSong.Attributes.trackNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 145,
+      "symbol": "CatalogSong.Attributes.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 147,
+      "symbol": "CatalogSong.Attributes.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 195,
+      "symbol": "CatalogSong.init(songData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 222,
+      "symbol": "LibrarySong.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 223,
+      "symbol": "LibrarySong.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 225,
+      "symbol": "LibrarySong.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 229,
+      "symbol": "LibrarySong.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 230,
+      "symbol": "LibrarySong.Attributes.albumName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 231,
+      "symbol": "LibrarySong.Attributes.artistName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 232,
+      "symbol": "LibrarySong.Attributes.artwork",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 233,
+      "symbol": "LibrarySong.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 234,
+      "symbol": "LibrarySong.Attributes.trackNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 235,
+      "symbol": "LibrarySong.Attributes.hasLyrics",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 236,
+      "symbol": "LibrarySong.Attributes.durationInMillis",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 237,
+      "symbol": "LibrarySong.Attributes.releaseDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 238,
+      "symbol": "LibrarySong.Attributes.genreNames",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 239,
+      "symbol": "LibrarySong.Attributes.playParams",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 241,
+      "symbol": "LibrarySong.Attributes.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 277,
+      "symbol": "LibrarySong.init(songData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 296,
+      "symbol": "CatalogAlbum.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 297,
+      "symbol": "CatalogAlbum.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 299,
+      "symbol": "CatalogAlbum.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 300,
+      "symbol": "CatalogAlbum.relationships",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 304,
+      "symbol": "CatalogAlbum.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 305,
+      "symbol": "CatalogAlbum.Attributes.artistName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 306,
+      "symbol": "CatalogAlbum.Attributes.artwork",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 307,
+      "symbol": "CatalogAlbum.Attributes.copyright",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 308,
+      "symbol": "CatalogAlbum.Attributes.editorialNotes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 309,
+      "symbol": "CatalogAlbum.Attributes.genreNames",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 310,
+      "symbol": "CatalogAlbum.Attributes.isComplete",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 311,
+      "symbol": "CatalogAlbum.Attributes.isMasteredForItunes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 312,
+      "symbol": "CatalogAlbum.Attributes.isSingle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 313,
+      "symbol": "CatalogAlbum.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 314,
+      "symbol": "CatalogAlbum.Attributes.recordLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 315,
+      "symbol": "CatalogAlbum.Attributes.releaseDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 316,
+      "symbol": "CatalogAlbum.Attributes.trackCount",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 317,
+      "symbol": "CatalogAlbum.Attributes.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 319,
+      "symbol": "CatalogAlbum.Attributes.init(attributesData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 359,
+      "symbol": "CatalogAlbum.init(albumData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 378,
+      "symbol": "LibraryAlbum.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 379,
+      "symbol": "LibraryAlbum.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 381,
+      "symbol": "LibraryAlbum.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 382,
+      "symbol": "LibraryAlbum.relationships",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 386,
+      "symbol": "LibraryAlbum.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 387,
+      "symbol": "LibraryAlbum.Attributes.artistName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 388,
+      "symbol": "LibraryAlbum.Attributes.artwork",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 389,
+      "symbol": "LibraryAlbum.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 390,
+      "symbol": "LibraryAlbum.Attributes.trackCount",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 391,
+      "symbol": "LibraryAlbum.Attributes.releaseDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 392,
+      "symbol": "LibraryAlbum.Attributes.dateAdded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 393,
+      "symbol": "LibraryAlbum.Attributes.genreNames",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 395,
+      "symbol": "LibraryAlbum.Attributes.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 427,
+      "symbol": "LibraryAlbum.init(albumData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 448,
+      "symbol": "CatalogArtist.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 449,
+      "symbol": "CatalogArtist.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 451,
+      "symbol": "CatalogArtist.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 452,
+      "symbol": "CatalogArtist.relationships",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 456,
+      "symbol": "CatalogArtist.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 457,
+      "symbol": "CatalogArtist.Attributes.genreNames",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 458,
+      "symbol": "CatalogArtist.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 459,
+      "symbol": "CatalogArtist.Attributes.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 461,
+      "symbol": "CatalogArtist.Attributes.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 481,
+      "symbol": "CatalogArtist.init(artistData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 500,
+      "symbol": "LibraryArtist.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 501,
+      "symbol": "LibraryArtist.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 503,
+      "symbol": "LibraryArtist.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 507,
+      "symbol": "LibraryArtist.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 508,
+      "symbol": "LibraryArtist.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 510,
+      "symbol": "LibraryArtist.Attributes.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 516,
+      "symbol": "LibraryArtist.init(artistData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 535,
+      "symbol": "CatalogPlaylist.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 536,
+      "symbol": "CatalogPlaylist.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 538,
+      "symbol": "CatalogPlaylist.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 539,
+      "symbol": "CatalogPlaylist.relationships",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 543,
+      "symbol": "CatalogPlaylist.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 544,
+      "symbol": "CatalogPlaylist.Attributes.artwork",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 545,
+      "symbol": "CatalogPlaylist.Attributes.curatorName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 546,
+      "symbol": "CatalogPlaylist.Attributes.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 547,
+      "symbol": "CatalogPlaylist.Attributes.lastModifiedDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 548,
+      "symbol": "CatalogPlaylist.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 549,
+      "symbol": "CatalogPlaylist.Attributes.playlistType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 550,
+      "symbol": "CatalogPlaylist.Attributes.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 572,
+      "symbol": "CatalogPlaylist.init(playlistData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 591,
+      "symbol": "LibraryPlaylist.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 592,
+      "symbol": "LibraryPlaylist.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 594,
+      "symbol": "LibraryPlaylist.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 598,
+      "symbol": "LibraryPlaylist.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 599,
+      "symbol": "LibraryPlaylist.Attributes.canEdit",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 600,
+      "symbol": "LibraryPlaylist.Attributes.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 601,
+      "symbol": "LibraryPlaylist.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 602,
+      "symbol": "LibraryPlaylist.Attributes.dateAdded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 603,
+      "symbol": "LibraryPlaylist.Attributes.hasCatalog",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 605,
+      "symbol": "LibraryPlaylist.Attributes.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 625,
+      "symbol": "LibraryPlaylist.init(playlistData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 644,
+      "symbol": "CatalogMV.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 645,
+      "symbol": "CatalogMV.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 647,
+      "symbol": "CatalogMV.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 648,
+      "symbol": "CatalogMV.relationships",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 652,
+      "symbol": "CatalogMV.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 653,
+      "symbol": "CatalogMV.Attributes.albumName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 654,
+      "symbol": "CatalogMV.Attributes.artistName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 655,
+      "symbol": "CatalogMV.Attributes.artwork",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 656,
+      "symbol": "CatalogMV.Attributes.genreNames",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 657,
+      "symbol": "CatalogMV.Attributes.has4K",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 658,
+      "symbol": "CatalogMV.Attributes.hasHDR",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 659,
+      "symbol": "CatalogMV.Attributes.isrc",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 660,
+      "symbol": "CatalogMV.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 661,
+      "symbol": "CatalogMV.Attributes.previews",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 662,
+      "symbol": "CatalogMV.Attributes.releaseDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 663,
+      "symbol": "CatalogMV.Attributes.trackNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 664,
+      "symbol": "CatalogMV.Attributes.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 712,
+      "symbol": "CatalogMV.init(mvData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 731,
+      "symbol": "LibraryMV.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 732,
+      "symbol": "LibraryMV.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 734,
+      "symbol": "LibraryMV.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 738,
+      "symbol": "LibraryMV.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 739,
+      "symbol": "LibraryMV.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 740,
+      "symbol": "LibraryMV.Attributes.artistName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 741,
+      "symbol": "LibraryMV.Attributes.artwork",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 742,
+      "symbol": "LibraryMV.Attributes.albumName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 743,
+      "symbol": "LibraryMV.Attributes.contentRating",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 744,
+      "symbol": "LibraryMV.Attributes.trackNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 745,
+      "symbol": "LibraryMV.Attributes.durationInMillis",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 746,
+      "symbol": "LibraryMV.Attributes.releaseDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 747,
+      "symbol": "LibraryMV.Attributes.genreNames",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 749,
+      "symbol": "LibraryMV.Attributes.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 785,
+      "symbol": "LibraryMV.init(mvData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 803,
+      "symbol": "CatalogStation.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 804,
+      "symbol": "CatalogStation.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 806,
+      "symbol": "CatalogStation.attributes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 810,
+      "symbol": "CatalogStation.Attributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 811,
+      "symbol": "CatalogStation.Attributes.artwork",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 812,
+      "symbol": "CatalogStation.Attributes.editorialNotes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 813,
+      "symbol": "CatalogStation.Attributes.isLive",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 814,
+      "symbol": "CatalogStation.Attributes.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 815,
+      "symbol": "CatalogStation.Attributes.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 817,
+      "symbol": "CatalogStation.Attributes.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 833,
+      "symbol": "CatalogStation.init(stationData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 848,
+      "symbol": "ResourceRelationship",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 849,
+      "symbol": "ResourceRelationship.content",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 855,
+      "symbol": "ResourceRelationship.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 860,
+      "symbol": "Resource",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 862,
+      "symbol": "Resource.href",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 863,
+      "symbol": "Resource.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 866,
+      "symbol": "Artwork",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 867,
+      "symbol": "Artwork.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 869,
+      "symbol": "Artwork.height",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 870,
+      "symbol": "Artwork.width",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 872,
+      "symbol": "Artwork.bgColor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 873,
+      "symbol": "Artwork.textColor1",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 874,
+      "symbol": "Artwork.textColor2",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 875,
+      "symbol": "Artwork.textColor3",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 876,
+      "symbol": "Artwork.textColor4",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 878,
+      "symbol": "Artwork.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 898,
+      "symbol": "Preview",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 899,
+      "symbol": "Preview.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 900,
+      "symbol": "Preview.artwork",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 902,
+      "symbol": "Preview.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 910,
+      "symbol": "PlayParams",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 911,
+      "symbol": "PlayParams.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 912,
+      "symbol": "PlayParams.kind",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 913,
+      "symbol": "PlayParams.catalogId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 914,
+      "symbol": "PlayParams.isLibrary",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 915,
+      "symbol": "PlayParams.reporting",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 917,
+      "symbol": "PlayParams.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 940,
+      "symbol": "EditorialNotes.short",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 941,
+      "symbol": "EditorialNotes.standard",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/DataModel.swift",
+      "line": 943,
+      "symbol": "EditorialNotes.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/HummingKitAuthentication.swift",
+      "line": 12,
+      "symbol": "HummingKitAuthentication",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/HummingKitErrors.swift",
+      "line": 13,
+      "symbol": "HummingKitRequestComposingError.exceedMaxFetchLimit(maxLimit:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/HummingKitErrors.swift",
+      "line": 14,
+      "symbol": "HummingKitRequestComposingError.invalidArgument",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/HummingKitErrors.swift",
+      "line": 15,
+      "symbol": "HummingKitRequestComposingError.unknownInternalError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/HummingKitErrors.swift",
+      "line": 20,
+      "symbol": "HummingKitEnvironmentError.systemVersionOutdated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/HummingKitErrors.swift",
+      "line": 25,
+      "symbol": "HummingKitResponseError.responseCorrupted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/HummingKitErrors.swift",
+      "line": 30,
+      "symbol": "HummingKitInternalError.impossibleCase",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tony/Desktop/iOS/Frameworks/HummingKit/Sources/HummingKit/HummingKitRequestFactory.swift",
+      "line": 12,
+      "symbol": "HummingKitRequestFactory",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/tony/Desktop/iOS/Frameworks/HummingKit"
+}

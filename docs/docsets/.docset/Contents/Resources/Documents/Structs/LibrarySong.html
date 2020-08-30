@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>LibrarySong Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/LibrarySong" class="dashAnchor"></a>
+    <a title="LibrarySong Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (40% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        LibrarySong Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/HummingKit.html">HummingKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HummingKitRequestFactory.html">HummingKitRequestFactory</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/FetchingStatus.html">FetchingStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HummingKitEnvironmentError.html">HummingKitEnvironmentError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HummingKitInternalError.html">HummingKitInternalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HummingKitRequestComposingError.html">HummingKitRequestComposingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HummingKitResponseError.html">HummingKitResponseError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Artwork.html">Artwork</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogAlbum.html">CatalogAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogAlbum/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogArtist.html">CatalogArtist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogArtist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogMV.html">CatalogMV</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogMV/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogPlaylist.html">CatalogPlaylist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogPlaylist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogSong.html">CatalogSong</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogSong/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogStation.html">CatalogStation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CatalogStation/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EditorialNotes.html">EditorialNotes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HummingKitAuthentication.html">HummingKitAuthentication</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryAlbum.html">LibraryAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryAlbum/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryArtist.html">LibraryArtist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryArtist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryMV.html">LibraryMV</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryMV/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryPlaylist.html">LibraryPlaylist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibraryPlaylist/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibrarySong.html">LibrarySong</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LibrarySong/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlayParams.html">PlayParams</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Preview.html">Preview</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Resource.html">Resource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ResourceRelationship.html">ResourceRelationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Storefront.html">Storefront</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Storefront/Attributes.html">– Attributes</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit7AlbumIDa">AlbumID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit8ArtistIDa">ArtistID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit14DeveloperTokena">DeveloperToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit12Relationshipa">Relationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit6SongIDa">SongID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit12StorefrontIDa">StorefrontID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10HummingKit9UserTokena">UserToken</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>LibrarySong</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LibrarySong</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Identifiable</span></code></pre>
+
+                </div>
+              </div>
+            <p>Apple Music Library Song struct, representing songs that have been added to user library.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">LibrarySong</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">LibrarySong</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s12IdentifiableP2id2IDQzvp"></a>
+                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s12IdentifiableP2id2IDQzvp">id</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit11LibrarySongV4hrefSSvp"></a>
+                    <a name="//apple_ref/swift/Property/href" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit11LibrarySongV4hrefSSvp">href</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit11LibrarySongV4typeSSvp"></a>
+                    <a name="//apple_ref/swift/Property/type" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit11LibrarySongV4typeSSvp">type</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit11LibrarySongV10attributesAC10AttributesVvp"></a>
+                    <a name="//apple_ref/swift/Property/attributes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit11LibrarySongV10attributesAC10AttributesVvp">attributes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">attributes</span><span class="p">:</span> <span class="kt"><a href="../Structs/LibrarySong/Attributes.html">Attributes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LibrarySong"></a>
+                <a name="//apple_ref/swift/Section/LibrarySong" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/LibrarySong"></a>
+                  <h3 class="section-name"><p>LibrarySong</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit11LibrarySongV10AttributesV"></a>
+                    <a name="//apple_ref/swift/Struct/Attributes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit11LibrarySongV10AttributesV">Attributes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Structs/LibrarySong/Attributes.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Attributes</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10HummingKit11LibrarySongV8songDataACSg10SwiftyJSON0H0V_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(songData:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10HummingKit11LibrarySongV8songDataACSg10SwiftyJSON0H0V_tcfc">init(songData:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">?(</span><span class="nv">songData</span><span class="p">:</span> <span class="kt">JSON</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-29)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
