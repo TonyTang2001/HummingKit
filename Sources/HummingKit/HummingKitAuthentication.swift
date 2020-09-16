@@ -34,6 +34,8 @@ public struct HummingKitAuthentication {
                 completion(.failure(error))
             }
         }
+        #else
+        completion(.failure(HummingKitEnvironmentError.systemIncompatible))
         #endif
     }
     
@@ -43,6 +45,7 @@ public struct HummingKitAuthentication {
     ///   - result: Result of request, .success([AppleMusicSubscriptionStatus]) or .failure(Error)
     public static func fetchSubscriptionStatus(completion: @escaping (_ result: Result<[AppleMusicSubscriptionStatus], Error>) -> Void) {
         
+        #if !os(macOS)
         let controller = SKCloudServiceController()
         controller.requestCapabilities { (capabilities: SKCloudServiceCapability, error: Error?) in
             let canPlay = capabilities.contains(.musicCatalogPlayback)
@@ -67,7 +70,9 @@ public struct HummingKitAuthentication {
                 completion(.success(status))
             }
         }
-        
+        #else
+        completion(.failure(HummingKitEnvironmentError.systemIncompatible))
+        #endif
     }
     
 }
