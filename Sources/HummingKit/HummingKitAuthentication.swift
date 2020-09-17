@@ -78,7 +78,7 @@ public struct HummingKitAuthentication {
 }
 
 /// User's Apple Music subscription status on current device as may change under different settings or parental controls
-public enum AppleMusicSubscriptionStatus: CaseIterable, Comparable {
+public enum AppleMusicSubscriptionStatus: CaseIterable, Equatable {
     /// The device allows playback of Apple Music catalog tracks.
     case canPlay
     /// The device allows tracks to be added to the user’s music library.
