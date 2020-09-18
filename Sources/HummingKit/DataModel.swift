@@ -20,13 +20,18 @@ public typealias AlbumID = String
 
 /// FetchingStatus indicates current status of both resource-expensive requests (usually a combination of multiple requests) and segmented requests.
 public enum FetchingStatus {
-    
-    case preparingForStart  // Possible in both segmented request and resource-expensive request scopee
-    case inProgress         // Possible in both segmented request and resource-expensive request scopee
-    case retryingWithError(error: Error)    // Possible only in resource-expensive request scopee
-    case ending             // Possible only in segmented request scopee
-    case completed          // Possible in both segmented request and resource-expensive request scopee
-    case completedWithError // Possible only in resource-expensive request scopee
+    /// Possible in both segmented request and resource-expensive request scopee
+    case preparingForStart
+    /// Possible in both segmented request and resource-expensive request scope
+    case inProgress
+    /// Possible only in resource-expensive request scopee
+    case retryingWithError(error: Error)
+    /// Possible only in segmented request scopee
+    case ending
+    /// Possible in both segmented request and resource-expensive request scopee
+    case completed
+    /// Possible only in resource-expensive request scopee
+    case completedWithError
     
 }
 
