@@ -20,7 +20,7 @@ public typealias AlbumID = String
 
 /// FetchingStatus indicates current status of both resource-expensive requests (usually a combination of multiple requests) and segmented requests.
 public enum FetchingStatus {
-    /// Possible in both segmented request and resource-expensive request scopee
+    /// Possible in both segmented request and resource-expensive request scope
     case preparingForStart
     /// Possible in both segmented request and resource-expensive request scope
     case inProgress
