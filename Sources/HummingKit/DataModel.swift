@@ -138,7 +138,6 @@ public extension CatalogSong {
         public let albumName:        String
         public let artistName:       String
         public let artwork:          Artwork
-        public let composerName:     String
         public let discNumber:       Int
         public let durationInMillis: Int
         public let genreNames:      [String]
@@ -148,12 +147,12 @@ public extension CatalogSong {
         public let releaseDate:      String
         public let trackNumber:      Int
         public let url:              String
+        public var composerName:     String?
         
         public init?(_ attributesData: JSON) {
             guard let albumName = attributesData["albumName"].string,
                   let artistName = attributesData["artistName"].string,
                   let artwork = Artwork(attributesData["artwork"]),
-                  let composerName = attributesData["composerName"].string,
                   let discNumber = attributesData["discNumber"].int,
                   let durationInMillis = attributesData["durationInMillis"].int,
                   let genreNamesJSONArray = attributesData["genreNames"].array,
@@ -184,7 +183,6 @@ public extension CatalogSong {
             self.albumName = albumName
             self.artistName = artistName
             self.artwork = artwork
-            self.composerName = composerName
             self.discNumber = discNumber
             self.durationInMillis = durationInMillis
             self.genreNames = genreNames
@@ -194,6 +192,11 @@ public extension CatalogSong {
             self.releaseDate = releaseDate
             self.trackNumber = trackNumber
             self.url = url
+            
+            
+            if let composerName = attributesData["composerName"].string {
+                self.composerName = composerName
+            }
         }
     }
     
