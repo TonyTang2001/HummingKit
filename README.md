@@ -5,8 +5,8 @@ HummingKit is an SDK (Software Development Kit) designed to ease the use of [App
 ---
 **NEWS**
 
-HummingKit 1.0.0 has been RELEASED!
-HummingKit 1.0.0, is considered to be the first released version that can be widely adopted as a swift package dependency in projects or other frameworks.
+HummingKit 1.1.0 has been RELEASED!
+HummingKit 1.1.0 contains functionality improvements and addition, compatibility changes, and bug fixes.
 
 ---
 
