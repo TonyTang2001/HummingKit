@@ -5,8 +5,8 @@ HummingKit is an SDK (Software Development Kit) designed to ease the use of [App
 ---
 **NEWS**
 
-HummingKit 1.1.0 has been RELEASED!
-HummingKit 1.1.0 contains functionality improvements and addition, compatibility changes, and bug fixes.
+HummingKit 1.1.2 has been RELEASED!
+HummingKit 1.1.2 contains functionality improvements and addition, compatibility changes, and bug fixes.
 
 ---
 
@@ -23,6 +23,7 @@ HummingKit provides a friendly way to deal with the Apple Music API by handling 
 - [x] Apple Music API Response Decoding
 - [x] Apple Music API Resource Relationships Fetching
 - [x] [Documentation](https://tonytang2001.github.io/HummingKit/)
+- [x] Usage Example: [Example Code](#Example-Code)
 
 ## Requirements
 
@@ -59,6 +60,114 @@ dependencies: [
 .package(url: "https://github.com/TonyTang2001/HummingKit.git", .upToNextMajor(from: "1.0.0"))
 ]
 ```
+
+## Usage
+
+HummingKit also offers great convenience for developers to use. Functionality layers can be separated and used in accordance to specific needs.
+
+### Example Code
+
+To properly access the Apple Music server from a user device, both a developer token and a user token are required for authentication purposes. Details can be found at [Getting Keys and Creating Tokens](https://developer.apple.com/documentation/applemusicapi/getting_keys_and_creating_tokens).
+
+Upon using the following example codes, please replace ```<Your-Developer-Token>``` with the ```developer token``` you fetched from Apple, and replace ```<Device-User-Token>``` with the ```user token``` your app fetches on the user-end device.
+
+#### Fetch Tokens
+
+To fetch a ```developer token```, [this Gist](https://gist.github.com/sora0077/75b62f4a2a04480a90ef109a127ddbf5) offers a brief and functional script for temporary use and testing.
+
+To fetch a ```user token```, call the ```HummingKitAuthentication.fetchUserToken()``` function as follows.
+
+```
+// Fetch an Apple Music user token on the user-end device
+HummingKitAuthentication.fetchUserToken(developerToken: <Your-Developer-Token>) { result in
+    switch result {
+        case .success(let token):
+            // Output user token to console
+            print("Apple Music User Token: \(token)")
+        case .failure(let err):
+            // Output error (if occurred) to console
+            print("Fetch User Token failed because: \(err)")
+    }
+}
+```
+
+#### API Request Generation
+
+The ```HummingKitRequestFactory```, as a ```public class```, constructs API requests strictly following the [Apple Music API Documentation](https://developer.apple.com/documentation/applemusicapi). Use ```HummingKitRequestFactory``` **only if** all you need is creating the legal API requests.
+
+First, create an instance of ```HummingKitRequestFactory``` as follows.
+
+```
+// Create an instance of HummingKitRequestFactory
+let requestComposer = HummingKitRequestFactory(developerToken: <Your-Developer-Token>, userToken: <Device-User-Token>)
+```
+
+Then, call functions on this instance in accordance to your needs as follows. Pass in parameters if needed for this request.
+
+```
+// Prepare parameters
+let storefront: String = "us"
+let songID: String = "900032829"
+
+// Create URL Request for fetching a catalog song resource from Apple Music server
+let urlRequest: URLRequest = requestComposer.createGetACatalogSongRequest(storefront: storefront, songID: songID)
+```
+
+For some functions that potential throw ```Errors``` when certain conditions of the parameters aren't met, you will need to wrap the function in a ```do-catch``` statement as follows.
+
+```
+// Prepare parameters
+let storefront: String = "us"
+let songIDs: [String] = ["203709340", "201281527"]
+
+// Create URL Request for fetching several catalog songs resource from Apple Music server
+do {
+    let urlRequest: URLRequest = try requestComposer.createGetMultipleCatalogSongsRequest(storefront: storefront, songIDs: songIDs)
+} catch {
+    // Handle the thrown error
+    
+}
+```
+
+#### API Request Constructing, Conducting & Parsing
+
+The ```HummingKit```, as a ```public class```, streamlines and simplifies the workflow of **creating requests** and **conducting and parsing** their responses into different ```Resource Types```.
+
+First, create an instance of ```HummingKit``` class as follows.
+
+```
+// Create an instance of HummingKit
+let hummingKitObj = HummingKit(developerToken: <Your-Developer-Token>, userToken: <Device-User-Token>)
+```
+
+Then, call functions on this instance in accordance to your needs as follows. Pass in parameters if needed for this request.
+
+```
+// Prepare parameters
+let storefront: String = "us"
+let songIDs: [String] = ["203709340", "201281527"]
+
+// Fetch several catalog songs resource from Apple Music server
+hummingKitObj.fetchMultipleCatalogSongs(storefront: storefront, songIDs: songIDs) { result in
+    switch result {
+    case .success(let catalogSongs):
+        // Do something with fetched catalog songs objects
+        
+    case .failure(let err):
+        // Output error (if occurred) to console
+        print(err)
+    }
+}
+```
+
+### More
+
+As the above example code does not provide an exhaustive list of all the functions you may use, you may refer to the actual files of HummingKit for more functionality and details.
+
+HummingKit introduces a list of custom Apple Music ```Resource Types``` that you may refer to in the ```DataModel.swift``` file for your convenience of usage. 
+
+HummingKit also introduces a list of custom ```Error Types``` that you may refer to in the ```HummingKitErrors.swift``` file for their occurring situations.
+
 
 ## Community
 
